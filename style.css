@@ -44,3 +44,8 @@
   #root, #__next {
     isolation: isolate;
   }
+
+  h1 {
+    text-align: center;
+    margin: 16px;
+  }
