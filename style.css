@@ -45,7 +45,23 @@
     isolation: isolate;
   }
 
+  /* 
+  Starting CSS declaration
+  */
+
   h1 {
     text-align: center;
     margin: 16px;
+  }
+
+  .game-info {   
+    display: grid;
+    place-content: center;    
+  }
+
+  .info-section {
+    width: 10vw;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    
   }
