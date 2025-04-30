@@ -73,10 +73,7 @@
     height: 20vh;
   }
 
-  .board-container {
-    height: 40vh;
-  }
-
+  
   .player-section {
     display: flex;
     gap: 8px;
@@ -85,6 +82,19 @@
   .name {
     width: 3em;
   }
+
+  .board-container {
+    height: 40vh;
+    display: flex;
+    place-content: center;   
+  }
+
+  .game-board {
+    width: 210px;
+    height: 210px;
+    
+  }
+
 
   .footer {
     display: flex;
