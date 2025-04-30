@@ -73,4 +73,9 @@
 
   .player-section {
     display: flex;
+    gap: 8px;
+  }
+
+  .name {
+    width: 3em;
   }
