@@ -79,3 +79,8 @@
   .name {
     width: 3em;
   }
+
+  .footer {
+    display: flex;
+    justify-content: space-evenly;
+  }
