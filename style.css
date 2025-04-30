@@ -50,13 +50,14 @@
   */
 
   h1 {
-    text-align: center;
-    margin: 16px;
+    text-align: center;    
+    height: 10vh;
   }
 
   .game-info {   
     display: grid;
     place-content: center;    
+    height: 10vh;
   }
 
   .info-section {
@@ -69,6 +70,11 @@
   .player-container {
     display: flex;
     justify-content: space-evenly;
+    height: 20vh;
+  }
+
+  .board-container {
+    height: 40vh;
   }
 
   .player-section {
@@ -83,4 +89,5 @@
   .footer {
     display: flex;
     justify-content: space-evenly;
+    
   }
