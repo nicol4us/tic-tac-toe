@@ -6,5 +6,3 @@
 const startButton = document.querySelector("#startButton");
 const endButton = document.querySelector("#endButton");
 
-console.log(startButton);
-console.log(endButton); 
