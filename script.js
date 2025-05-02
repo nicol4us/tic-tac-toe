@@ -12,12 +12,15 @@ const endButton = document.querySelector("#endButton");
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Marker is one of :
+// - empty 
 // - "X"
 // - "O"
-// interp. the mark put by player into board
+// interp. the mark for board
 /*
 function  fnForMarker(marker) {
     switch(marker) {
+        case "" :
+            ... ;
         case "X":
             ... ;
         case "O":
@@ -26,7 +29,8 @@ function  fnForMarker(marker) {
 }
 */
 // Template rule used:
-//  - One of: 2 cases
+//  - One of: 3 cases
+//  - Atomic distinct: empty
 //  - Atomic distinct: "X"
 //  - Atomic distinct: "O"
 
@@ -115,3 +119,13 @@ function funForRound(round) {
 // Template rule used:
 //  - Atomic non distinct: Natural number
 
+
+// Draw is Natural number
+// interp. to count how many games get draw result
+/*
+function funForDraw(draw) {
+    ... draw ;
+}
+*/
+// Template rule used:
+//  - Atomic non distinct: Natural number
