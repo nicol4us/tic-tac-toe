@@ -104,3 +104,14 @@ function funForGridRecord(gridRecord) {
 //  - Compound data
 //  - Reference: Marker data
 
+
+// Round is Natural number
+// interp. to count how many games has been played
+/*
+function funForRound(round) {
+    ... round ;
+}
+*/
+// Template rule used:
+//  - Atomic non distinct: Natural number
+
