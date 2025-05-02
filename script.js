@@ -91,3 +91,16 @@ function funForWin(win) {
 */
 // Template rule used:
 //  - Atomic non distinct: Natural number
+
+
+// GridRecord is { number: Marker }
+// interp. Object to record index of board with Marker data
+/*
+function funForGridRecord(gridRecord) {
+    ... funFormarker(gridRecord[number]) 
+}
+*/
+// Template rule used:
+//  - Compound data
+//  - Reference: Marker data
+
