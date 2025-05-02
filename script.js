@@ -80,3 +80,14 @@ function funForLightState(lightState) {
 //  - One of: 2 cases
 //  - Atomic distinct: "red"
 //  - Atomic distinct: "green"
+
+
+// Win is Natural number
+// interp. to count how many win each Player gets
+/*
+function funForWin(win) {
+    ... win ;
+}
+*/
+// Template rule used:
+//  - Atomic non distinct: Natural number
