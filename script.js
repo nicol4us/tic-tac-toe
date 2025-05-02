@@ -20,15 +20,26 @@ const endButton = document.querySelector("#endButton");
 function  fnForMarker(marker) {
     switch(marker) {
         case "X":
-            return ...;
+            ... ;
         case "O":
-            return ...;
+            ... ;
     }
 }
 */
-
 // Template rule used:
 //  - One of: 2 cases
 //  - Atomic distinct: "X"
 //  - Atomic distinct: "O"
+
+
+// Name is String
+// interp. the name put by player from input field
+
+/*
+function funForName(name) {
+    ... name;
+}
+*/
+// Template rule used:
+//  - Atomic non distinct: String
 
