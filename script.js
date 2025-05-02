@@ -129,3 +129,14 @@ function funForDraw(draw) {
 */
 // Template rule used:
 //  - Atomic non distinct: Natural number
+
+
+// Index is Natural number
+// interp. to record index number of Board from ListOfBoard
+/*
+function funForIndex(index) {
+    ... index ;
+}
+*/
+// Template rule used:
+//  - Atomic non distinct: Natural number
