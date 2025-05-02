@@ -15,7 +15,6 @@ const endButton = document.querySelector("#endButton");
 // - "X"
 // - "O"
 // interp. the mark put by player into board
-
 /*
 function  fnForMarker(marker) {
     switch(marker) {
@@ -34,7 +33,6 @@ function  fnForMarker(marker) {
 
 // Name is String
 // interp. the name put by player from input field
-
 /*
 function funForName(name) {
     ... name;
@@ -43,3 +41,42 @@ function funForName(name) {
 // Template rule used:
 //  - Atomic non distinct: String
 
+
+// PlayerState is one of:
+//  - "ON"
+//  - "OFF"
+// interp. state of player to turn to play
+/*
+function funForPlayerState(playerState) {
+    switch(playerState) {
+        case "ON" :
+            ... ;
+        case "OFF" :
+            ... ;
+    }
+}
+*/
+// Template rule used:
+//  - One of: 2 cases
+//  - Atomic distinct: "ON";
+//  - Atomic distinct: "OFF"
+
+
+// LightState is one of:
+//  - "red"
+//  - "green"
+// interp. state of player to turn to play, red cant play while green is turn to play
+/*
+function funForLightState(lightState) {
+    switch(lightState) {
+        case "red" :
+            ... ;
+        case "green" :
+            ... ;
+    }
+}
+*/
+// Template rule used:
+//  - One of: 2 cases
+//  - Atomic distinct: "red"
+//  - Atomic distinct: "green"
