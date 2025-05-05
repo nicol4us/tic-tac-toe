@@ -152,6 +152,8 @@ function createPlayer(marker,name, playerState, lightState, idName, idPlayerStat
     const lightStateEl = document.querySelector("#"+ idLightState);
     const winEl = document.querySelector("#" + idWin) ; 
     const setState = (newState) => state = newState;
+    const getState = () => state;
     const setLight = (newLight) => light = newLight;
-    return {marker, name, state, light, win, nameEl, playerStateEl, lightStateEl, winEl, setState, setLight}
+    const getLight = () => light;
+    return {marker, name, win, nameEl, playerStateEl, lightStateEl, winEl, setState, setLight, getState, getLight}
 }
