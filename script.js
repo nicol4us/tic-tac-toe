@@ -46,13 +46,13 @@ function funForName(name) {
 //  - Atomic non distinct: String
 
 
-// PlayerState is one of:
+// State is one of:
 //  - "ON"
 //  - "OFF"
 // interp. state of player to turn to play
 /*
-function funForPlayerState(playerState) {
-    switch(playerState) {
+function funForPlayerState(state) {
+    switch(state) {
         case "ON" :
             ... ;
         case "OFF" :
@@ -66,13 +66,13 @@ function funForPlayerState(playerState) {
 //  - Atomic distinct: "OFF"
 
 
-// LightState is one of:
+// Light is one of:
 //  - "red"
 //  - "green"
 // interp. state of player to turn to play, red cant play while green is turn to play
 /*
-function funForLightState(lightState) {
-    switch(lightState) {
+function funForLightState(light) {
+    switch(light) {
         case "red" :
             ... ;
         case "green" :
@@ -143,9 +143,9 @@ function funForIndex(index) {
 
 
 
-function createPlayer(marker,name, playerState, lightState, idName, idPlayerState, idLightState, idWin) {
-    let state = playerState;
-    let light = lightState;
+function createPlayer(marker,name, idName, idPlayerState, idLightState, idWin) {
+    let state = "OFF";
+    let light = "red";
     let win = 0;
     const nameEl = document.querySelector("#" + idName);
     nameEl.textContent = name;
@@ -155,27 +155,33 @@ function createPlayer(marker,name, playerState, lightState, idName, idPlayerStat
     lightEl.style.backgroundColor = light;
     const winEl = document.querySelector("#" + idWin) ; 
     winEl.textContent = win;
-    const setState = function(newState) {
-        state = newState;
-        stateEl.textContent = state;
-    }
-    const getState = () => state;
+    const changeState = function() {
+        switch(state) {
+            case "OFF" :
+                state = "ON";
+                stateEl.textContent = state;
+                break;
+            case "ON" :
+                state = "OFF";
+                stateEl.textContent = state;
+                break;
+        }        
+    }    
     const setLight = function(newLight) {
         light = newLight;
         lightEl.style.backgroundColor = newLight;
-    };
-    const getLight = () => light;
+    };   
     const setWin = function() {
         win++;
         winEl.textContent = win;
     };
     const getWin = () => win;
-    return {marker, name, nameEl, stateEl, lightEl, winEl, setState, setLight, setWin, getState, getLight, getWin}
+    return {marker, name, nameEl, stateEl, lightEl, winEl, changeState, setLight, setWin, getWin}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
-const playerOne = createPlayer("X", "Nicolaus", "ON", "green", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
-const playerTwo = createPlayer("O", "Dwi", "OFF", "red", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
+const playerOne = createPlayer("X", "Nicolaus", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
+const playerTwo = createPlayer("O", "Dwi", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
 /*
 function funForPlayer(player) {
     ...funForMarker(player.marker);
