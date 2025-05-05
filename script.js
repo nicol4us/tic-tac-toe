@@ -148,14 +148,27 @@ function createPlayer(marker,name, playerState, lightState, idName, idPlayerStat
     let light = lightState;
     let win = 0;
     const nameEl = document.querySelector("#" + idName);
-    const StateEl = document.querySelector("#" + idPlayerState);
+    nameEl.textContent = name;
+    const stateEl = document.querySelector("#" + idPlayerState);
+    stateEl.textContent = state;
     const lightEl = document.querySelector("#"+ idLightState);
+    lightEl.style.backgroundColor = light;
     const winEl = document.querySelector("#" + idWin) ; 
-    const setState = (newState) => state = newState;
+    winEl.textContent = win;
+    const setState = function(newState) {
+        state = newState;
+        stateEl.textContent = state;
+    }
     const getState = () => state;
-    const setLight = (newLight) => light = newLight;
+    const setLight = function(newLight) {
+        light = newLight;
+        lightEl.style.backgroundColor = newLight;
+    };
     const getLight = () => light;
-    const setWin = () => win++;
+    const setWin = function() {
+        win++;
+        winEl.textContent = win;
+    };
     const getWin = () => win;
     return {marker, name, nameEl, stateEl, lightEl, winEl, setState, setLight, setWin, getState, getLight, getWin}
 }
