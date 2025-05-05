@@ -142,18 +142,45 @@ function funForIndex(index) {
 //  - Atomic non distinct: Natural number
 
 
-// Player is createPlayer(marker, name, playerState, lightState)
+
 function createPlayer(marker,name, playerState, lightState, idName, idPlayerState, idLightState, idWin) {
     let state = playerState;
     let light = lightState;
     let win = 0;
     const nameEl = document.querySelector("#" + idName);
-    const playerStateEl = document.querySelector("#" + idPlayerState);
-    const lightStateEl = document.querySelector("#"+ idLightState);
+    const StateEl = document.querySelector("#" + idPlayerState);
+    const lightEl = document.querySelector("#"+ idLightState);
     const winEl = document.querySelector("#" + idWin) ; 
     const setState = (newState) => state = newState;
     const getState = () => state;
     const setLight = (newLight) => light = newLight;
     const getLight = () => light;
-    return {marker, name, win, nameEl, playerStateEl, lightStateEl, winEl, setState, setLight, getState, getLight}
+    const setWin = () => win++;
+    const getWin = () => win;
+    return {marker, name, nameEl, stateEl, lightEl, winEl, setState, setLight, setWin, getState, getLight, getWin}
 }
+// interp. player who run the game either with "X" mark or "O" mark
+// Example
+const playerOne = createPlayer("X", "Nicolaus", "ON", "green", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
+const playerTwo = createPlayer("O", "Dwi", "OFF", "red", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
+/*
+function funForPlayer(player) {
+    ...funForMarker(player.marker);
+    ...funForName(player.name);
+    ...player.nameEl;
+    ...player.stateEl;
+    ...player.lightEl;
+    ...player.setState(PlayerState);
+    ...player.setLight(LightState);
+    ...player.setWin();
+    ...player.get();
+    ...player.getLight();
+    ...player.getWin();
+}
+*/
+// Template rule used:
+//  - Compound data
+//  - reference : Marker
+//  - reference : Name
+//  - reference : PlayerState
+//  - reference : LightState 
