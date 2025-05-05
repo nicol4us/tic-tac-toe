@@ -50,9 +50,12 @@
   Starting CSS declaration
   */
 
-  h1 {
-    text-align: center;    
+ 
+
+  h1 {    
+    text-align: center;
     height: 10vh;
+    margin-top: 16px;
   }
 
   .game-info {   
