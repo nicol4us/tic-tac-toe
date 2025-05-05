@@ -143,7 +143,8 @@ function funForIndex(index) {
 
 
 
-function createPlayer(marker,name, idName, idPlayerState, idLightState, idWin) {
+function createPlayer(marker,playerName, idName, idPlayerState, idLightState, idWin) {
+    let name  = playerName;
     let state = "OFF";
     let light = "red";
     let win = 0;
@@ -155,6 +156,11 @@ function createPlayer(marker,name, idName, idPlayerState, idLightState, idWin) {
     lightEl.style.backgroundColor = light;
     const winEl = document.querySelector("#" + idWin) ; 
     winEl.textContent = win;
+    const setName = function(newName) {
+        name = newName;
+        nameEl.textContent = name;
+    }
+    const getName = () => name;
     const changeState = function() {
         switch(state) {
             case "OFF" :
@@ -174,13 +180,14 @@ function createPlayer(marker,name, idName, idPlayerState, idLightState, idWin) {
     const setWin = function() {
         win++;
         winEl.textContent = win;
-    };    
-    return {marker, name, nameEl, stateEl, lightEl, winEl, changeState, setLight, setWin}
+    };
+    const getWin = () => win;    
+    return {marker, nameEl, stateEl, lightEl, winEl,setName, getName , changeState, setLight, setWin, getWin}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
-const playerOne = createPlayer("X", "Nicolaus", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
-const playerTwo = createPlayer("O", "Dwi", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
+const playerOne = createPlayer("X", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
+const playerTwo = createPlayer("O", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
 /*
 function funForPlayer(player) {
     ...funForMarker(player.marker);
