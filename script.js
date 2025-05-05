@@ -174,9 +174,8 @@ function createPlayer(marker,name, idName, idPlayerState, idLightState, idWin) {
     const setWin = function() {
         win++;
         winEl.textContent = win;
-    };
-    const getWin = () => win;
-    return {marker, name, nameEl, stateEl, lightEl, winEl, changeState, setLight, setWin, getWin}
+    };    
+    return {marker, name, nameEl, stateEl, lightEl, winEl, changeState, setLight, setWin}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
