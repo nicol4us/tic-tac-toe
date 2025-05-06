@@ -148,8 +148,8 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     let state = "OFF";
     let light = "red";
     let win = 0;
-    let gridResult = {};
-    const winArea =[
+    let recordMarker = {};
+    const winList =[
         {1:marker, 2:marker, 3:marker},
         {4:marker, 5:marker, 6:marker},
         {7:marker, 8:marker, 9:marker},
@@ -192,8 +192,10 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         win++;
         winEl.textContent = win;
     };
-    const getWin = () => win;    
-    return {marker, nameEl, stateEl, lightEl, winEl,gridResult,winArea, setName, getName , changeState, setLight, setWin, getWin}
+    const getWin = () => win;
+    
+    
+    return {marker, nameEl, stateEl, lightEl, winEl,recordMarker,winList, setName, getName , changeState, setLight, setWin, getWin}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
