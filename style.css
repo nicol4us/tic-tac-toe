@@ -80,10 +80,18 @@
   .player-section {
     display: flex;
     gap: 8px;
+    margin: 8px;
   }
 
   .name {
     width: 3em;
+  }
+
+  #playerOneLight,
+  #playerTwoLight {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
   }
 
   .board-container {
