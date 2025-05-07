@@ -148,17 +148,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     let state = "OFF";
     let light = "red";
     let win = 0;
-    let recordMarker = {};
-    const winList =[
-        {1:marker, 2:marker, 3:marker},
-        {4:marker, 5:marker, 6:marker},
-        {7:marker, 8:marker, 9:marker},
-        {1:marker, 4:marker, 7:marker},
-        {2:marker, 5:marker, 8:marker},
-        {3:marker, 6:marker, 9:marker},
-        {1:marker, 5:marker, 9:marker},
-        {3:marker, 5:marker, 7:marker}
-    ]
+    let recordMarker = [];    
     const nameEl = document.querySelector("#" + idName);
     nameEl.textContent = name;
     const stateEl = document.querySelector("#" + idPlayerState);
@@ -194,10 +184,10 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     };
     const getWin = () => win;
     const addMarkerToRecord = function(index) {
-        recordMarker[index] = marker;
+        recordMarker.push(index);
     }
     
-    return {marker, nameEl, stateEl, lightEl, winEl,recordMarker,winList, setName, getName , changeState, setLight, setWin, getWin, addMarkerToRecord}
+    return {marker, nameEl, stateEl, lightEl, winEl,recordMarker, setName, getName , changeState, setLight, setWin, getWin, addMarkerToRecord}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
