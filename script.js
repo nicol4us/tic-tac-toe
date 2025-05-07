@@ -196,9 +196,13 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     }
     const setToDefault = function() {
         name = "";
+        nameEl.textContent = name;
         state = "OFF";
+        stateEl.textContent = state;
         light = "red";
+        lightEl.style.backgroundColor = light;
         win = 0;
+        winEl.textContent = win;
         recordMarker.length = 0;
     }
     
