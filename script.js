@@ -178,11 +178,11 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         switch(light) {
             case "red" :
                 light = "green";
-                stateEl.style.backgroundColor = light;
+                lightEl.style.backgroundColor = light;
                 break;
             case "green" :
                 light = "red";
-                stateEl.style.backgroundColor = light
+                lightEl.style.backgroundColor = light
                 break;
         }       
     };   
