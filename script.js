@@ -174,9 +174,17 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
                 break;
         }        
     }    
-    const setLight = function(newLight) {
-        light = newLight;
-        lightEl.style.backgroundColor = newLight;
+    const changeLight = function() {
+        switch(light) {
+            case "red" :
+                light = "green";
+                stateEl.style.backgroundColor = light;
+                break;
+            case "green" :
+                light = "red";
+                stateEl.style.backgroundColor = light
+                break;
+        }       
     };   
     const setWin = function() {
         win++;
@@ -187,7 +195,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         recordMarker.push(index);
     }
     
-    return {marker, nameEl, stateEl, lightEl, winEl,recordMarker, setName, getName , changeState, setLight, setWin, getWin, addMarkerToRecord}
+    return {marker, nameEl, stateEl, lightEl, winEl,recordMarker, setName, getName , changeState, changeLight, setWin, getWin, addMarkerToRecord}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
