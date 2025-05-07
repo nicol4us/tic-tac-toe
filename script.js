@@ -4,8 +4,10 @@
 
 // Constant Declarations
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const startButton = document.querySelector("#startButton");
-const endButton = document.querySelector("#endButton");
+const inputPlayerOne    = document.querySelector("#inputPlayerOne");
+const inputPlayerTwo    = document.querySelector("#inputPlayerTwo");
+const startButton       = document.querySelector("#startButton");
+const endButton         = document.querySelector("#endButton");
 
 
 // Data Definition
