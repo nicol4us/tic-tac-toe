@@ -194,8 +194,16 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     const addMarkerToRecord = function(index) {
         recordMarker.push(index);
     }
+    const setToDefault = function() {
+        name = "";
+        state = "OFF";
+        light = "red";
+        win = 0;
+        recordMarker.length = 0;
+    }
     
-    return {marker, nameEl, stateEl, lightEl, winEl,recordMarker, setName, getName , changeState, changeLight, setWin, getWin, addMarkerToRecord}
+    return {marker, nameEl, stateEl, lightEl, winEl,recordMarker, 
+        setName, getName , changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
