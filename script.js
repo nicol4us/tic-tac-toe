@@ -195,17 +195,19 @@ const playerOne = createPlayer("X", "", "playerOneName", "playerOneState", "play
 const playerTwo = createPlayer("O", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
 /*
 function funForPlayer(player) {
-    ...funForMarker(player.marker);
-    ...funForName(player.name);
+    ...funForMarker(player.marker);    
     ...player.nameEl;
     ...player.stateEl;
     ...player.lightEl;
-    ...player.setState(PlayerState);
-    ...player.setLight(LightState);
+    ...player.winEl;
+    ...player.recordMarker;
+    ...player.setName(Name);
+    ...player.getName();
+    ...player.changeState();
+    ...player.changeLight();
     ...player.setWin();
-    ...player.get();
-    ...player.getLight();
     ...player.getWin();
+    ...player.addMarkerToRecord(index);    
 }
 */
 // Template rule used:
@@ -214,3 +216,4 @@ function funForPlayer(player) {
 //  - reference : Name
 //  - reference : PlayerState
 //  - reference : LightState 
+//  - reference : Index
