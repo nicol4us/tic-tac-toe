@@ -97,16 +97,29 @@ function funForWin(win) {
 //  - Atomic non distinct: Natural number
 
 
-// GridRecord is { number: Marker }
-// interp. Object to record index of board with Marker data
+// Index is Natural number
+// interp. to record index number of Board from ListOfBoard
 /*
-function funForGridRecord(gridRecord) {
-    ... funFormarker(gridRecord[number]) 
+function funForIndex(index) {
+    ... index ;
 }
 */
 // Template rule used:
-//  - Compound data
-//  - Reference: Marker data
+//  - Atomic non distinct: Natural number
+
+
+// RecordMarker is  Array of Index
+// interp. Array to record inded of the board
+/*
+function funForGridRecord(recordMarker) {
+    for (index in recordMarker) {
+    ....
+    }
+}
+*/
+// Template rule used:
+//  - Array looping
+//  - Reference: Index
 
 
 // Round is Natural number
@@ -131,18 +144,8 @@ function funForDraw(draw) {
 //  - Atomic non distinct: Natural number
 
 
-// Index is Natural number
-// interp. to record index number of Board from ListOfBoard
-/*
-function funForIndex(index) {
-    ... index ;
-}
-*/
-// Template rule used:
-//  - Atomic non distinct: Natural number
 
-
-
+// Player Data & Method Definition 
 function createPlayer(marker,playerName, idName, idPlayerState, idLightState, idWin) {
     let name  = playerName;
     let state = "OFF";
