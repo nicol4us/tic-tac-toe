@@ -298,5 +298,7 @@ function GameState() {
                 break;
         }
     }
+    const setRound = () => round++;
+    const getRound = () => round;
 
 }
