@@ -110,7 +110,7 @@ function funForIndex(index) {
 //  - Atomic non distinct: Natural number
 
 
-// RecordMarker is  Array of Index
+// Record is  Array of Index
 // interp. Array to record inded of the board
 /*
 function funForGridRecord(recordMarker) {
@@ -153,7 +153,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     let state = "OFF";
     let light = "red";
     let win = 0;
-    let recordMarker = [];    
+    let record = [];    
     const nameEl = document.querySelector("#" + idName);
     nameEl.textContent = name;
     const stateEl = document.querySelector("#" + idPlayerState);
@@ -211,7 +211,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         recordMarker.length = 0;
     }
     
-    return {marker, nameEl, stateEl, lightEl, winEl,recordMarker, 
+    return {marker, nameEl, stateEl, lightEl, winEl,record, 
         setName, getName , changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault}
 }
 // interp. player who run the game either with "X" mark or "O" mark
