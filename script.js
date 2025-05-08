@@ -220,6 +220,8 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         win++;
         winEl.textContent = win;
     };
+    const getState = () => state;
+    const getLight = () => light;
     const getWin = () => win;
     const addMarkerToRecord = function(index) {
         recordMarker.push(index);
@@ -239,7 +241,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     return {marker, nameEl, stateEl, lightEl, winEl,record
         
         , 
-        setName, getName , changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault}
+        setName, getName, getState, getLight,changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
@@ -294,18 +296,18 @@ const GameState = function() {
         switch(playerActive.marker) {            
             case "X":
                 playerActive = playerTwo;
-                playerActive.changeState;
-                playerActive.changeLight;                               
-                break;
-            
+                playerOne.changeState();
+                playerOne.changeLight();
+                break;            
             case "O":
                 playerActive = playerOne;
-                playerActive.changeState;
-                playerActive.changeLight;
-                break;                
+                playerTwo.changeState();
+                playerTwo.changeLight();
+                break;               
         }
-        
-        console.log(playerActive);
+        playerActive.changeState(); 
+        playerActive.changeLight();   
+       
     }
     const getPlayerActive = () => playerActive;
     const setRound = () => round++;
