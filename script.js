@@ -271,7 +271,7 @@ function funForPlayer(player) {
 
 
 // GameState data & method definition 
-function GameState() {
+function GameState(idRound, idDraw) {
     const playerOne     = createPlayer("X", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
     const playerTwo     = createPlayer("O", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
     const listWinArea = [
@@ -284,6 +284,8 @@ function GameState() {
         [1,5,9],
         [3,5,7]
     ];
+    const roundEl       = document.querySelector("#" + idRound);
+    const drawEl        = document.querySelector("#" + idDraw);
     let playerActive    = playerOne;
     let flag            = false;
     let round           = 0;
