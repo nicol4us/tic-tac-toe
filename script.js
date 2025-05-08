@@ -243,8 +243,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
-const playerOne = createPlayer("X", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
-const playerTwo = createPlayer("O", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
+
 /*
 function funForPlayer(player) {
     ...funForMarker(player.marker);    
@@ -269,3 +268,35 @@ function funForPlayer(player) {
 //  - reference : PlayerState
 //  - reference : LightState 
 //  - reference : Index
+
+
+// GameState data & method definition 
+function GameState() {
+    const playerOne     = createPlayer("X", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
+    const playerTwo     = createPlayer("O", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
+    const listWinArea = [
+        [1,2,3],
+        [4,5,6],
+        [7,8,9],
+        [1,4,7],
+        [2,5,8],
+        [3,6,9],
+        [1,5,9],
+        [3,5,7]
+    ];
+    let playerActive    = playerOne;
+    let flag            = false;
+    let round           = 0;
+    let draw            = 0;
+    const changePlayer = function() {
+        switch(playerActive.marker) {            
+            case "X":
+                playerActive = playerTwo ;
+                break;
+            case "O":
+                playerActive = playerOne ;
+                break;
+        }
+    }
+
+}
