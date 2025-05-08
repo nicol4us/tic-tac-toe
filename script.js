@@ -304,5 +304,5 @@ function GameState(idRound, idDraw) {
     const getRound = () => round;
     const setDraw = () => draw++;
     const getDraw = () => draw;
-
+    return {playerActive, roundEl, drawEl, flag, round, draw, changePlayer, setRound, getRound, setDraw, getDraw}
 }
