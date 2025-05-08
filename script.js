@@ -293,18 +293,24 @@ const GameState = function() {
     const changePlayer = function() {
         switch(playerActive.marker) {            
             case "X":
-                playerActive = playerTwo ;                
+                playerActive = playerTwo;
+                playerActive.changeState;
+                playerActive.changeLight;                               
                 break;
+            
             case "O":
-                playerActive = playerOne ;
-                break;
+                playerActive = playerOne;
+                playerActive.changeState;
+                playerActive.changeLight;
+                break;                
         }
-        playerActive.changeState;
-        playerActive.changeLight
+        
+        console.log(playerActive);
     }
+    const getPlayerActive = () => playerActive;
     const setRound = () => round++;
     const getRound = () => round;
     const setDraw = () => draw++;
     const getDraw = () => draw;
-    return {playerActive, roundEl, drawEl, flag, round, draw, changePlayer, setRound, getRound, setDraw, getDraw};
+    return {roundEl, drawEl, flag, round, draw, changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw};
 }();
