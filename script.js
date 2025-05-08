@@ -120,7 +120,7 @@ function funForGridRecord(recordMarker) {
 }
 */
 // Template rule used:
-//  - Array looping
+//  - Array for loop
 //  - Reference: Index
 
 
@@ -145,6 +145,31 @@ function funForDraw(draw) {
 // Template rule used:
 //  - Atomic non distinct: Natural number
 
+
+// ListOfWinArea is Array of ArrayIndex
+// interp. array of Index in a row for vertical, horizontal and diagonal for GameBoard to determine if player have win
+// Example :
+const listOfWinArea = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9],
+    [1,4,7],
+    [2,5,8],
+    [3,6,9],
+    [1,5,9],
+    [3,5,7]
+];
+/*
+function funForListOfWinArea(list) {
+    for ( item in list) {
+        for (element in item ) {
+            ....
+        }
+    }
+}
+*/
+// Template rule used:
+// - Array for loop
 
 
 // Player Data & Method Definition 
@@ -211,7 +236,9 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         recordMarker.length = 0;
     }
     
-    return {marker, nameEl, stateEl, lightEl, winEl,record, 
+    return {marker, nameEl, stateEl, lightEl, winEl,record
+        
+        , 
         setName, getName , changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault}
 }
 // interp. player who run the game either with "X" mark or "O" mark
