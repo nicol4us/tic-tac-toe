@@ -300,5 +300,7 @@ function GameState() {
     }
     const setRound = () => round++;
     const getRound = () => round;
+    const setDraw = () => draw++;
+    const getDraw = () => draw;
 
 }
