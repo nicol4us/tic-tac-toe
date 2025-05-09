@@ -238,7 +238,9 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         recordMarker.length = 0;
     }
     const setRecord = function(arrayOfIndex) {
-        arrayOfIndex.forEach(item => record.push(item))
+        for (item in arrayOfIndex) {
+            record.push(item);
+        }
     }
     
     return {marker, nameEl, stateEl, lightEl, winEl,record     
@@ -355,4 +357,20 @@ const GameState = function() {
 
 
 
+// Helper Function
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// (Array, Array) -> Boolean
+// Return true if both array with same length is identical, false otherwise
+function compareTwoArray(arrayOne, arrayTwo) {
+    for (let i = 0; i < arrayOne.length; i++ ) {
+        if(!arrayOne[i] === arrayTwo[i]) {
+            console.log("This is array one: " + arrayOne[i] + ". This is array two: " + arrayTwo[i])
+            return false;
+        }
+    }
+    return true;
+}
+
+compareTwoArray([1,3,5], [3,5,6]);
 
