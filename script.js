@@ -288,10 +288,15 @@ const GameState = function() {
     ];
     const roundEl       = document.querySelector("#round");
     const drawEl        = document.querySelector("#drawe");
-    let playerActive    = playerOne;
+    let playerActive;
     let flag            = false;
     let round           = 0;
     let draw            = 0;
+    const start = function() {
+        playerActive = playerOne;
+        playerActive.changeState();
+        playerActive.changeLight();
+    }
     const changePlayer = function() {
         switch(playerActive.marker) {            
             case "X":
@@ -314,5 +319,5 @@ const GameState = function() {
     const getRound = () => round;
     const setDraw = () => draw++;
     const getDraw = () => draw;
-    return {roundEl, drawEl, flag, round, draw, changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw};
+    return {roundEl, drawEl, flag, round, draw, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw};
 }();
