@@ -343,6 +343,16 @@ const GameState = function() {
             return false
         }
     }
-    return {flag, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw, isPlayerWin};
+    const setToInitial = function() {
+        round = 0;
+        draw  = 0;
+        playerOne.setToDefault();
+        playerTwo.setToDefault();
+        playerActive = null;
+    }
+    return {flag, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial};
 }();
+
+
+
 
