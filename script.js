@@ -362,15 +362,14 @@ const GameState = function() {
 
 // (Array, Array) -> Boolean
 // Return true if both array with same length is identical, false otherwise
-function compareTwoArray(arrayOne, arrayTwo) {
+function isTwoArraySame(arrayOne, arrayTwo) {
     for (let i = 0; i < arrayOne.length; i++ ) {
-        if(!arrayOne[i] === arrayTwo[i]) {
-            console.log("This is array one: " + arrayOne[i] + ". This is array two: " + arrayTwo[i])
+        if(!(arrayOne[i] === arrayTwo[i])) {            
             return false;
         }
     }
     return true;
 }
 
-compareTwoArray([1,3,5], [3,5,6]);
+
 
