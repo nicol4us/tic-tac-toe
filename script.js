@@ -274,6 +274,10 @@ function funForPlayer(player) {
 
 // GameState data & method definition 
 const GameState = function() {
+    let playerActive;
+    let flag            = false;
+    let round           = 0;
+    let draw            = 0;
     const playerOne     = createPlayer("X", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
     const playerTwo     = createPlayer("O", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
     const listWinArea = [
@@ -287,11 +291,9 @@ const GameState = function() {
         [3,5,7]
     ];
     const roundEl       = document.querySelector("#round");
+    roundEl.textContent = round;
     const drawEl        = document.querySelector("#drawe");
-    let playerActive;
-    let flag            = false;
-    let round           = 0;
-    let draw            = 0;
+    drawEl.textContent  = draw;    
     const start = function() {
         playerActive = playerOne;
         playerActive.changeState();
@@ -315,9 +317,15 @@ const GameState = function() {
        
     }
     const getPlayerActive = () => playerActive;
-    const setRound = () => round++;
+    const setRound = function() {
+        round++;
+        roundEl.textContent = round;
+    };
     const getRound = () => round;
-    const setDraw = () => draw++;
+    const setDraw = function() {
+        draw++;
+        drawEl.textContent = draw
+    };
     const getDraw = () => draw;
-    return {roundEl, drawEl, flag, round, draw, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw};
+    return {roundEl, drawEl, flag, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw};
 }();
