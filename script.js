@@ -327,5 +327,21 @@ const GameState = function() {
         drawEl.textContent = draw
     };
     const getDraw = () => draw;
-    return {flag, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw};
+    const isPlayerWin = function() {
+        if(playerActive.record.length === 3) {
+            for ( item in listWinArea) {
+                item.forEach((element, index) => {
+                    if(!element === playerActive.record[index]) {
+                        return false;
+                    }                    
+                });
+                return true;
+            }
+        }
+        else {
+            return false
+        }
+    }
+    return {flag, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw, isPlayerWin};
 }();
+
