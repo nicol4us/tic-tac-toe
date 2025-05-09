@@ -292,7 +292,7 @@ const GameState = function() {
     ];
     const roundEl       = document.querySelector("#round");
     roundEl.textContent = round;
-    const drawEl        = document.querySelector("#drawe");
+    const drawEl        = document.querySelector("#draw");
     drawEl.textContent  = draw;    
     const start = function() {
         playerActive = playerOne;
@@ -327,5 +327,5 @@ const GameState = function() {
         drawEl.textContent = draw
     };
     const getDraw = () => draw;
-    return {roundEl, drawEl, flag, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw};
+    return {flag, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw};
 }();
