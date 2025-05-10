@@ -374,13 +374,30 @@ function isTwoArraySame(arrayOne, arrayTwo) {
 // (Array of Array, Array) -> Boolean
 // Check if an array has same element inside of array and return true, otherwise return false
 function hasSameElement(listOfWin, recordArray) {
-    for (item in listOfWin) {
-        if(isTwoArraySame(item, recordArray)) {
+    for(let i=0; i < listOfWin.length ; i++) {
+        if(isTwoArraySame(listOfWin[i], recordArray)) {
             return true
         }
     }
-    return false
+    return false   
 }
+
+
+// Testing hasSameElement function
+// This testing is for checking if a player can win the game
+console.log("Player can win with board 1,2,3 : " + hasSameElement(listOfWinArea, [1,2,3]));
+console.log("Player can win with board 4,5,6 : " + hasSameElement(listOfWinArea, [4,5,6]));
+console.log("Player can win with board 7,8,9 : " + hasSameElement(listOfWinArea, [7,8,9]));
+console.log("Player can win with board 1,4,7 : " + hasSameElement(listOfWinArea, [1,4,7]));
+console.log("Player can win with board 2,5,8 : " + hasSameElement(listOfWinArea, [2,5,8]));
+console.log("Player can win with board 3,6,9 : " + hasSameElement(listOfWinArea, [3,6,9]));
+console.log("Player can win with board 1,5,9 : " + hasSameElement(listOfWinArea, [1,5,9]));
+console.log("Player can win with board 3,5,7 : " + hasSameElement(listOfWinArea, [3,5,7]));
+
+// This testing to check if player can not win the game if when the marker not in row of horizontal, vertical or diagonal
+console.log("Player can win with board 1,5,6 : " + hasSameElement(listOfWinArea, [1,5,6]));
+console.log("Player can win with board 4,5,9 : " + hasSameElement(listOfWinArea, [4,5,9]));
+console.log("Player can win with board 2,5,7 : " + hasSameElement(listOfWinArea, [1,5,6]));
 
 
 
