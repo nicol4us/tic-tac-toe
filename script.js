@@ -306,17 +306,14 @@ const GameState = function() {
         switch(playerActive.marker) {            
             case "X":
                 playerActive = playerTwo;
-                playerOne.changeState();
-                playerOne.changeLight();
+                changeStateAndLight(playerOne);
                 break;            
             case "O":
                 playerActive = playerOne;
-                playerTwo.changeState();
-                playerTwo.changeLight();
+                changeStateAndLight(playerTwo);
                 break;               
         }
-        playerActive.changeState(); 
-        playerActive.changeLight();   
+        changeStateAndLight(playerActive);
        
     }
     const getPlayerActive = () => playerActive;
