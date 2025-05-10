@@ -243,8 +243,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         }
     }
     
-    return {marker, nameEl, stateEl, lightEl, winEl,record     
-        ,setName, getName, getState, getLight,changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault, setRecord}
+    return {marker,record,setName, getName, getState, getLight,changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault, setRecord}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
@@ -252,18 +251,16 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
 /*
 function funForPlayer(player) {
     ...funForMarker(player.marker);    
-    ...player.nameEl;
-    ...player.stateEl;
-    ...player.lightEl;
-    ...player.winEl;
-    ...player.recordMarker;
+    ...player.record;
     ...player.setName(Name);
     ...player.getName();
     ...player.changeState();
     ...player.changeLight();
     ...player.setWin();
     ...player.getWin();
-    ...player.addMarkerToRecord(index);    
+    ...player.addMarkerToRecord(index); 
+    ...player.setToDefault();
+    ...player.setRecord(arrayOfIndex);   
 }
 */
 // Template rule used:
