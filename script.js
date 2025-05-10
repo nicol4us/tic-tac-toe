@@ -355,7 +355,7 @@ function funForGameState(gameState) {
 
 
 
-// Helper Function For Player
+// Helper Function For GameState 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // (Player) -> ()
@@ -387,7 +387,7 @@ function hasSameElement(listOfWin, recordArray) {
     return false   
 }
 
-
+/*
 // Testing hasSameElement function
 // This testing is for checking if a player can win the game
 console.log("Player can win with board 1,2,3 : " + hasSameElement(listOfWinArea, [1,2,3]));
@@ -403,6 +403,8 @@ console.log("Player can win with board 3,5,7 : " + hasSameElement(listOfWinArea,
 console.log("Player can win with board 1,5,6 : " + hasSameElement(listOfWinArea, [1,5,6]));
 console.log("Player can win with board 4,5,9 : " + hasSameElement(listOfWinArea, [4,5,9]));
 console.log("Player can win with board 2,5,7 : " + hasSameElement(listOfWinArea, [1,5,6]));
+*/
+
 
 
 
