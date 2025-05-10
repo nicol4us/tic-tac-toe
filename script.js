@@ -10,7 +10,7 @@ const startButton       = document.querySelector("#startButton");
 const endButton         = document.querySelector("#endButton");
 
 
-// Data Definition
+// Atomic Data Definition
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Marker is one of :
@@ -113,9 +113,9 @@ function funForIndex(index) {
 // Record is  Array of Index
 // interp. Array to record inded of the board
 /*
-function funForGridRecord(recordMarker) {
-    for (index in recordMarker) {
-    ....
+function funForRecord(record) {
+    for (let i = 0; i < record.length; i++) {
+    ....record[i]
     }
 }
 */
@@ -146,8 +146,8 @@ function funForDraw(draw) {
 //  - Atomic non distinct: Natural number
 
 
-// ListOfWinArea is Array of ArrayIndex
-// interp. array of Index in a row for vertical, horizontal and diagonal for GameBoard to determine if player have win
+// ListOfWinArea is Array of Record
+// interp. array of Record data in a row for vertical, horizontal and diagonal to determine if player can win the game
 // Example :
 const listOfWinArea = [
     [1,2,3],
@@ -160,17 +160,19 @@ const listOfWinArea = [
     [3,5,7]
 ];
 /*
-function funForListOfWinArea(list) {
-    for ( item in list) {
-        for (element in item ) {
-            ....
-        }
+function funForListOfWinArea(listOfWinArea) {
+    for ( let i= 0; i < listOfWinArea.length; i++) {
+        funForRecord(listOfWinArea[i])
     }
 }
 */
 // Template rule used:
 // - Array for loop
+// - Reference: Record
 
+
+// Compouund Data Definition
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Player Data & Method Definition 
 function createPlayer(marker,playerName, idName, idPlayerState, idLightState, idWin) {
