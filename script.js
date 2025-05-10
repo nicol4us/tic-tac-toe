@@ -224,7 +224,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     };    
     const getWin = () => win;
     const addMarkerToRecord = function(index) {
-        recordMarker.push(index);
+        record.push(index);
     }
     const setToDefault = function() {
         name = "";
