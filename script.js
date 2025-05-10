@@ -360,6 +360,14 @@ const GameState = function() {
 // Helper Function
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
+// (Player) -> ()
+// Change State & Light of Player
+function changeStateAndLight(player) {   
+    player.changeState();
+    player.changeLight();       
+}
+
 // (Array, Array) -> Boolean
 // Return true if both array with same length is identical, false otherwise
 function isTwoArraySame(arrayOne, arrayTwo) {
