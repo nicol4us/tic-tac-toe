@@ -324,14 +324,10 @@ const GameState = function() {
         drawEl.textContent = draw
     };
     const getDraw = () => draw;
-    const isPlayerWin = function() {
+    const isPlayerWin = function() {        
         if(playerActive.record.length === listWinArea[0].length) {
-            for ( item in listWinArea) {
-               if(isTwoArraySame(playerActive.record, item)) {
-                return true
-               }
-            }
-            return false
+            playerActive.record.sort();
+            return hasSameElement(listWinArea, playerActive.record);
         }
         else {
             return false
