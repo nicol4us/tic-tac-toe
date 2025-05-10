@@ -335,6 +335,23 @@ const GameState = function() {
     }
     return {flag, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial};
 }();
+/*
+function funForGameState(gameState) {
+    ... gameState.flag;
+    ... gameState.start();
+    ... gameState.changePlayer();
+    ... gameState.getPlayerActive();
+    ... gameState.setRound();
+    ... gameState.getRound();
+    ... gameState.setDraw();
+    ... gameState.getDraw();
+    ... gameState.isPlayerWin();
+    ... gameState.setToInitial();
+}
+*/
+// Template rule used:
+//  - Compound data
+//  
 
 
 
