@@ -371,5 +371,17 @@ function isTwoArraySame(arrayOne, arrayTwo) {
     return true;
 }
 
+// (Array of Array, Array) -> Boolean
+// Check if an array has same element inside of array and return true, otherwise return false
+function hasSameElement(listOfWin, recordArray) {
+    for (item in listOfWin) {
+        if(isTwoArraySame(item, recordArray)) {
+            return true
+        }
+    }
+    return false
+}
+
+
 
 
