@@ -221,9 +221,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     const setWin = function() {
         win++;
         winEl.textContent = win;
-    };
-    const getState = () => state;
-    const getLight = () => light;
+    };    
     const getWin = () => win;
     const addMarkerToRecord = function(index) {
         recordMarker.push(index);
@@ -240,7 +238,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         recordMarker.length = 0;
     }    
     
-    return {marker,record,setName, getName, getState, getLight,changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault}
+    return {marker,record,setName, getName,changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
@@ -256,8 +254,7 @@ function funForPlayer(player) {
     ...player.setWin();
     ...player.getWin();
     ...player.addMarkerToRecord(index); 
-    ...player.setToDefault();
-    ...player.setRecord(arrayOfIndex);   
+    ...player.setToDefault();       
 }
 */
 // Template rule used:
