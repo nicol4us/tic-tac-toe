@@ -171,7 +171,7 @@ function funForListOfWinArea(listOfWinArea) {
 // - Reference: Record
 
 
-// Compouund Data Definition
+// Compound Data Definition
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Player Data & Method Definition 
@@ -290,8 +290,7 @@ const GameState = function() {
     drawEl.textContent  = draw;    
     const start = function() {
         playerActive = playerOne;
-        playerActive.changeState();
-        playerActive.changeLight();
+        changeStateAndLight(playerActive);
     }
     const changePlayer = function() {
         switch(playerActive.marker) {            
@@ -339,9 +338,8 @@ const GameState = function() {
 
 
 
-// Helper Function
+// Helper Function For Player
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 
 // (Player) -> ()
 // Change State & Light of Player
