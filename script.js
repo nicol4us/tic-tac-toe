@@ -328,15 +328,13 @@ const GameState = function() {
     };
     const getDraw = () => draw;
     const isPlayerWin = function() {
-        if(playerActive.record.length === 3) {
+        if(playerActive.record.length === listWinArea[0].length) {
             for ( item in listWinArea) {
-                item.forEach((element, index) => {
-                    if(!element === playerActive.record[index]) {
-                        return false;
-                    }                    
-                });
-                return true;
+               if(isTwoArraySame(playerActive.record, item)) {
+                return true
+               }
             }
+            return false
         }
         else {
             return false
