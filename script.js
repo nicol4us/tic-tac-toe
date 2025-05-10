@@ -268,7 +268,7 @@ function funForPlayer(player) {
 
 // GameState data & method definition 
 const GameState = function() {
-    let playerActive;
+    let playerON;
     let flag            = false;
     let round           = 0;
     let draw            = 0;
@@ -289,24 +289,24 @@ const GameState = function() {
     const drawEl        = document.querySelector("#draw");
     drawEl.textContent  = draw;    
     const start = function() {
-        playerActive = playerOne;
-        changeStateAndLight(playerActive);
+        playerON = playerOne;
+        changeStateAndLight(playerON);
     }
     const changePlayer = function() {
-        switch(playerActive.marker) {            
+        switch(playerON.marker) {            
             case "X":
-                playerActive = playerTwo;
+                playerON = playerTwo;
                 changeStateAndLight(playerOne);
                 break;            
             case "O":
-                playerActive = playerOne;
+                playerON = playerOne;
                 changeStateAndLight(playerTwo);
                 break;               
         }
-        changeStateAndLight(playerActive);
+        changeStateAndLight(playerON);
        
     }
-    const getPlayerActive = () => playerActive;
+    const getPlayerON = () => playerON;
     const setRound = function() {
         round++;
         roundEl.textContent = round;
@@ -318,9 +318,9 @@ const GameState = function() {
     };
     const getDraw = () => draw;
     const isPlayerWin = function() {        
-        if(playerActive.record.length === listWinArea[0].length) {
-            playerActive.record.sort();
-            return hasSameElement(listWinArea, playerActive.record);
+        if(playerON.record.length === listWinArea[0].length) {
+            playerON.record.sort();
+            return hasSameElement(listWinArea, playerON.record);
         }
         else {
             return false
@@ -331,16 +331,16 @@ const GameState = function() {
         draw  = 0;
         playerOne.setToDefault();
         playerTwo.setToDefault();
-        playerActive = null;
+        playerON = null;
     }
-    return {flag, start,changePlayer, getPlayerActive ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial};
+    return {flag, start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial};
 }();
 /*
 function funForGameState(gameState) {
     ... gameState.flag;
     ... gameState.start();
     ... gameState.changePlayer();
-    ... gameState.getPlayerActive();
+    ... funForPlayer(gameState.getPlayerON);
     ... gameState.setRound();
     ... gameState.getRound();
     ... gameState.setDraw();
@@ -351,7 +351,7 @@ function funForGameState(gameState) {
 */
 // Template rule used:
 //  - Compound data
-//  
+//  - Reference: Player
 
 
 
