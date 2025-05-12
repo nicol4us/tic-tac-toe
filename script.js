@@ -408,10 +408,10 @@ console.log("Player can win with board 2,5,7 : " + hasSameElement(listOfWinArea,
 
 
 // Board Data Definition
-function createBoard(index, className) {
-    const index = index;
+function createBoard(indexList, className) {
+    const index = indexList;
     const boardEl = document.createElement("div");
-    board.classList.add(className);
+    boardEl.classList.add(className);
     return {index, boardEl}
 }
 /*
@@ -426,11 +426,11 @@ function funforBoard(board) {
 
 
 // GameBoard Data & Method definition
-const GameBoard = function(gameState, container) {
-    const gameState = gameState;
-    const listOfBoard = setGameBoard(9);
-    
-}
+const GameBoard = function(gameStateModule, container) {
+    const gameState = gameStateModule;
+    const listOfBoard = setGameBoard(9, "board", gameState, container);
+    return {listOfBoard}    
+}(GameState, gameBoardEl);
 
 
 // GameBoard helper function
@@ -454,7 +454,8 @@ function setBoardListener(board, gameState) {
     board.boardEl.addEventListener("click", function() {
         if(board.boardEl.textContent === "") {
             board.boardEl.textContent = gameState.getPlayerON.marker;
-            gameState.getPlayerON.addMarkerToRecord(board.index);
+            console.log(board.index)
+            gameState.getPlayerON().addMarkerToRecord(board.index);
         }
     })
 }
