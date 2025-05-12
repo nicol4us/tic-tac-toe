@@ -432,6 +432,21 @@ const GameBoard = function(gameState, container) {
 }
 
 
+// GameBoard helper function
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// (Number, GameState, Element) -> Array
+// To produce listofBoard according to the number
+function setGameBoard(number, className,  gameState, container) {
+    const listBoard = [];
+    for (let i = 0 ; i < number; i++) {
+        const board = createBoard(i, className);
+        listBoard.push(board)
+        container.appendChild(board.boardEl);
+        setBoardListener(board, gameState);
+    }
+
+}
 
 
 
