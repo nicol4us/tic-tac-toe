@@ -406,6 +406,22 @@ console.log("Player can win with board 2,5,7 : " + hasSameElement(listOfWinArea,
 */
 
 
+// Board Data Definition & Method
+function createBoard(index, className) {
+    const index = index;
+    const boardEl = document.createElement("div");
+    board.classList.add(className);
+    return {index, boardEl}
+}
+/*
+function funforBoard(board) {
+    ... board.index;
+    ... board.boardEl;
+}
+*/
+// Rule template used:
+//  - Compound data;
+
 
 
 
