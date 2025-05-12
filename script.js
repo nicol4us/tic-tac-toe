@@ -8,6 +8,7 @@ const inputPlayerOne    = document.querySelector("#inputPlayerOne");
 const inputPlayerTwo    = document.querySelector("#inputPlayerTwo");
 const startButton       = document.querySelector("#startButton");
 const endButton         = document.querySelector("#endButton");
+const gameBoardEl       = document.querySelector(".game-board");
 
 
 // Atomic Data Definition
