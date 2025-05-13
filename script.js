@@ -111,9 +111,8 @@ function funForIndex(index) {
 //  - Atomic non distinct: Natural number
 
 
-// Record is  Compound of Array Index
-// interp. Object to record index of the board
-function record() {
+// Record data definition & method
+function createRecord() {
     const firstRow = []
     const secondRow = []
     const thirdRow = []
@@ -151,8 +150,17 @@ function record() {
         }           
                 
     }
-    return {firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal, set} 
+    return {listRecord : [firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal], set} 
 }
+/*
+function funForRecord(record) {
+    ...funForListRecord(record.listrecord);
+    ...record.set();
+}
+*/
+// Template rule used :
+//  - Compound data
+//  
 
 // Helper function for Record data
 // +++++++++++++++++++++++++++++++++++++++++++++++
