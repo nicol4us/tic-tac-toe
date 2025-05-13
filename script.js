@@ -121,7 +121,49 @@ function record() {
     const secondColumn = []
     const thirdColumn = []
     const firstDiagonal = []
-    const secondDiagonal = []    
+    const secondDiagonal = [] 
+    const set = function(index) {
+        switch(index) {
+            case 0 :
+                addIndexToRecord([firstRow, firstColumn, firstDiagonal], index);
+                break
+            case 1 :
+                addIndexToRecord([firstRow, secondColumn], index);            
+                break;
+            case 2 :
+                addIndexToRecord([firstRow, thirdColumn, secondDiagonal], index);
+            case 3 :
+                addIndexToRecord([secondRow, firstColumn], index);
+                break;
+            case 4 :
+                addIndexToRecord([secondRow, secondColumn, firstDiagonal, secondDiagonal], index)
+                break;
+            case 5 :
+                addIndexToRecord([secondRow, thirdColumn], index)
+                break;
+            case 6 :
+                addIndexToRecord([thirdRow, firstColumn, secondDiagonal], index)
+            case 7 :
+                addIndexToRecord([thirdRow, secondColumn], index)
+                break
+            case 8 :
+                addIndexToRecord([thirdRow, thirdColumn, firstDiagonal], index)
+        }           
+                
+    }
+    return {firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal, set} 
+}
+
+// Helper function for Record data
+// +++++++++++++++++++++++++++++++++++++++++++++++
+
+// (Array, Number) -> ()
+// Add index for each of element of Array
+function addIndexToRecord(array, index) {
+    array.forEach(element => {
+        element.push(index)        
+    });
+
 }
 
 // Round is Natural number
