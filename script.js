@@ -426,8 +426,7 @@ function funforBoard(board) {
 
 
 // GameBoard Data & Method definition
-const GameBoard = function(gameStateModule, container) {
-    const gameState = gameStateModule;
+const GameBoard = function(gameState, container) {    
     const listOfBoard = setGameBoard(9, "board", gameState, container);
     return {listOfBoard}    
 }(GameState, gameBoardEl);
