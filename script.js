@@ -442,22 +442,21 @@ function setGameBoard(number, className,  gameState, container) {
     for (let i = 0 ; i < number; i++) {
         const board = createBoard(i, className);
         listBoard.push(board)
-        container.appendChild(board.boardEl);    
+        container.appendChild(board.boardEl); 
+        setBoardListener(board, gameState)   
     }
     return listBoard;
 }
 
 // (Board, GameState) -> ()
 // To add event listener for Board Element
-function setBoardListener(board, gameState) {
-    if(gameState.flag) {
-        board.boardEl.addEventListener("click", function() {
-            if(board.boardEl.textContent === "") {
+function setBoardListener(board, gameState) {    
+    board.boardEl.addEventListener("click", function() {
+        if(gameState.flag && board.boardEl.textContent === "") {
                 board.boardEl.textContent = gameState.getPlayerON().marker;
                 gameState.getPlayerON().addMarkerToRecord(board.index) ;          
             }
-        })
-    }    
+        })        
 }
 
 
