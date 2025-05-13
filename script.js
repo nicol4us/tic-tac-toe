@@ -445,6 +445,7 @@ function setGameBoard(number, className,  gameState, container) {
         container.appendChild(board.boardEl);
         setBoardListener(board, gameState);
     }
+    return listBoard;
 }
 
 // (Board, GameState) -> ()
