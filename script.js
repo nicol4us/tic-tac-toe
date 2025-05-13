@@ -450,15 +450,14 @@ function setGameBoard(number, className,  gameState, container) {
 // (Board, GameState) -> ()
 // To add event listener for Board Element
 function setBoardListener(board, gameState) {
-    
-    const playerON = gameState.getPlayerON();
-    console.log(playerON)
-    board.boardEl.addEventListener("click", function() {
-        if(board.boardEl.textContent === "") {
-            board.boardEl.textContent = "X";
-            playerON.addMarkerToRecord(board.index);            
-        }
-    })
+    if(gameState.flag) {
+        board.boardEl.addEventListener("click", function() {
+            if(board.boardEl.textContent === "") {
+                board.boardEl.textContent = gameState.getPlayerON().marker;
+                gameState.getPlayerON().addMarkerToRecord(board.index) ;          
+            }
+        })
+    }    
 }
 
 
