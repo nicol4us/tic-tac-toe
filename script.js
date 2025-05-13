@@ -442,8 +442,7 @@ function setGameBoard(number, className,  gameState, container) {
     for (let i = 0 ; i < number; i++) {
         const board = createBoard(i, className);
         listBoard.push(board)
-        container.appendChild(board.boardEl);
-        setBoardListener(board, gameState);
+        container.appendChild(board.boardEl);    
     }
     return listBoard;
 }
@@ -451,11 +450,13 @@ function setGameBoard(number, className,  gameState, container) {
 // (Board, GameState) -> ()
 // To add event listener for Board Element
 function setBoardListener(board, gameState) {
+    
+    const playerON = gameState.getPlayerON();
+    console.log(playerON)
     board.boardEl.addEventListener("click", function() {
         if(board.boardEl.textContent === "") {
-            board.boardEl.textContent = gameState.getPlayerON.marker;
-            console.log(board.index)
-            gameState.getPlayerON().addMarkerToRecord(board.index);
+            board.boardEl.textContent = "X";
+            playerON.addMarkerToRecord(board.index);            
         }
     })
 }
