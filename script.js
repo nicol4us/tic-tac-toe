@@ -111,19 +111,18 @@ function funForIndex(index) {
 //  - Atomic non distinct: Natural number
 
 
-// Record is  Array of Index
-// interp. Array to record inded of the board
-/*
-function funForRecord(record) {
-    for (let i = 0; i < record.length; i++) {
-    ....record[i]
-    }
+// Record is  Compound of Array Index
+// interp. Object to record index of the board
+function record() {
+    const firstRow = []
+    const secondRow = []
+    const thirdRow = []
+    const firstColumn = []
+    const secondColumn = []
+    const thirdColumn = []
+    const firstDiagonal = []
+    const secondDiagonal = []    
 }
-*/
-// Template rule used:
-//  - Array for loop
-//  - Reference: Index
-
 
 // Round is Natural number
 // interp. to count how many games has been played
