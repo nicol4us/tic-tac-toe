@@ -125,12 +125,13 @@ function createRecord() {
         switch(index) {
             case 0 :
                 addIndexToRecord([firstRow, firstColumn, firstDiagonal], index);
-                break
+                break;
             case 1 :
                 addIndexToRecord([firstRow, secondColumn], index);            
                 break;
             case 2 :
                 addIndexToRecord([firstRow, thirdColumn, secondDiagonal], index);
+                break;
             case 3 :
                 addIndexToRecord([secondRow, firstColumn], index);
                 break;
@@ -144,9 +145,10 @@ function createRecord() {
                 addIndexToRecord([thirdRow, firstColumn, secondDiagonal], index)
             case 7 :
                 addIndexToRecord([thirdRow, secondColumn], index)
-                break
+                break;
             case 8 :
                 addIndexToRecord([thirdRow, thirdColumn, firstDiagonal], index)
+                break;
         }           
                 
     }
@@ -168,10 +170,9 @@ function funForRecord(record) {
 // (Array, Number) -> ()
 // Add index for each of element of Array
 function addIndexToRecord(array, index) {
-    array.forEach(element => {
-        element.push(index)        
+    array.forEach(element => {        
+        element.push(index)
     });
-
 }
 
 // Round is Natural number
