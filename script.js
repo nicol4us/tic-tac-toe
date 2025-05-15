@@ -245,7 +245,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     let state = "OFF";
     let light = "red";
     let win = 0;
-    let record = [];    
+    let record = createRecord();    
     const nameEl = document.querySelector("#" + idName);
     nameEl.textContent = name;
     const stateEl = document.querySelector("#" + idPlayerState);
@@ -287,10 +287,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         win++;
         winEl.textContent = win;
     };    
-    const getWin = () => win;
-    const addMarkerToRecord = function(index) {
-        record.push(index);
-    }
+    const getWin = () => win;    
     const setToDefault = function() {
         name = "";
         nameEl.textContent = name;
@@ -303,32 +300,30 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         recordMarker.length = 0;
     }    
     
-    return {marker,record,setName, getName,changeState, changeLight, setWin, getWin, addMarkerToRecord, setToDefault}
+    return {marker,record,setName, getName,changeState, changeLight, setWin, getWin, setToDefault}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 // Example
-
 /*
 function funForPlayer(player) {
     ...funForMarker(player.marker);    
-    ...player.record;
+    ...funForRecord(player.record);
     ...player.setName(Name);
     ...player.getName();
     ...player.changeState();
     ...player.changeLight();
     ...player.setWin();
-    ...player.getWin();
-    ...player.addMarkerToRecord(index); 
+    ...player.getWin();    
     ...player.setToDefault();       
 }
 */
 // Template rule used:
 //  - Compound data
 //  - reference : Marker
+//  - reference : Record
 //  - reference : Name
-//  - reference : PlayerState
-//  - reference : LightState 
-//  - reference : Index
+//  - reference : State
+//  - reference : Win
 
 
 // GameState data & method definition 
