@@ -124,15 +124,53 @@ function funForLightState(light) {
 //  - Atomic distinct: "green"
 
 
-// Index is Natural number
-// interp. to record index number of Board from ListOfBoard
+// Index is one of :
+//  - 0
+//  - 1
+//  - 2
+//  - 3
+//  - 4
+//  - 5
+//  - 6
+//  - 7
+//  - 8
+// interp. index of each board in Tic Tac Toe game board.
 /*
 function funForIndex(index) {
-    ... index ;
+    switch (index) {
+        case 0 :
+            ...;
+            break;
+        case 1 :
+            ...;
+            break;
+        case 2 :
+            ...;
+            break;
+        case 3 :
+            ...;
+            break;
+        case 4 :
+            ...;
+            break;
+        case 5 :
+            ...;
+            break;
+        case 6 :
+            ...;
+            break;
+        case 7 :
+            ...;
+            break;
+        case 8 :
+            ...;
+            break;
+    }
 }
 */
 // Template rule used:
-//  - Atomic non distinct: Natural number
+//  - One of : 9 cases
+//  - Atomic distinct: Number
 
 
 // Record data definition & method
@@ -200,34 +238,6 @@ function addIndexToRecord(array, index) {
 }
 
 
-
-// ListOfWinArea is Array of Record
-// interp. array of Record data in a row for vertical, horizontal and diagonal to determine if player can win the game
-// Example :
-const listOfWinArea = [
-    [1,2,3],
-    [4,5,6],
-    [7,8,9],
-    [1,4,7],
-    [2,5,8],
-    [3,6,9],
-    [1,5,9],
-    [3,5,7]
-];
-/*
-function funForListOfWinArea(listOfWinArea) {
-    for ( let i= 0; i < listOfWinArea.length; i++) {
-        funForRecord(listOfWinArea[i])
-    }
-}
-*/
-// Template rule used:
-// - Array for loop
-// - Reference: Record
-
-
-// Compound Data Definition
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Player Data & Method Definition 
 function createPlayer(marker,playerName, idName, idPlayerState, idLightState, idWin) {
