@@ -11,32 +11,39 @@ const endButton         = document.querySelector("#endButton");
 const gameBoardEl       = document.querySelector(".game-board");
 
 
-// Atomic Data Definition
+// Atomic Data Non Distinct Definition 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// Marker is one of :
-// - empty 
-// - "X"
-// - "O"
-// interp. the mark for board
+// Win is Natural number
+// interp. to count how many win each Player gets
 /*
-function  fnForMarker(marker) {
-    switch(marker) {
-        case "" :
-            ... ;
-        case "X":
-            ... ;
-        case "O":
-            ... ;
-    }
+function funForWin(win) {
+    ... win ;
 }
 */
 // Template rule used:
-//  - One of: 3 cases
-//  - Atomic distinct: empty
-//  - Atomic distinct: "X"
-//  - Atomic distinct: "O"
+//  - Atomic non distinct: Natural number
 
+// Round is Natural number
+// interp. to count how many games has been played
+/*
+function funForRound(round) {
+    ... round ;
+}
+*/
+// Template rule used:
+//  - Atomic non distinct: Natural number
+
+
+// Draw is Natural number
+// interp. to count how many games get draw result
+/*
+function funForDraw(draw) {
+    ... draw ;
+}
+*/
+// Template rule used:
+//  - Atomic non distinct: Natural number
 
 // Name is String
 // interp. the name put by player from input field
@@ -47,6 +54,32 @@ function funForName(name) {
 */
 // Template rule used:
 //  - Atomic non distinct: String
+
+
+// Atomic Distinct Data Definition
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// Marker is one of :
+// - "X"
+// - "O"
+// interp. the mark for board from Player
+/*
+function  fnForMarker(marker) {
+    switch(marker) {        
+        case "X":
+            ... ;
+        case "O":
+            ... ;
+    }
+}
+*/
+// Template rule used:
+//  - One of: 2 cases
+//  - Atomic distinct: empty
+//  - Atomic distinct: "X"
+//  - Atomic distinct: "O"
+
+
 
 
 // State is one of:
@@ -72,7 +105,9 @@ function funForPlayerState(state) {
 // Light is one of:
 //  - "red"
 //  - "green"
-// interp. state of player to turn to play, red cant play while green is turn to play
+// interp. state of player to turn to play, 
+//     - red means Player cant play
+//     - green measn Player can play
 /*
 function funForLightState(light) {
     switch(light) {
@@ -87,17 +122,6 @@ function funForLightState(light) {
 //  - One of: 2 cases
 //  - Atomic distinct: "red"
 //  - Atomic distinct: "green"
-
-
-// Win is Natural number
-// interp. to count how many win each Player gets
-/*
-function funForWin(win) {
-    ... win ;
-}
-*/
-// Template rule used:
-//  - Atomic non distinct: Natural number
 
 
 // Index is Natural number
@@ -175,26 +199,6 @@ function addIndexToRecord(array, index) {
     });
 }
 
-// Round is Natural number
-// interp. to count how many games has been played
-/*
-function funForRound(round) {
-    ... round ;
-}
-*/
-// Template rule used:
-//  - Atomic non distinct: Natural number
-
-
-// Draw is Natural number
-// interp. to count how many games get draw result
-/*
-function funForDraw(draw) {
-    ... draw ;
-}
-*/
-// Template rule used:
-//  - Atomic non distinct: Natural number
 
 
 // ListOfWinArea is Array of Record
