@@ -400,6 +400,9 @@ function funForGameState(gameState) {
 // Template rule used:
 //  - Compound data
 //  - Reference: Player
+//  - Reference: Round
+//  - Reference: Draw
+//  - Reference: Record
 
 
 
