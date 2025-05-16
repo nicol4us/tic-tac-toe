@@ -120,6 +120,9 @@
   }
 
   .board {
+    display: grid;
+    place-content: center;
     background: white;
     border: 1px solid black;
+    font-size: 50px;
   }
