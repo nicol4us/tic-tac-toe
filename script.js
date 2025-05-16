@@ -205,6 +205,7 @@ function createRecord() {
                 break;
             case 6 :
                 addIndexToRecord([thirdRow, firstColumn, secondDiagonal], index)
+                break;
             case 7 :
                 addIndexToRecord([thirdRow, secondColumn], index)
                 break;
@@ -331,8 +332,8 @@ const GameState = function() {
     let flag            = false;
     let round           = 0;
     let draw            = 0;
-    const playerOne     = createPlayer("X", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
-    const playerTwo     = createPlayer("O", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");    
+    const playerOne     = createPlayer("X", "Nico", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
+    const playerTwo     = createPlayer("O", "Dwi", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");    
     const roundEl       = document.querySelector("#round");
     roundEl.textContent = round;
     const drawEl        = document.querySelector("#draw");
@@ -465,7 +466,7 @@ function setBoardListener(board, gameState) {
     board.boardEl.addEventListener("click", function() {
         if(gameState.flag && board.boardEl.textContent === "") {
                 board.boardEl.textContent = gameState.getPlayerON().marker;
-                gameState.getPlayerON().record.set(board.index);  
+                gameState.getPlayerON().record.set(board.index);                
                 checkPlayerWin(gameState) ;       
             }
         })        
@@ -475,7 +476,8 @@ function setBoardListener(board, gameState) {
 // To check if Player win, if false change the player
 function checkPlayerWin(gameState) {   
     if(gameState.isPlayerWin()) {
-        alert("Congratulations, " + gameState.getPlayerON().getName() + "win!!!!")
+        setTimeout(alert("Congratulations, " + gameState.getPlayerON().getName() + "win!!!!"), 200)
+        
     }
     else {
         gameState.changePlayer();
