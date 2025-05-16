@@ -303,7 +303,6 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     return {marker,record,setName, getName,changeState, changeLight, setWin, getWin, setToDefault}
 }
 // interp. player who run the game either with "X" mark or "O" mark
-// Example
 /*
 function funForPlayer(player) {
     ...funForMarker(player.marker);    
@@ -333,17 +332,7 @@ const GameState = function() {
     let round           = 0;
     let draw            = 0;
     const playerOne     = createPlayer("X", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
-    const playerTwo     = createPlayer("O", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");
-    const listWinArea = [
-        [1,2,3],
-        [4,5,6],
-        [7,8,9],
-        [1,4,7],
-        [2,5,8],
-        [3,6,9],
-        [1,5,9],
-        [3,5,7]
-    ];
+    const playerTwo     = createPlayer("O", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");    
     const roundEl       = document.querySelector("#round");
     roundEl.textContent = round;
     const drawEl        = document.querySelector("#draw");
@@ -378,13 +367,12 @@ const GameState = function() {
     };
     const getDraw = () => draw;
     const isPlayerWin = function() {        
-        if(playerON.record.length === listWinArea[0].length) {
-            playerON.record.sort();
-            return hasSameElement(listWinArea, playerON.record);
+        for (let i = 0; i < playerON.record.listRecord.length; i++) {
+            if(playerON.record.listRecord[i].length === 3) {
+                return true
+            }
         }
-        else {
-            return false
-        }
+        return false;
     }
     const setToInitial = function() {
         round = 0;
@@ -425,45 +413,6 @@ function changeStateAndLight(player) {
     player.changeLight();       
 }
 
-// (Array, Array) -> Boolean
-// Return true if both array with same length is identical, false otherwise
-function isTwoArraySame(arrayOne, arrayTwo) {
-    for (let i = 0; i < arrayOne.length; i++ ) {
-        if(!(arrayOne[i] === arrayTwo[i])) {            
-            return false;
-        }
-    }
-    return true;
-}
-
-// (Array of Array, Array) -> Boolean
-// Check if an array has same element inside of array and return true, otherwise return false
-function hasSameElement(listOfWin, recordArray) {
-    for(let i=0; i < listOfWin.length ; i++) {
-        if(isTwoArraySame(listOfWin[i], recordArray)) {
-            return true
-        }
-    }
-    return false   
-}
-
-/*
-// Testing hasSameElement function
-// This testing is for checking if a player can win the game
-console.log("Player can win with board 1,2,3 : " + hasSameElement(listOfWinArea, [1,2,3]));
-console.log("Player can win with board 4,5,6 : " + hasSameElement(listOfWinArea, [4,5,6]));
-console.log("Player can win with board 7,8,9 : " + hasSameElement(listOfWinArea, [7,8,9]));
-console.log("Player can win with board 1,4,7 : " + hasSameElement(listOfWinArea, [1,4,7]));
-console.log("Player can win with board 2,5,8 : " + hasSameElement(listOfWinArea, [2,5,8]));
-console.log("Player can win with board 3,6,9 : " + hasSameElement(listOfWinArea, [3,6,9]));
-console.log("Player can win with board 1,5,9 : " + hasSameElement(listOfWinArea, [1,5,9]));
-console.log("Player can win with board 3,5,7 : " + hasSameElement(listOfWinArea, [3,5,7]));
-
-// This testing to check if player can not win the game if when the marker not in row of horizontal, vertical or diagonal
-console.log("Player can win with board 1,5,6 : " + hasSameElement(listOfWinArea, [1,5,6]));
-console.log("Player can win with board 4,5,9 : " + hasSameElement(listOfWinArea, [4,5,9]));
-console.log("Player can win with board 2,5,7 : " + hasSameElement(listOfWinArea, [1,5,6]));
-*/
 
 
 // Board Data Definition
