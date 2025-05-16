@@ -452,7 +452,7 @@ function setGameBoard(number, className,  gameState, container) {
     const listBoard = [];
     for (let i = 0 ; i < number; i++) {
         const board = createBoard(i, className);
-        listBoard.push(board)
+        listBoard.push(board)        
         container.appendChild(board.boardEl); 
         setBoardListener(board, gameState)   
     }
@@ -465,9 +465,21 @@ function setBoardListener(board, gameState) {
     board.boardEl.addEventListener("click", function() {
         if(gameState.flag && board.boardEl.textContent === "") {
                 board.boardEl.textContent = gameState.getPlayerON().marker;
-                gameState.getPlayerON().record.set(board.index);          
+                gameState.getPlayerON().record.set(board.index);  
+                checkPlayerWin(gameState) ;       
             }
         })        
+}
+
+// (GameState) -> ()
+// To check if Player win, if false change the player
+function checkPlayerWin(gameState) {   
+    if(gameState.isPlayerWin()) {
+        alert("Congratulations, " + gameState.getPlayerON().getName() + "win!!!!")
+    }
+    else {
+        gameState.changePlayer();
+    }
 }
 
 
