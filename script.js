@@ -465,7 +465,7 @@ function setBoardListener(board, gameState) {
     board.boardEl.addEventListener("click", function() {
         if(gameState.flag && board.boardEl.textContent === "") {
                 board.boardEl.textContent = gameState.getPlayerON().marker;
-                gameState.getPlayerON().addMarkerToRecord(board.index) ;          
+                gameState.getPlayerON().record.set(board.index);          
             }
         })        
 }
