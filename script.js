@@ -331,6 +331,19 @@ function funForPlayer(player) {
 //  - reference : Win
 
 
+// BoardRecord is Array of Index
+// interp. to record index of the board that have selected by both player
+/*
+function funForBoardRecord(boardRecord) {
+    for(let i=0; i < boardRecord.length; i++) {
+        ... boardRecord[i]
+    }
+}
+*/
+// Template rule used:
+//  - Array of loop
+
+
 // GameState data & method definition 
 const GameState = function() {
     let playerON;
@@ -445,6 +458,7 @@ function funforBoard(board) {
 // GameBoard Data & Method definition
 const GameBoard = function(gameState, container, dialog) {    
     const listOfBoard = setGameBoard(9, "board", gameState, container, dialog);
+
     return {listOfBoard}    
 }(GameState, gameBoardEl, dialog);
 
