@@ -482,12 +482,21 @@ function setBoardListener(board, gameState, dialog) {
 function checkPlayerWin(gameState, dialog) {   
     if(gameState.isPlayerWin()) {
         dialog.messageEl.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!"
-        dialog.dialogEl.showModal();        
+        dialog.dialogEl.showModal();
+        setDialogCloseListener(gameState, dialog);        
     }
     else {
         gameState.changePlayer();
     }
 }
 
+// (GameState, Dialog) -> ()
+// To add event listener for close the dialog and update gameState
+function setDialogCloseListener(gameState, dialog) {
+    dialog.closeButton.addEventListener("click", function(){
+        dialog.dialogEl.close();
+        gameState.setRound();
+    })
+}
 
 
