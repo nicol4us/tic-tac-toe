@@ -517,10 +517,13 @@ function checkGameState(gameState, dialog) {
     }
 }
 
-// (GameState, Dialog) -> ()
+// (GameState, Dialog, String) -> ()
 // To add event listener for close the dialog and update gameState
-function setDialogCloseListener(gameState, dialog) {
+function setDialogCloseListener(gameState, dialog, state) {
     dialog.closeButton.addEventListener("click", function(){
+        if (state === 'draw') {
+            gameState.setDraw()
+        }        
         dialog.dialogEl.close();
         gameState.setRound();
     })
