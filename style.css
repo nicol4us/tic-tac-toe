@@ -126,3 +126,8 @@
     border: 1px solid black;
     font-size: 50px;
   }
+
+  dialog {
+    align-self: center;
+    justify-self: center;
+  }
