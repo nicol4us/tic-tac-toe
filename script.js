@@ -353,8 +353,8 @@ const GameState = function() {
     let round           = 0;
     let draw            = 0;
     let boardRecord     = [];
-    const playerOne     = createPlayer("X", "Nico", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
-    const playerTwo     = createPlayer("O", "Dwi", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");    
+    const playerOne     = createPlayer("X", "Dhika", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
+    const playerTwo     = createPlayer("O", "Evan", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");    
     const roundEl       = document.querySelector("#round");
     roundEl.textContent = round;
     const drawEl        = document.querySelector("#draw");
@@ -512,7 +512,12 @@ function checkGameState(gameState, dialog) {
             break;
         case gameState.hasEmptyBoard() :
             gameState.changePlayer()
-            break;  
+            break; 
+        case (gameState.boardRecord.length === maxBoard) :
+            dialog.messageEl.textContent = "You both get draw result";
+            dialog.dialogEl.showModal();
+            setDialogCloseListener(gameState, dialog, "draw")
+            break;
     
     }
 }
