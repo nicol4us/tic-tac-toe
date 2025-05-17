@@ -403,7 +403,13 @@ const GameState = function() {
         playerTwo.setToDefault();
         playerON = null;
     }
-    return {flag, boardRecord,start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial};
+    const hasEmptyBoard = function() {
+        if(boardRecord.length < maxBoard) {
+            return true
+        }
+        else return false;
+    }
+    return {flag, boardRecord,start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial, hasEmptyBoard};
 }();
 /*
 function funForGameState(gameState) {
