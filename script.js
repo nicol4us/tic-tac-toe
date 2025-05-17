@@ -4,6 +4,8 @@
 
 // Constant Declarations
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const maxRow            = 3;
+const maxBoard          = 9;
 const inputPlayerOne    = document.querySelector("#inputPlayerOne");
 const inputPlayerTwo    = document.querySelector("#inputPlayerTwo");
 const startButton       = document.querySelector("#startButton");
@@ -388,7 +390,7 @@ const GameState = function() {
     const getDraw = () => draw;
     const isPlayerWin = function() {        
         for (let i = 0; i < playerON.record.listRecord.length; i++) {
-            if(playerON.record.listRecord[i].length === 3) {
+            if(playerON.record.listRecord[i].length === maxRow) {
                 return true
             }
         }
