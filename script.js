@@ -350,6 +350,7 @@ const GameState = function() {
     let flag            = false;
     let round           = 0;
     let draw            = 0;
+    let boardRecord     = [];
     const playerOne     = createPlayer("X", "Nico", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
     const playerTwo     = createPlayer("O", "Dwi", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");    
     const roundEl       = document.querySelector("#round");
@@ -400,7 +401,7 @@ const GameState = function() {
         playerTwo.setToDefault();
         playerON = null;
     }
-    return {flag, start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial};
+    return {flag, boardRecord,start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial};
 }();
 /*
 function funForGameState(gameState) {
