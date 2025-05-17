@@ -4,7 +4,7 @@
 
 // Constant Declarations
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const maxRow            = 3;
+const maxRowAndColumn   = 3;
 const maxBoard          = 9;
 const inputPlayerOne    = document.querySelector("#inputPlayerOne");
 const inputPlayerTwo    = document.querySelector("#inputPlayerTwo");
