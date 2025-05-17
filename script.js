@@ -496,21 +496,24 @@ function setBoardListener(board, gameState, dialog) {
                 board.boardEl.textContent = gameState.getPlayerON().marker;
                 gameState.getPlayerON().record.set(board.index); 
                 gameState.boardRecord.push(board.index)               
-                checkPlayerWin(gameState, dialog) ;       
+                checkGameState(gameState, dialog) ;       
             }
         })        
 }
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
-function checkPlayerWin(gameState, dialog) {   
-    if(gameState.isPlayerWin()) {
-        dialog.messageEl.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!"
-        dialog.dialogEl.showModal();
-        setDialogCloseListener(gameState, dialog);        
-    }
-    else {
-        gameState.changePlayer();
+function checkGameState(gameState, dialog) {  
+    switch (true) {
+        case gameState.isPlayerWin() :         
+            dialog.messageEl.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
+            dialog.dialogEl.showModal();
+            setDialogCloseListener(gameState, dialog); 
+            break;
+        case gameState.hasEmptyBoard() :
+            gameState.changePlayer()
+            break;  
+    
     }
 }
 
