@@ -494,7 +494,8 @@ function setBoardListener(board, gameState, dialog) {
     board.boardEl.addEventListener("click", function() {
         if(gameState.flag && board.boardEl.textContent === "") {
                 board.boardEl.textContent = gameState.getPlayerON().marker;
-                gameState.getPlayerON().record.set(board.index);                
+                gameState.getPlayerON().record.set(board.index); 
+                gameState.boardRecord.push(board.index)               
                 checkPlayerWin(gameState, dialog) ;       
             }
         })        
