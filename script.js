@@ -443,10 +443,10 @@ function funforBoard(board) {
 
 
 // GameBoard Data & Method definition
-const GameBoard = function(gameState, container) {    
-    const listOfBoard = setGameBoard(9, "board", gameState, container);
+const GameBoard = function(gameState, container, dialog) {    
+    const listOfBoard = setGameBoard(9, "board", gameState, container, dialog);
     return {listOfBoard}    
-}(GameState, gameBoardEl);
+}(GameState, gameBoardEl, dialog);
 
 
 // GameBoard helper function
@@ -454,35 +454,35 @@ const GameBoard = function(gameState, container) {
 
 // (Number, GameState, Element) -> Array
 // To produce listofBoard according to the number
-function setGameBoard(number, className,  gameState, container) {
+function setGameBoard(number, className,  gameState, container, dialog) {
     const listBoard = [];
     for (let i = 0 ; i < number; i++) {
         const board = createBoard(i, className);
         listBoard.push(board)        
         container.appendChild(board.boardEl); 
-        setBoardListener(board, gameState)   
+        setBoardListener(board, gameState, dialog)   
     }
     return listBoard;
 }
 
 // (Board, GameState) -> ()
 // To add event listener for Board Element
-function setBoardListener(board, gameState) {    
+function setBoardListener(board, gameState, dialog) {    
     board.boardEl.addEventListener("click", function() {
         if(gameState.flag && board.boardEl.textContent === "") {
                 board.boardEl.textContent = gameState.getPlayerON().marker;
                 gameState.getPlayerON().record.set(board.index);                
-                checkPlayerWin(gameState) ;       
+                checkPlayerWin(gameState, dialog) ;       
             }
         })        
 }
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
-function checkPlayerWin(gameState) {   
+function checkPlayerWin(gameState, dialog) {   
     if(gameState.isPlayerWin()) {
-        setTimeout(alert("Congratulations, " + gameState.getPlayerON().getName() + "win!!!!"), 200)
-        
+        dialog.messageEl.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!"
+        dialog.dialogEl.showModal();        
     }
     else {
         gameState.changePlayer();
