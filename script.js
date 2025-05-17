@@ -390,7 +390,7 @@ const GameState = function() {
     const getDraw = () => draw;
     const isPlayerWin = function() {        
         for (let i = 0; i < playerON.record.listRecord.length; i++) {
-            if(playerON.record.listRecord[i].length === maxRow) {
+            if(playerON.record.listRecord[i].length === maxRowAndColumn) {
                 return true
             }
         }
