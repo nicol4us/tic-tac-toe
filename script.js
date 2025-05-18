@@ -521,12 +521,12 @@ const GameBoard = function(container) {
             listOfBoard[i].boardEl.textContent = "";        
         }        
     }
-    return {list, clear}    
+    return {listOfBoard, clear}    
 }(gameBoardEl);
 // interp. 9 square box to play Tic TacToe Game
 /*
 function forGameBoard(gameBoard) {
-    ... funForListOfBoard(gameBoard.list)
+    ... funForListOfBoard(gameBoard.listOfBoard)
     ... gameBoard.clear();
     }
 */
@@ -551,31 +551,43 @@ function setGameBoard(number, className, container) {
 }
 
 
+// Functions Declaration 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function gamePlay() {
+    GameState.flag = true;
+    GameState.start();
+    setBoardListener(GameBoard, GameState, Message)
+}
 
 
-/*
 
-// (Board, GameState) -> ()
+
+// (GameBoard, GameState, Message) -> ()
 // To add event listener for Board Element
-function setBoardListener(board, gameState, message) {    
-    board.boardEl.addEventListener("click", function() {
-        if(gameState.flag && board.boardEl.textContent === "") {
-                board.boardEl.textContent = gameState.getPlayerON().marker;
-                gameState.getPlayerON().record.set(board.index); 
-                gameState.boardRecord.push(board.index)               
-                checkGameState(gameState, message) ;       
-            }
-        })        
+function setBoardListener(gameBoard, gameState, message) {  
+    for(let i = 0; i < gameBoard.listOfBoard.length; i++) {
+        const board = gameBoard.listOfBoard[i]
+        board.boardEl.addEventListener("click", function() {
+            if(gameState.flag && board.boardEl.textContent === "") {
+                    board.boardEl.textContent = gameState.getPlayerON().marker;
+                    gameState.getPlayerON().record.set(board.index); 
+                    gameState.boardRecord.push(board.index)               
+                    checkGameState(gameBoard, gameState, message) ;       
+                }
+            })
+    
+        }
+        
 }
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
-function checkGameState(gameState, message) {  
+function checkGameState(gameBoard, gameState, message) {  
     switch (true) {
         case gameState.isPlayerWin() :         
             message.text.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
             message.dialog.showModal();
-            setDialogCloseListener(gameState, message, "Win"); 
+            setDialogCloseListener(gameBoard, gameState, message, "Win"); 
             break;
         case gameState.hasEmptyBoard() :
             gameState.changePlayer()
@@ -583,7 +595,7 @@ function checkGameState(gameState, message) {
         case (gameState.boardRecord.length === maxBoard) :
             message.text.textContent = "You both get draw result";
             message.dialog.showModal();
-            setDialogCloseListener(gameState, message, "Draw")
+            setDialogCloseListener(gameBoard, gameState, message, "Draw")
             break;
     
     }
@@ -591,7 +603,7 @@ function checkGameState(gameState, message) {
 
 // (GameState, Dialog, String) -> ()
 // To add event listener for close the dialog and update gameState
-function setDialogCloseListener(gameState, message, result) {
+function setDialogCloseListener(gameBoard, gameState, message, result) {
     message.closeButton.addEventListener("click", function(){
         switch (result) {
             case "Win" :                
@@ -602,8 +614,9 @@ function setDialogCloseListener(gameState, message, result) {
                 break;
         }
         gameState.setRound();
-        message.dialog.close();                
+        message.dialog.close();
+        gameBoard.clear() ;               
     })
 }
 
-*/
+gamePlay()
