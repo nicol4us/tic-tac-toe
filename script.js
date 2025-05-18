@@ -185,6 +185,7 @@ function createRecord() {
     const thirdColumn = []
     const firstDiagonal = []
     const secondDiagonal = [] 
+    const listRecord = [firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal]
     const set = function(index) {
         switch(index) {
             case 0 :
@@ -217,12 +218,19 @@ function createRecord() {
         }           
                 
     }
-    return {listRecord : [firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal], set} 
+    const clear = function() {
+        for (let i=0; i < listRecord.length; i++) {
+            listRecord[i].length = 0;
+        }
+
+    }
+    return {listRecord, set, clear} 
 }
 /*
 function funForRecord(record) {
     ...funForListRecord(record.listrecord);
     ...record.set();
+    ...record.clear();
 }
 */
 // Template rule used :
