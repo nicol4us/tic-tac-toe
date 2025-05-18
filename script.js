@@ -515,11 +515,11 @@ function funForResult(result) {
 
 // GameBoard Data & Method definition
 const GameBoard = function(container) {     
-    const list = setGameBoard(9, "board", container);
+    const listOfBoard = setGameBoard(9, "board", container);
     const clear = function() {
-        for(let i=0; i < list.length; i++) {
-            list[i].boardEl.textContent = "";
-        }
+        for(let i = 0; i < listOfBoard.length; i++) {
+            listOfBoard[i].boardEl.textContent = "";        
+        }        
     }
     return {list, clear}    
 }(gameBoardEl);
