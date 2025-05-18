@@ -540,7 +540,7 @@ function checkGameState(gameState, message) {
         case gameState.isPlayerWin() :         
             message.text.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
             message.dialog.showModal();
-            setDialogCloseListener(gameState, message); 
+            setDialogCloseListener(gameState, message, "Win"); 
             break;
         case gameState.hasEmptyBoard() :
             gameState.changePlayer()
@@ -548,7 +548,7 @@ function checkGameState(gameState, message) {
         case (gameState.boardRecord.length === maxBoard) :
             message.text.textContent = "You both get draw result";
             message.dialog.showModal();
-            setDialogCloseListener(gameState, message, "draw")
+            setDialogCloseListener(gameState, message, "Draw")
             break;
     
     }
@@ -556,13 +556,18 @@ function checkGameState(gameState, message) {
 
 // (GameState, Dialog, String) -> ()
 // To add event listener for close the dialog and update gameState
-function setDialogCloseListener(gameState, message, state) {
+function setDialogCloseListener(gameState, message, result) {
     message.closeButton.addEventListener("click", function(){
-        if (state === 'draw') {
-            gameState.setDraw()
-        }        
-        message.dialog.close();
+        switch (result) {
+            case "Win" :                
+                gameState.getPlayerON().setWin();
+                break;
+            case "Draw" :
+                gameState.setDraw();
+                break;
+        }
         gameState.setRound();
+        message.dialog.close();                
     })
 }
 
