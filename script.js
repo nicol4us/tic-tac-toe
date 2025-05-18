@@ -270,6 +270,14 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         nameEl.textContent = name;
     }
     const getName = () => name;
+    const setMarker = function(newMarker) {
+        switch(newMarker) {        
+            case "X":
+                marker = "X" ;
+            case "O":
+                marker = "O" ;
+        }
+    }    
     const changeState = function() {
         switch(state) {
             case "OFF" :
@@ -311,7 +319,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         record.clear();
     }    
     
-    return {marker,record,setName, getName,changeState, changeLight, setWin, getWin, setToDefault}
+    return {marker,record,setMarker,setName, getName,changeState, changeLight, setWin, getWin, setToDefault}
 }
 // interp. player who run the game either with "X" mark or "O" mark
 /*
