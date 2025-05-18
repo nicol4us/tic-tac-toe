@@ -625,8 +625,11 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
                 break;
         }
         gameState.setRound();
-        message.dialog.close();
-        gameBoard.clear() ;               
+        gameState.playerOne.record.clear();        
+        gameState.playerTwo.record.clear();         
+        gameState.boardRecord.length = 0;         
+        gameBoard.clear() ; 
+        message.dialog.close();              
     })
 }
 
