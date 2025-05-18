@@ -515,15 +515,24 @@ function funForResult(result) {
 
 // GameBoard Data & Method definition
 const GameBoard = function(container) {     
-    const listOfBoard = setGameBoard(9, "board", container);
+    const list = setGameBoard(9, "board", container);
     const clear = function() {
-        for(let i=0; i < listOfBoard.length; i++) {
-            listOfBoard[i].boardEl.textContent = "";
+        for(let i=0; i < list.length; i++) {
+            list[i].boardEl.textContent = "";
         }
     }
-    return {listOfBoard, clear}    
+    return {list, clear}    
 }(gameBoardEl);
 // interp. 9 square box to play Tic TacToe Game
+/*
+function forGameBoard(gameBoard) {
+    ... funForListOfBoard(gameBoard.list)
+    ... gameBoard.clear();
+    }
+*/
+// Template rule used:
+//  - Compound data
+//  - Reference : ListOfBoard
 
 
 // GameBoard helper function
@@ -540,6 +549,9 @@ function setGameBoard(number, className, container) {
     }        
     return listBoard;
 }
+
+
+
 
 /*
 
