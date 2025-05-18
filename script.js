@@ -412,11 +412,14 @@ const GameState = function() {
         }
         else return false;
     }
-    return {flag, boardRecord,start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial, hasEmptyBoard};
+    return {flag,playerOne, playerTwo, boardRecord,start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial, hasEmptyBoard};
 }();
 /*
 function funForGameState(gameState) {
     ... gameState.flag;
+    ... gameState.playerOne;
+    ... gameState.playerTwo;
+    ... gameState.boardRecord;
     ... gameState.start();
     ... gameState.changePlayer();
     ... funForPlayer(gameState.getPlayerON);
