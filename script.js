@@ -458,6 +458,23 @@ function funforBoard(board) {
 //  - Compound data;
 
 
+
+// ListOfBoard is 9 of Board
+// interp. 9 Board to play the game
+/*
+function funForListOfBoard(listOfBoard) {
+    for(let i = 0; i < listOfBoard.length; i++) {
+        ... funForBoard(listOfBoard[i]) {                
+        }
+    }
+}
+*/
+// Template rule used:
+//  - Array of loop
+//  - Reference : Board
+
+
+
 // Message is 
 const Message = function(dialogTag, messageID, buttonID) {
     const dialog        = document.querySelector(dialogTag);
@@ -497,16 +514,16 @@ function funForResult(result) {
 
 
 // GameBoard Data & Method definition
-const GameBoard = function(gameState, container, message) {     
-    const listOfBoard = setGameBoard(9, "board", gameState, container, message);
+const GameBoard = function(container) {     
+    const listOfBoard = setGameBoard(9, "board", container);
     const clear = function() {
         for(let i=0; i < listOfBoard.length; i++) {
             listOfBoard[i].boardEl.textContent = "";
         }
     }
-
     return {listOfBoard, clear}    
-}(GameState, gameBoardEl, Message);
+}(gameBoardEl);
+// interp. 9 square box to play Tic TacToe Game
 
 
 // GameBoard helper function
@@ -514,16 +531,17 @@ const GameBoard = function(gameState, container, message) {
 
 // (Number, GameState, Element) -> Array
 // To produce listofBoard according to the number
-function setGameBoard(number, className,  gameState, container, message) {
+function setGameBoard(number, className, container) {
     const listBoard = [];
     for (let i = 0 ; i < number; i++) {
         const board = createBoard(i, className);
         listBoard.push(board)        
-        container.appendChild(board.boardEl); 
-        setBoardListener(board, gameState, message)   
-    }
+        container.appendChild(board.boardEl);
+    }        
     return listBoard;
 }
+
+/*
 
 // (Board, GameState) -> ()
 // To add event listener for Board Element
@@ -576,4 +594,4 @@ function setDialogCloseListener(gameState, message, result) {
     })
 }
 
-
+*/
