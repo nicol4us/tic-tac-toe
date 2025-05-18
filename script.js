@@ -308,7 +308,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
         lightEl.style.backgroundColor = light;
         win = 0;
         winEl.textContent = win;
-        recordMarker.length = 0;
+        record.clear();
     }    
     
     return {marker,record,setName, getName,changeState, changeLight, setWin, getWin, setToDefault}
