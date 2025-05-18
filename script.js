@@ -497,10 +497,15 @@ function funForResult(result) {
 
 
 // GameBoard Data & Method definition
-const GameBoard = function(gameState, container, message) {    
+const GameBoard = function(gameState, container, message) {     
     const listOfBoard = setGameBoard(9, "board", gameState, container, message);
+    const clear = function() {
+        for(let i=0; i < listOfBoard.length; i++) {
+            listOfBoard[i].boardEl.textContent = "";
+        }
+    }
 
-    return {listOfBoard}    
+    return {listOfBoard, clear}    
 }(GameState, gameBoardEl, Message);
 
 
