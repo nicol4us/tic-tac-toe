@@ -469,7 +469,7 @@ const Message = function(dialogTag, messageID, buttonID) {
     const text          = document.querySelector(messageID);
     const closeButton   = document.querySelector(buttonID);
     return {dialog, text, closeButton}
-}("dialog", "#message", "close-dialog-button");
+}("dialog", "#message", "#close-dialog-button");
 // interp. Dialog Element to send message if player win or get draw
 /*
 function funForMessage(message) {
@@ -483,11 +483,11 @@ function funForMessage(message) {
 
 
 // GameBoard Data & Method definition
-const GameBoard = function(gameState, container, dialog) {    
-    const listOfBoard = setGameBoard(9, "board", gameState, container, dialog);
+const GameBoard = function(gameState, container, message) {    
+    const listOfBoard = setGameBoard(9, "board", gameState, container, message);
 
     return {listOfBoard}    
-}(GameState, gameBoardEl, dialog);
+}(GameState, gameBoardEl, Message);
 
 
 // GameBoard helper function
@@ -495,46 +495,46 @@ const GameBoard = function(gameState, container, dialog) {
 
 // (Number, GameState, Element) -> Array
 // To produce listofBoard according to the number
-function setGameBoard(number, className,  gameState, container, dialog) {
+function setGameBoard(number, className,  gameState, container, message) {
     const listBoard = [];
     for (let i = 0 ; i < number; i++) {
         const board = createBoard(i, className);
         listBoard.push(board)        
         container.appendChild(board.boardEl); 
-        setBoardListener(board, gameState, dialog)   
+        setBoardListener(board, gameState, message)   
     }
     return listBoard;
 }
 
 // (Board, GameState) -> ()
 // To add event listener for Board Element
-function setBoardListener(board, gameState, dialog) {    
+function setBoardListener(board, gameState, message) {    
     board.boardEl.addEventListener("click", function() {
         if(gameState.flag && board.boardEl.textContent === "") {
                 board.boardEl.textContent = gameState.getPlayerON().marker;
                 gameState.getPlayerON().record.set(board.index); 
                 gameState.boardRecord.push(board.index)               
-                checkGameState(gameState, dialog) ;       
+                checkGameState(gameState, message) ;       
             }
         })        
 }
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
-function checkGameState(gameState, dialog) {  
+function checkGameState(gameState, message) {  
     switch (true) {
         case gameState.isPlayerWin() :         
-            dialog.messageEl.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
-            dialog.dialogEl.showModal();
-            setDialogCloseListener(gameState, dialog); 
+            message.text.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
+            message.dialog.showModal();
+            setDialogCloseListener(gameState, message); 
             break;
         case gameState.hasEmptyBoard() :
             gameState.changePlayer()
             break; 
         case (gameState.boardRecord.length === maxBoard) :
-            dialog.messageEl.textContent = "You both get draw result";
-            dialog.dialogEl.showModal();
-            setDialogCloseListener(gameState, dialog, "draw")
+            message.text.textContent = "You both get draw result";
+            message.dialog.showModal();
+            setDialogCloseListener(gameState, message, "draw")
             break;
     
     }
@@ -542,12 +542,12 @@ function checkGameState(gameState, dialog) {
 
 // (GameState, Dialog, String) -> ()
 // To add event listener for close the dialog and update gameState
-function setDialogCloseListener(gameState, dialog, state) {
-    dialog.closeButton.addEventListener("click", function(){
+function setDialogCloseListener(gameState, message, state) {
+    message.closeButton.addEventListener("click", function(){
         if (state === 'draw') {
             gameState.setDraw()
         }        
-        dialog.dialogEl.close();
+        message.dialog.close();
         gameState.setRound();
     })
 }
