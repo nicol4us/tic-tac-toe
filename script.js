@@ -477,6 +477,25 @@ function funForMessage(message) {
 //  - Compound data
 
 
+// Result is one of:
+//  - "Win"
+//  - "Draw"
+// interp. to determine the result of the game
+/*
+function funForResult(result) {
+    switch (result) {
+        case "Win" :
+            ....;
+            break;
+        case "Draw" :
+            ...;
+            break;
+    }
+}
+*/
+
+
+
 // GameBoard Data & Method definition
 const GameBoard = function(gameState, container, message) {    
     const listOfBoard = setGameBoard(9, "board", gameState, container, message);
