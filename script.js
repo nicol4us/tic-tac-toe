@@ -176,7 +176,7 @@ function funForIndex(index) {
 
 
 // Record data definition & method
-function createRecord() {
+export function createRecord() {
     const firstRow = []
     const secondRow = []
     const thirdRow = []

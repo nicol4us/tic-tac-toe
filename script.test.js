@@ -1,0 +1,1 @@
+import {createRecord} from "./script.js"
