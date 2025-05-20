@@ -57,6 +57,11 @@
     margin-top: 16px;
   }
 
+  .header {
+    font-size: 28px;
+    font-weight: bold;
+  }
+
   .game-info {   
     display: grid;
     place-content: center;    
