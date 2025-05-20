@@ -7,11 +7,11 @@
 
 const maxRowAndColumn   = 3;
 const maxBoard          = 9;
-//const inputPlayerOne    = document.querySelector("#inputPlayerOne");
-//const inputPlayerTwo    = document.querySelector("#inputPlayerTwo");
-//const startButton       = document.querySelector("#startButton");
-//const endButton         = document.querySelector("#endButton");
-//const gameBoardEl       = document.querySelector(".game-board");
+const inputPlayerOne    = document.querySelector("#inputPlayerOne");
+const inputPlayerTwo    = document.querySelector("#inputPlayerTwo");
+const startButton       = document.querySelector("#startButton");
+const endButton         = document.querySelector("#endButton");
+const gameBoardEl       = document.querySelector(".game-board");
 
 
 // Atomic Data Non Distinct Definition 

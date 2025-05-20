@@ -1,4 +1,6 @@
-
+/**
+ * @jest-environment jsdom
+ */
 
 const {createRecord} = require('./script')
 
