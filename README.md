@@ -10,7 +10,7 @@ It is a solved game, with a forced draw assuming best play from both players.
 - Both player must fill the name before they Start the game
 - X marker will always start first
 - PlayerOne will start using X marker first, for next round X marker will be used by the loosing player
-- Click Start Button to start the game, Player one will start first with X marker, player one state indicator will turn to ON and green. Round and draw state indicator still display 0.
+- Click Start Button to start the game, Player one marker will become "X", player one state indicator will turn to ON and green. Round and draw state indicator still display 0.
 - Once Player one  put the marker into one of the board, player one state indicator will turn to OFF and red. Player two state indicator will turn to ON and green.
 - If one of player can put marker in a row for horizontal, vertical and diagonal board then window message will appear immediately to congratulate the winner. Then after click Close in message window, the GameBoard will automatically clear all the marker. Player one state indicator will turn ON and green while Player two will turn OFF and red. Round counting will add 1 to record how many player have finished the round. The win section of player win will add 1 more to record how many Player get the win. 
 - If after all board get filled by the marker but still no winner then alert message will appear to inform that this round of game has draw result. After click OK in the alert message, the GameBoard will automatically clear all the marker. Player one state indicator will turn ON and green while Player two wil turn OFF and red. Round and draw counting will add 1 to record.
