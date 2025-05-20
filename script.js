@@ -4,13 +4,14 @@
 
 // Constant Declarations
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 const maxRowAndColumn   = 3;
 const maxBoard          = 9;
-const inputPlayerOne    = document.querySelector("#inputPlayerOne");
-const inputPlayerTwo    = document.querySelector("#inputPlayerTwo");
-const startButton       = document.querySelector("#startButton");
-const endButton         = document.querySelector("#endButton");
-const gameBoardEl       = document.querySelector(".game-board");
+//const inputPlayerOne    = document.querySelector("#inputPlayerOne");
+//const inputPlayerTwo    = document.querySelector("#inputPlayerTwo");
+//const startButton       = document.querySelector("#startButton");
+//const endButton         = document.querySelector("#endButton");
+//const gameBoardEl       = document.querySelector(".game-board");
 
 
 // Atomic Data Non Distinct Definition 
@@ -176,7 +177,7 @@ function funForIndex(index) {
 
 
 // Record data definition & method
-export function createRecord() {
+function createRecord() {
     const firstRow = []
     const secondRow = []
     const thirdRow = []
@@ -184,15 +185,15 @@ export function createRecord() {
     const secondColumn = []
     const thirdColumn = []
     const firstDiagonal = []
-    const secondDiagonal = [] 
-    const listRecord = [firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal]
-    const set = function(index) {
-        switch(index) {
+    const secondDiagonal = []
+    listRecord = [firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal]
+    const set = function(index) { 
+        switch (index) {
             case 0 :
                 addIndexToRecord([firstRow, firstColumn, firstDiagonal], index);
                 break;
             case 1 :
-                addIndexToRecord([firstRow, secondColumn], index);            
+                addIndexToRecord([firstRow, secondColumn], index);
                 break;
             case 2 :
                 addIndexToRecord([firstRow, thirdColumn, secondDiagonal], index);
@@ -201,31 +202,31 @@ export function createRecord() {
                 addIndexToRecord([secondRow, firstColumn], index);
                 break;
             case 4 :
-                addIndexToRecord([secondRow, secondColumn, firstDiagonal, secondDiagonal], index)
+                addIndexToRecord([secondRow, secondColumn, firstDiagonal, secondDiagonal], index);
                 break;
             case 5 :
-                addIndexToRecord([secondRow, thirdColumn], index)
+                addIndexToRecord([secondRow, thirdColumn], index);
                 break;
             case 6 :
-                addIndexToRecord([thirdRow, firstColumn, secondDiagonal], index)
+                addIndexToRecord([thirdRow, firstColumn, secondDiagonal], index);
                 break;
             case 7 :
-                addIndexToRecord([thirdRow, secondColumn], index)
+                addIndexToRecord([thirdRow, secondColumn], index);
                 break;
             case 8 :
-                addIndexToRecord([thirdRow, thirdColumn, firstDiagonal], index)
+                addIndexToRecord([thirdRow, thirdColumn, firstDiagonal], index);
                 break;
-        }           
-                
+        }                 
     }
-    const clear = function() {
-        for (let i=0; i < listRecord.length; i++) {
+    const clear = function() {  
+        for (let i= 0; i < listRecord.length; i++) {
             listRecord[i].length = 0;
         }
-
-    }
+   }
     return {listRecord, set, clear} 
 }
+module.exports = {createRecord}
+
 /*
 function funForRecord(record) {
     ...funForListRecord(record.listrecord);
@@ -248,7 +249,7 @@ function addIndexToRecord(array, index) {
     });
 }
 
-
+/*
 
 // Player Data & Method Definition 
 function createPlayer(marker,playerName, idName, idPlayerState, idLightState, idWin) {
@@ -321,6 +322,9 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     
     return {marker,record,setMarker,setName, getName,changeState, changeLight, setWin, getWin, setToDefault}
 }
+
+*/
+
 // interp. player who run the game either with "X" mark or "O" mark
 /*
 function funForPlayer(player) {
@@ -358,6 +362,7 @@ function funForBoardRecord(boardRecord) {
 
 
 // GameState data & method definition 
+/*
 const GameState = function() {
     let playerON;
     let flag            = false;
@@ -422,6 +427,7 @@ const GameState = function() {
     }
     return {flag,playerOne, playerTwo, boardRecord,start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial, hasEmptyBoard};
 }();
+*/
 /*
 function funForGameState(gameState) {
     ... gameState.flag;
@@ -495,12 +501,14 @@ function funForListOfBoard(listOfBoard) {
 
 
 // Message is 
+/*
 const Message = function(dialogTag, messageID, buttonID) {
     const dialog        = document.querySelector(dialogTag);
     const text          = document.querySelector(messageID);
     const closeButton   = document.querySelector(buttonID);
     return {dialog, text, closeButton}
 }("dialog", "#message", "#close-dialog-button");
+*/
 // interp. Dialog Element to send message if player win or get draw
 /*
 function funForMessage(message) {
@@ -533,6 +541,7 @@ function funForResult(result) {
 
 
 // GameBoard Data & Method definition
+/*
 const GameBoard = function(container) {     
     const listOfBoard = setGameBoard(9, "board", container);
     const clear = function() {
@@ -542,6 +551,7 @@ const GameBoard = function(container) {
     }
     return {listOfBoard, clear}    
 }(gameBoardEl);
+*/
 // interp. 9 square box to play Tic TacToe Game
 /*
 function forGameBoard(gameBoard) {
@@ -641,4 +651,4 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
     })
 }
 
-gamePlay()
+
