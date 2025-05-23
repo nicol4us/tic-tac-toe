@@ -1,16 +1,32 @@
 /**
  * @jest-environment jsdom
  */
-const jsdom = require("jsdom")
-const {JSDOM} = jsdom;
-const dom       = new JSDOM('<!DOCTYPE html><body><div class="container"><h1>Tic Tac Toe Game</h1><div class="game-info"><div class="info-section"><div>Round</div><div>:</div><div id="round"></div></div><div class="info-section"><div>Draw</div><div>:</div><div id="draw"></div></div></div><div class="player-container"><div class="player-one-container"><div class="header">Player 1 ( <span id="playerOneMarker"></span> )</div><div class="player-section"><div class="name">Name</div><div>:</div><input id="inputPlayerOne" type="text" placeholder="Enter your name" required><div id="playerOneName"></div></div> <div class="player-section"><div class="name">Play</div><div>:</div><div id="playerOneState"></div><div id="playerOneLight"></div></div><div class="player-section"><div class="name">Win</div><div>:</div><div id="playerOneWin"></div></div></div><div class="player-two-container"><div class="header">Player 2 ( <span id="playerTwoMarker"></span> )</div><div class="player-section"><div class="name">Name</div><div>:</div><input id="inputPlayerTwo" type="text" placeholder="Enter your name" required><div id="playerTwoName"></div></div><div class="player-section"><div class="name">Play</div><div>:</div><div id="playerTwoState"></div><div id="playerTwoLight"></div></div><div class="player-section"><div class="name">Win</div><div>:</div><div id="playerTwoWin"></div></div></div></div><div class="board-container"><div class="game-board"></div></div><div class="footer"><button id="startButton">Start</button><button id="endButton">End</button></div><dialog><div id="message"></div><button id="close-dialog-button">Close</button></dialog></div></body>');
+const fs = require('fs');
+const path = require('path');
+
+// 1. Define the path to your index.html file
+const htmlFilePath = path.resolve(__dirname, 'index.html');
+
+// 2. Read the HTML file content as a string
+let htmlContent;
+try {
+    htmlContent = fs.readFileSync(htmlFilePath, 'utf8');
+} catch (error) {
+    console.error(`Error reading HTML file: ${error.message}`);
+    process.exit(1); // Exit if file cannot be read
+}
+
+
+
 
 
 const {createRecord} = require('./script')
 
-const record = createRecord();
 
-describe('record', () => {
+
+describe('Record data & method testing', () => {
+    const record = createRecord();
+
     test("input 0 for set method should should save index into listRecord of index 0, 3, 6", () => {
         record.set(0);
         expect(record.listRecord).toEqual([[0], [], [], [0], [], [], [0], []])
@@ -56,3 +72,38 @@ describe('record', () => {
         expect(record.listRecord).toEqual([[], [], [], [], [], [], [], []]);
     })
 })
+
+
+describe("Player data & method testing", () => {
+    let playerTester;
+
+    // Set up the DOM before each test
+    beforeEach(() => {
+        // 1. Clear the DOM and load the HTML content
+        document.body.innerHTML = htmlContent;
+
+        // 2. IMPORTANT: Reset module cache and re-import/require your JS
+        // This ensures the factory function runs against the newly loaded DOM
+        jest.resetModules();
+        const { createPlayer: reLoadedCreateMyPlayer } = require('./script');
+        playerTester = reLoadedCreateMyPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan"); // Re-create the object with the new DOM context
+    });
+
+    afterEach(() => {
+        // Clean up the DOM after each test (optional but good practice)
+        document.body.innerHTML = '';
+    });
+
+    test("Check if initial mark is  empty using getMarker method", () => {
+        expect(playerTester.getMarker()).toBe("")
+    })
+    test("Check setMarker  and getMarker method with X mark", () => {
+        playerTester.setMarker("X")
+        expect(playerTester.getMarker()).toBe("X");
+    })
+    
+   
+
+} )
+
+

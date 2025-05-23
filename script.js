@@ -173,7 +173,7 @@ function funForIndex(index) {
 */
 // Template rule used:
 //  - One of : 9 cases
-//  - Atomic distinct: Number
+//  - Atomic distinct: Numbers
 
 
 // Record data definition & method
@@ -225,7 +225,7 @@ function createRecord() {
    }
     return {listRecord, set, clear} 
 }
-module.exports = {createRecord}
+
 
 /*
 function funForRecord(record) {
@@ -249,8 +249,45 @@ function addIndexToRecord(array, index) {
     });
 }
 
-/*
+// Player Data & Method Definition 
+function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, idWin, color) {
+    const marker = document.querySelector("#" + markerID)   
+    const name = document.querySelector("#" + idName)
+    name.textContent = playerName;
+    const state = document.querySelector("#" + idPlayerState);
+    state.textContent = "OFF";
+    let light = "red";
+    let win = 0;
+    let record = createRecord();    
+    const lightEl = document.querySelector("#"+ idLightState);
+    lightEl.style.backgroundColor = light;
+    const winEl = document.querySelector("#" + idWin) ; 
+    winEl.textContent = win;
+    const setMarker = function(newMarker) {             
+    }  
+    const getMarker = function() {        
+    }
+    const setName = function(newName) {      
+    }
+    const getName = () => name;
+      
+    const changeState = function() {              
+    }    
+    const changeLight = function() {             
+    };   
+    const setWin = function() {        
+    };    
+    const getWin = () => win;    
+    const setToDefault = function() {        
+    }    
+    
+    return {record,color, setMarker, getMarker,setName, getName,changeState, changeLight, setWin, getWin, setToDefault}
+}
+// Example
+// const playerTest = createPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan");
 
+module.exports = {createRecord, createPlayer}
+/*
 // Player Data & Method Definition 
 function createPlayer(marker,playerName, idName, idPlayerState, idLightState, idWin) {
     let name  = playerName;
@@ -322,6 +359,7 @@ function createPlayer(marker,playerName, idName, idPlayerState, idLightState, id
     
     return {marker,record,setMarker,setName, getName,changeState, changeLight, setWin, getWin, setToDefault}
 }
+    
 
 */
 
