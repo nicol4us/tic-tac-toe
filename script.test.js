@@ -141,6 +141,18 @@ describe("Player data & method testing", () => {
         playerTester.setWin()
         expect(playerTester.getWin()).toBe(2);
     })
+    test("Check record.set(index) method with index 4 then record become [[],[4],[],[],[4],[],[4],[4]]", () => {
+        playerTester.record.set(4);
+        expect(playerTester.record).toEqual([[],[4],[],[],[4],[],[4],[4]])
+    })
+    test("Check setToDefault method, marker become empty, state become OFF, light become red, win become 0, record all is empty", () => {
+        playerTester.setToDefault()
+        expect(playerTester.getMarker()).toBe("")
+        expect(playerTester.getState()).toBe("OFF")
+        expect(playerTester.getLight()).toBe("red")
+        expect(playerTester.getWin()).toBe(0)
+        expect(playerTester.record).toEqual([[],[],[],[],[],[],[],[]]);
+    })
    
 
 } )
