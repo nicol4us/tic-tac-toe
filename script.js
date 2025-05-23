@@ -94,8 +94,10 @@ function funForPlayerState(state) {
     switch(state) {
         case "ON" :
             ... ;
+            break;
         case "OFF" :
             ... ;
+            break;
     }
 }
 */
@@ -116,8 +118,10 @@ function funForLightState(light) {
     switch(light) {
         case "red" :
             ... ;
+            break;
         case "green" :
             ... ;
+            break;
     }
 }
 */
@@ -263,26 +267,39 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
     lightEl.style.backgroundColor = light;
     const winEl = document.querySelector("#" + idWin) ; 
     winEl.textContent = win;
-    const setMarker = function(newMarker) {             
+    const setMarker = function(newMarker) { 
+        marker.textContent = newMarker            
     }  
-    const getMarker = function() {        
+    const getMarker = () => marker.textContent     
+    const setName = function(newName) { 
+        name.textContent = newName
     }
-    const setName = function(newName) {      
-    }
-    const getName = function() {
-    };      
-    const changeState = function() {              
+    const getName = () => name.textContent;
+    const changeState = function() {  
+        switch(state.textContent) {
+            case "ON" :
+                state.textContent = "OFF" ;
+                break
+            case "OFF" :
+                state.textContent = "ON" ;
+                break;
+        }            
     } 
-    const getState = function() {        
-    }   
-    const changeLight = function() {             
+    const getState = () => state.textContent;
+    const changeLight = function() {  
+        switch(light) {
+            case "red" :
+                light = "green" ;                
+                break;
+            case "green" :
+                light = "red" ;                
+                break;
+        }
+        lightEl.style.backgroundColor = light;           
     };   
-    const getLight = function() {        
-    }
-    const setWin = function() {        
-    };    
-    const getWin = function() {        
-    };    
+    const getLight = () => light
+    const setWin = () => win++; 
+    const getWin = () => win;  
     const setToDefault = function() {        
     }        
     return {record,color, setMarker, getMarker,setName, getName,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}

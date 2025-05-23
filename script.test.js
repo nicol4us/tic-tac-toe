@@ -143,15 +143,15 @@ describe("Player data & method testing", () => {
     })
     test("Check record.set(index) method with index 4 then record become [[],[4],[],[],[4],[],[4],[4]]", () => {
         playerTester.record.set(4);
-        expect(playerTester.record).toEqual([[],[4],[],[],[4],[],[4],[4]])
+        expect(playerTester.record.listRecord).toEqual([[],[4],[],[],[4],[],[4],[4]])
     })
-    test("Check setToDefault method, marker become empty, state become OFF, light become red, win become 0, record all is empty", () => {
+    test("Check setToDefault method, marker & name is empty, state is OFF, light is red, win is 0, record all is empty", () => {
         playerTester.setToDefault()
         expect(playerTester.getMarker()).toBe("")
         expect(playerTester.getState()).toBe("OFF")
         expect(playerTester.getLight()).toBe("red")
         expect(playerTester.getWin()).toBe(0)
-        expect(playerTester.record).toEqual([[],[],[],[],[],[],[],[]]);
+        expect(playerTester.record.listRecord).toEqual([[],[],[],[],[],[],[],[]]);
     })
    
 
