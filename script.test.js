@@ -101,6 +101,13 @@ describe("Player data & method testing", () => {
         playerTester.setMarker("X")
         expect(playerTester.getMarker()).toBe("X");
     })
+    test('Check if getName method return "Tester"', () => {
+        expect(playerTester.getName()).toBe("Tester")
+    })
+    test('Check setName method', () => {
+        playerTester.seName("Trial");
+        expect(playerTester.getName()).toBe("Trial")
+    })
     
    
 
