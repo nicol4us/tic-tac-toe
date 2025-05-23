@@ -126,11 +126,21 @@ describe("Player data & method testing", () => {
         playerTester.changeLight();
         expect(playerTester.getLight).toBe("green")
     })
-    test("check changeLight method, from green become red", () => {
+    test("Check changeLight method, from green become red", () => {
         playerTester.changeLight();
         expect(playerTester.getLight()).toBe("red")
     })
-    
+    test("Check getWin method, initial value should be 0", () => {
+        expect(playerTester.getWin()).toBe(0);
+    })
+    test("Check setWin method, it should increase 1 from previous value  become 1", () => {
+        playerTester.setWin();
+        expect(playerTester.getWin()).toBe(1)
+    })
+    test("Check setWin method, it should increase from previous value become 2", () => {
+        playerTester.setWin()
+        expect(playerTester.getWin()).toBe(2);
+    })
    
 
 } )
