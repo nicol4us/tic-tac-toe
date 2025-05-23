@@ -269,19 +269,23 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
     }
     const setName = function(newName) {      
     }
-    const getName = () => name;
-      
+    const getName = function() {
+    };      
     const changeState = function() {              
-    }    
+    } 
+    const getState = function() {        
+    }   
     const changeLight = function() {             
     };   
+    const getLight = function() {        
+    }
     const setWin = function() {        
     };    
-    const getWin = () => win;    
+    const getWin = function() {        
+    };    
     const setToDefault = function() {        
-    }    
-    
-    return {record,color, setMarker, getMarker,setName, getName,changeState, changeLight, setWin, getWin, setToDefault}
+    }        
+    return {record,color, setMarker, getMarker,setName, getName,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
 // Example
 // const playerTest = createPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan");

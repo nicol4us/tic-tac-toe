@@ -108,6 +108,28 @@ describe("Player data & method testing", () => {
         playerTester.seName("Trial");
         expect(playerTester.getName()).toBe("Trial")
     })
+    test("Check getState method, initial value is OFF", () => {
+        expect(playerTester.getState()).toBe("OFF")
+    })
+    test("Check changeState method, from OFF become ON", () => {
+        playerTester.changeState();
+        expect(playerTester.getState()).toBe("ON")
+    })
+    test("Check changeState method, from ON become OFF", () => {
+        playerTester.changeState();
+        expect(playerTester.getState()).toBe("OFF")
+    })
+    test("Check getLight method, initial value should be red", () => {
+        expect(playerTester.getLight()).toBe("red")
+    })
+    test("Check changeLight method, from red become green", () => {
+        playerTester.changeLight();
+        expect(playerTester.getLight).toBe("green")
+    })
+    test("check changeLight method, from green become red", () => {
+        playerTester.changeLight();
+        expect(playerTester.getLight()).toBe("red")
+    })
     
    
 
