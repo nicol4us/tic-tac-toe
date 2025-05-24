@@ -255,20 +255,20 @@ function addIndexToRecord(array, index) {
 
 // Player Data & Method Definition 
 function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, idWin, color) {
-    const marker = document.querySelector("#" + markerID) 
-    marker.style.color = color  
-    const name = document.querySelector("#" + idName)
-    name.textContent = playerName;
-    const state = document.querySelector("#" + idPlayerState);
-    state.textContent = "OFF";
-    let light = "red";
-    let win = 0;
-    let record = createRecord();    
-    const lightEl = document.querySelector("#"+ idLightState);
+    const marker        = document.querySelector("#" + markerID) 
+    marker.style.color  = color  
+    const name          = document.querySelector("#" + idName)
+    name.textContent    = playerName;
+    const state         = document.querySelector("#" + idPlayerState);
+    state.textContent   = "OFF";
+    let light           = "red";
+    let win             = 0;
+    let record          = createRecord();    
+    const lightEl       = document.querySelector("#"+ idLightState);
     lightEl.style.backgroundColor = light;
-    const winEl = document.querySelector("#" + idWin) ; 
-    winEl.textContent = win;
-    const setMarker = function(newMarker) { 
+    const winEl         = document.querySelector("#" + idWin) ; 
+    winEl.textContent   = win;
+    const setMarker     = function(newMarker) { 
         marker.textContent = newMarker            
     }  
     const getMarker = () => marker.textContent     
@@ -298,22 +298,47 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
         }
         lightEl.style.backgroundColor = light;           
     };   
-    const getLight = () => light
-    const setWin = () => win++; 
-    const getWin = () => win;  
+    const getLight  = () => light
+    const setWin    = () => win++; 
+    const getWin    = () => win;  
     const setToDefault = function() {    
-        marker.textContent = "" ;
-        name.textContent = "";
-        state.textContent = "OFF"   
-        light = "red"
-        win = 0;
-        record.clear()
+        marker.textContent  = "" ;
+        name.textContent    = "";
+        state.textContent   = "OFF"   
+        light               = "red"
+        win                 = 0;
+        record.clear();
 
     }        
     return {record,color, setMarker, getMarker,setName, getName,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
 // Example
 // const playerTest = createPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan");
+/*
+function funForPlayer(player) {
+    ... funForRecord(player.record);
+    ... player.color;
+    ... player.setMarker(marker);
+    ... funForMarker(player.getMarker());
+    ... player.setName(name);
+    ... funForName(player.getName());
+    ... player.changeState();
+    ... funForState(player.getState());
+    ... player.changeLight();
+    ... funForLight(player.getLight());
+    ... player.setWin();
+    ... funForWin(player.getWin());
+    ... player.setToDefault();
+}
+*/
+// Template rule used:
+//  - Compound data
+//  - Reference : Record
+//  - Reference : Marker
+//  - Reference : Name
+//  - Reference : State
+//  - Reference : Light
+//  - Reference : Win 
 
 module.exports = {createRecord, createPlayer}
 /*
