@@ -255,7 +255,8 @@ function addIndexToRecord(array, index) {
 
 // Player Data & Method Definition 
 function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, idWin, color) {
-    const marker = document.querySelector("#" + markerID)   
+    const marker = document.querySelector("#" + markerID) 
+    marker.style.color = color  
     const name = document.querySelector("#" + idName)
     name.textContent = playerName;
     const state = document.querySelector("#" + idPlayerState);
@@ -300,7 +301,14 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
     const getLight = () => light
     const setWin = () => win++; 
     const getWin = () => win;  
-    const setToDefault = function() {        
+    const setToDefault = function() {    
+        marker.textContent = "" ;
+        name.textContent = "";
+        state.textContent = "OFF"   
+        light = "red"
+        win = 0;
+        record.clear()
+
     }        
     return {record,color, setMarker, getMarker,setName, getName,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
