@@ -71,14 +71,15 @@ function  fnForMarker(marker) {
     switch(marker) {        
         case "X":
             ... ;
+            break;
         case "O":
             ... ;
+            break;
     }
 }
 */
 // Template rule used:
-//  - One of: 2 cases
-//  - Atomic distinct: empty
+//  - One of: 2 cases 
 //  - Atomic distinct: "X"
 //  - Atomic distinct: "O"
 
