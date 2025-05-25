@@ -455,6 +455,61 @@ function funForBoardRecord(boardRecord) {
 
 
 // GameState data & method definition 
+
+const GameState = function() {
+    let playerON;
+    let flag            = false;
+    let round           = 0;
+    let draw            = 0;
+    let boardRecord     = [];
+    const playerOne     = createPlayer("X", "Dhika", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
+    const playerTwo     = createPlayer("O", "Evan", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");    
+    const roundEl       = document.querySelector("#round");
+    roundEl.textContent = round;
+    const drawEl        = document.querySelector("#draw");
+    drawEl.textContent  = draw;    
+    const start = function() {        
+    }
+    const changePlayer = function() {        
+    }
+    const getPlayerON = function() {        
+    };
+    const setRound = function() {        
+    };
+    const getRound = function() {        
+    };
+    const setDraw = function() {        
+    };
+    const getDraw = function() {        
+    };
+    const isPlayerWin = function() {         
+    }
+    const setToInitial = function() {        
+    }
+    const hasEmptyBoard = function() {        
+    }
+    return {flag,playerOne, playerTwo, boardRecord,start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial, hasEmptyBoard};
+}();
+
+/*
+function funForGameState(gameState) {
+    ... gameState.flag;
+    ... gameState.playerOne;
+    ... gameState.playerTwo;
+    ... gameState.boardRecord;
+    ... gameState.start();
+    ... gameState.changePlayer();
+    ... funForPlayer(gameState.getPlayerON);
+    ... gameState.setRound();
+    ... gameState.getRound();
+    ... gameState.setDraw();
+    ... gameState.getDraw();
+    ... gameState.isPlayerWin();
+    ... gameState.setToInitial();
+}
+*/
+
+// GameState data & method definition 
 /*
 const GameState = function() {
     let playerON;
