@@ -341,7 +341,7 @@ function funForPlayer(player) {
 //  - Reference : Light
 //  - Reference : Win 
 
-module.exports = {createRecord, createPlayer}
+
 /*
 // Player Data & Method Definition 
 function createPlayer(marker,playerName, idName, idPlayerState, idLightState, idWin) {
@@ -462,8 +462,8 @@ const GameState = function() {
     let round           = 0;
     let draw            = 0;
     let boardRecord     = [];
-    const playerOne     = createPlayer("X", "Dhika", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin");
-    const playerTwo     = createPlayer("O", "Evan", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin");    
+    const playerOne     = createPlayer("playerOneMarker","", "playerOneName", "playerOneState", "playerOneLight","playerOneWin", "cyan");
+    const playerTwo     = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue");    
     const roundEl       = document.querySelector("#round");
     roundEl.textContent = round;
     const drawEl        = document.querySelector("#draw");
@@ -489,7 +489,7 @@ const GameState = function() {
     const hasEmptyBoard = function() {        
     }
     return {flag,playerOne, playerTwo, boardRecord,start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial, hasEmptyBoard};
-}();
+};
 
 /*
 function funForGameState(gameState) {
@@ -508,6 +508,8 @@ function funForGameState(gameState) {
     ... gameState.setToInitial();
 }
 */
+
+module.exports = {createRecord, createPlayer, GameState}
 
 // GameState data & method definition 
 /*

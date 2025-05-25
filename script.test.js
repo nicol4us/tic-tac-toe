@@ -160,9 +160,32 @@ describe("Player data & method testing", () => {
         expect(playerTester.getLight()).toBe("red")
         expect(playerTester.getWin()).toBe(0)
         expect(playerTester.record.listRecord).toEqual([[],[],[],[],[],[],[],[]]);
-    })
-   
-
+    }) 
 } )
 
+
+describe("GameState data & method testing", () => {
+    let GameStateTester;
+
+    // Set up the DOM before each test
+    beforeEach(() => {
+        // 1. Clear the DOM and load the HTML content
+        document.body.innerHTML = htmlContent;
+
+        // 2. IMPORTANT: Reset module cache and re-import/require your JS
+        // This ensures the factory function runs against the newly loaded DOM
+        jest.resetModules();
+        const {GameState: reLoadedGameState } = require('./script');
+        GameStateTester = reLoadedGameState()// Re-create the object with the new DOM context
+    });
+
+    afterEach(() => {
+        // Clean up the DOM after each test (optional but good practice)
+        document.body.innerHTML = '';
+    });
+
+    test("Check if GameState flag is false", () => {
+        expect(GameStateTester.flag).toBeFalsy();
+    })
+})
 
