@@ -166,6 +166,7 @@ describe("Player data & method testing", () => {
 
 describe("GameState data & method testing", () => {
     let GameStateTester;
+    let playerTester;
 
     // Set up the DOM before each test
     beforeEach(() => {
