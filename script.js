@@ -460,22 +460,17 @@ const GameState = function() {
     let flag            = false;
     let round           = 0;
     let draw            = 0;
-    let boardRecord     = [];
-    const playerOne     = createPlayer("playerOneMarker","", "playerOneName", "playerOneState", "playerOneLight","playerOneWin", "cyan");
-    const playerTwo     = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue");    
+    let boardRecord     = [];       
     const roundEl       = document.querySelector("#round");
     roundEl.textContent = round;
     const drawEl        = document.querySelector("#draw");
     drawEl.textContent  = draw; 
-    const setPlayerON = function() {        
+    const setPlayerON = function(player) {        
     }
     const getPlayerON = function() {        
     };   
-    const start = function() {        
+    const setPlayerOFF = function(player) {        
     }
-    const changePlayer = function() {        
-    }
-    
     const setRound = function() {        
     };
     const getRound = function() {        
@@ -484,13 +479,13 @@ const GameState = function() {
     };
     const getDraw = function() {        
     };
-    const isPlayerWin = function() {         
+    const isPlayerOnWin = function() {         
     }
     const setToInitial = function() {        
     }
     const hasEmptyBoard = function() {        
     }
-    return {flag,playerOne, playerTwo, boardRecord,setPlayerON, getPlayerON,start,changePlayer,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial, hasEmptyBoard};
+    return {flag,playerOne, playerTwo, boardRecord,setPlayerON, getPlayerON,setPlayerOFF,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard};
 };
 
 /*
