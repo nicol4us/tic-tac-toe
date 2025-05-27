@@ -465,27 +465,48 @@ const GameState = function() {
     roundEl.textContent = round;
     const drawEl        = document.querySelector("#draw");
     drawEl.textContent  = draw; 
-    const setPlayerON = function(player) {        
+    const setPlayerON = function(player) { 
+        playerON = player 
+        changeStateAndLight(player)      
     }
-    const getPlayerON = function() {        
-    };   
-    const setPlayerOFF = function(player) {        
+    const getPlayerON = () => playerON;
+    const setPlayerChange = function(player) {  
+        changeStateAndLight(playerON);
+        playerON = player;
+        changeStateAndLight(playerON) 
     }
-    const setRound = function() {        
+    const setRound = function() {
+        round++;
+        roundEl.textContent = round;
+    }
+    const getRound = () => round;
+    const setDraw = function() {    
+        draw++;
+        drawEl.textContent = draw;    
     };
-    const getRound = function() {        
-    };
-    const setDraw = function() {        
-    };
-    const getDraw = function() {        
-    };
-    const isPlayerOnWin = function() {         
+    const getDraw = () => draw;
+    const isPlayerOnWin = function() {  
+        for(let i=0; i < playerON.record.listRecord.length; i++) {
+            if(playerON.record.listRecord[i].length === 3) {
+                return true
+            }
+        } 
+        return false;     
     }
-    const setToInitial = function() {        
+    const setToInitial = function() {  
+        playerON = undefined;
+        this.flag = false;
+        round = 0;
+        roundEl.textContent = 0
+        draw = 0
+        drawEl.textContent = 0
+        boardRecord.length = 0
+
     }
-    const hasEmptyBoard = function() {        
+    const hasEmptyBoard = function() {    
+        return boardRecord.length < maxBoard
     }
-    return {flag, boardRecord,setPlayerON, getPlayerON,setPlayerOFF,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard};
+    return {flag, boardRecord,setPlayerON, getPlayerON,setPlayerChange,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard};
 };
 
 /*

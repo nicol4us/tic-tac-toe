@@ -167,6 +167,7 @@ describe("Player data & method testing", () => {
 describe("GameState data & method testing", () => {
     let GameStateTester;
     let playerTester;
+    let playerTesterTwo;
 
     // Set up the DOM before each test
     beforeEach(() => {
@@ -179,7 +180,7 @@ describe("GameState data & method testing", () => {
         const {GameState: reLoadedGameState, createPlayer: reLoadedCreateMyPlayer } = require('./script');
         GameStateTester = reLoadedGameState()// Re-create the object with the new DOM context
         playerTester = reLoadedCreateMyPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan"); // Re-create the object with the new DOM context
-        
+        playerTesterTwo = reLoadedCreateMyPlayer("playerTwoMarker", "Tester Two", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
     });
 
     afterEach(() => {
@@ -200,11 +201,13 @@ describe("GameState data & method testing", () => {
         expect(GameStateTester.getPlayerON().getMarker()).toBe("X")
         expect(GameStateTester.getPlayerON().getName()).toBe("Tester")        
     })
-    test("Check setPlayerOFF method", () => {
+    test("Check setPlayerChange method", () => {
         GameStateTester.setPlayerON(playerTester); 
         expect(playerTester.getState()).toBe("ON")
         expect(playerTester.getLight()).toBe("green")
-        GameStateTester.setPlayerOFF(playerTester);
+        GameStateTester.setPlayerChange(playerTesterTwo);
+        expect(playerTesterTwo.getState()).toBe("ON")
+        expect(playerTesterTwo.getLight()).toBe("green")
         expect(playerTester.getState()).toBe("OFF")
         expect(playerTester.getLight()).toBe("red")
     })
@@ -261,16 +264,15 @@ describe("GameState data & method testing", () => {
         GameStateTester.setRound();
         expect(GameStateTester.getRound()).toBe(1)
         GameStateTester.setDraw()
-        expect(GameStateTester.getDraw().toBe(1))
+        expect(GameStateTester.getDraw()).toBe(1)
         GameStateTester.boardRecord.push(0)
         expect(GameStateTester.boardRecord.length).toBe(1)
         GameStateTester.setToInitial()
-        expect(GameStateTester.getPlayerON()).toBeUndefined()
-        expect(GameStateTester.flag).toBeFalsy()
+        expect(GameStateTester.getPlayerON()).toBeUndefined()        
         expect(GameStateTester.getRound()).toBe(0)
         expect(GameStateTester.getDraw()).toBe(0)
+        expect(GameStateTester.flag).toBeFalsy()
         expect(GameStateTester.boardRecord.length).toBe(0)
-
     })
 })
 
