@@ -513,12 +513,12 @@ function funForGameState(gameState) {
     ... gameState.flag;    
     ... gameState.boardRecord;
     ... gameState.setPlayerOn();
-    ... gameState.getPlayerON();
+    ... funForPlayer(gameState.getPlayerON());
     ... gameState.setPlayerChange(player);
     ... gameState.setRound();
-    ... gameState.getRound();
+    ... funForRound(gameState.getRound());
     ... gameState.setDraw();
-    ... gameState.getDraw();
+    ... funForDraw(gameState.getDraw());
     ... gameState.isPlayerOnWin();
     ... gameState.setToInitial();
     ... gameState.hasEmptyBoard();
@@ -527,7 +527,9 @@ function funForGameState(gameState) {
 // Template rule used:
 //  - Compound data
 //  - Reference : Player
-//  
+//  - Reference : Round
+//  - Reference : Draw
+
 
 // Helper Function For GameState 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++
