@@ -175,8 +175,10 @@ describe("GameState data & method testing", () => {
         // 2. IMPORTANT: Reset module cache and re-import/require your JS
         // This ensures the factory function runs against the newly loaded DOM
         jest.resetModules();
-        const {GameState: reLoadedGameState } = require('./script');
+        const {GameState: reLoadedGameState, createPlayer: reLoadedCreateMyPlayer } = require('./script');
         GameStateTester = reLoadedGameState()// Re-create the object with the new DOM context
+        playerTester = reLoadedCreateMyPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan"); // Re-create the object with the new DOM context
+        
     });
 
     afterEach(() => {
@@ -191,15 +193,83 @@ describe("GameState data & method testing", () => {
         GameStateTester.flag = true;
         expect(GameStateTester.flag).toBeTruthy()
     })
-    test("Check start method, Player One will start with X marker", () => {
-        GameStateTester.playerOne.setMarker("X");
-        GameStateTester.playerTwo.setMarker("O");
-        GameStateTester.playerON = GameStateTester.playerOne;
-        GameStateTester.playerON.changeState()
-        GameStateTester.playerON.changeLight();
-        expect(playerON.getMarker()).toBe("X");
-        expect(playerON.getState()).toBe("ON");
-        expect(playerON.getLight()).toBe("green")
+    test("Check setPlayerON & getPlayerON method, Player will start with X marker", () => {
+        playerTester.setMarker("X")
+        GameStateTester.setPlayerON(playerTester)
+        expect(GameStateTester.getPlayerON().getMarker()).toBe("X")
+        expect(GameStateTester.getPlayerON().getName()).toBe("Tester")        
+    })
+    test("Check setPlayerOFF method", () => {
+        GameStateTester.setPlayerON(playerTester); 
+        expect(playerTester.getState()).toBe("ON")
+        expect(playerTester.getLight()).toBe("green")
+        GameStateTester.setPlayerOFF(playerTester);
+        expect(playerTester.getState()).toBe("OFF")
+        expect(playerTester.getLight()).toBe("red")
+    })
+    test("Check setRound & getRound method", () => {
+        expect(GameStateTester.getRound()).toBe(0);
+        GameStateTester.setRound();
+        expect(GameStateTester.getRound()).toBe(1);
+        GameStateTester.setRound();
+        expect(GameStateTester.getRound()).toBe(2)
+    })
+    test("Check setDraw & getDraw method", () => {
+        expect(GameStateTester.getDraw()).toBe(0);
+        GameStateTester.setDraw();
+        expect(GameStateTester.getDraw()).toBe(1);        
+        GameStateTester.setDraw();
+        expect(GameStateTester.getDraw()).toBe(2)
+    })
+    test("Check isPlayerOnWin method", () => {
+        GameStateTester.setPlayerON(playerTester);
+        GameStateTester.getPlayerON().record.set(4);
+        expect(GameStateTester.isPlayerOnWin()).toBeFalsy()
+        GameStateTester.getPlayerON().record.set(1);
+        expect(GameStateTester.isPlayerOnWin()).toBeFalsy()
+        GameStateTester.getPlayerON().record.set(8);
+        expect(GameStateTester.isPlayerOnWin()).toBeFalsy();
+        GameStateTester.getPlayerON().record.set(7);
+        expect(GameStateTester.isPlayerOnWin()).toBeTruthy();        
+    })
+    test("Check if there is available board to play", () => {
+        GameStateTester.boardRecord.push(0) 
+        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
+        GameStateTester.boardRecord.push(1) 
+        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
+        GameStateTester.boardRecord.push(2)
+        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
+        GameStateTester.boardRecord.push(3)
+        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
+        GameStateTester.boardRecord.push(4);
+        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
+        GameStateTester.boardRecord.push(5) 
+        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
+        GameStateTester.boardRecord.push(6)
+        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
+        GameStateTester.boardRecord.push(7)
+        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
+        GameStateTester.boardRecord.push(8);
+        expect(GameStateTester.hasEmptyBoard()).toBeFalsy()
+    })
+    test("Ceck setToInitial method, playerON is undefined, round and draw is both 0, flag is false, boardRecord is empty", () => {
+        GameStateTester.setPlayerON(playerTester);
+        expect(GameStateTester.getPlayerON()).toBeDefined()
+        GameStateTester.flag = true;
+        expect(GameStateTester.flag).toBeTruthy()
+        GameStateTester.setRound();
+        expect(GameStateTester.getRound()).toBe(1)
+        GameStateTester.setDraw()
+        expect(GameStateTester.getDraw().toBe(1))
+        GameStateTester.boardRecord.push(0)
+        expect(GameStateTester.boardRecord.length).toBe(1)
+        GameStateTester.setToInitial()
+        expect(GameStateTester.getPlayerON()).toBeUndefined()
+        expect(GameStateTester.flag).toBeFalsy()
+        expect(GameStateTester.getRound()).toBe(0)
+        expect(GameStateTester.getDraw()).toBe(0)
+        expect(GameStateTester.boardRecord.length).toBe(0)
+
     })
 })
 

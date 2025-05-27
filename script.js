@@ -485,7 +485,7 @@ const GameState = function() {
     }
     const hasEmptyBoard = function() {        
     }
-    return {flag,playerOne, playerTwo, boardRecord,setPlayerON, getPlayerON,setPlayerOFF,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard};
+    return {flag, boardRecord,setPlayerON, getPlayerON,setPlayerOFF,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard};
 };
 
 /*
