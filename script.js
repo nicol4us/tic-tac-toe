@@ -508,24 +508,36 @@ const GameState = function() {
     }
     return {flag, boardRecord,setPlayerON, getPlayerON,setPlayerChange,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard};
 };
-
 /*
 function funForGameState(gameState) {
-    ... gameState.flag;
-    ... gameState.playerOne;
-    ... gameState.playerTwo;
+    ... gameState.flag;    
     ... gameState.boardRecord;
-    ... gameState.start();
-    ... gameState.changePlayer();
-    ... funForPlayer(gameState.getPlayerON);
+    ... gameState.setPlayerOn();
+    ... gameState.getPlayerON();
+    ... gameState.setPlayerChange(player);
     ... gameState.setRound();
     ... gameState.getRound();
     ... gameState.setDraw();
     ... gameState.getDraw();
-    ... gameState.isPlayerWin();
+    ... gameState.isPlayerOnWin();
     ... gameState.setToInitial();
+    ... gameState.hasEmptyBoard();
 }
 */
+// Template rule used:
+//  - Compound data
+//  - Reference : Player
+//  
+
+// Helper Function For GameState 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// (Player) -> ()
+// Change State & Light of Player
+function changeStateAndLight(player) {   
+    player.changeState();
+    player.changeLight();       
+}
 
 module.exports = {createRecord, createPlayer, GameState}
 
@@ -622,15 +634,7 @@ function funForGameState(gameState) {
 
 
 
-// Helper Function For GameState 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// (Player) -> ()
-// Change State & Light of Player
-function changeStateAndLight(player) {   
-    player.changeState();
-    player.changeLight();       
-}
 
 
 
