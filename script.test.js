@@ -187,5 +187,19 @@ describe("GameState data & method testing", () => {
     test("Check if GameState flag is false", () => {
         expect(GameStateTester.flag).toBeFalsy();
     })
+    test("Check if GameState become true after new declaration", () => {
+        GameStateTester.flag = true;
+        expect(GameStateTester.flag).toBeTruthy()
+    })
+    test("Check start method, Player One will start with X marker", () => {
+        GameStateTester.playerOne.setMarker("X");
+        GameStateTester.playerTwo.setMarker("O");
+        GameStateTester.playerON = GameStateTester.playerOne;
+        GameStateTester.playerON.changeState()
+        GameStateTester.playerON.changeLight();
+        expect(playerON.getMarker()).toBe("X");
+        expect(playerON.getState()).toBe("ON");
+        expect(playerON.getLight()).toBe("green")
+    })
 })
 

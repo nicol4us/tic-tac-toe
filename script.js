@@ -455,7 +455,6 @@ function funForBoardRecord(boardRecord) {
 
 
 // GameState data & method definition 
-
 const GameState = function() {
     let playerON;
     let flag            = false;
@@ -467,13 +466,16 @@ const GameState = function() {
     const roundEl       = document.querySelector("#round");
     roundEl.textContent = round;
     const drawEl        = document.querySelector("#draw");
-    drawEl.textContent  = draw;    
+    drawEl.textContent  = draw; 
+    const setPlayerON = function() {        
+    }
+    const getPlayerON = function() {        
+    };   
     const start = function() {        
     }
     const changePlayer = function() {        
     }
-    const getPlayerON = function() {        
-    };
+    
     const setRound = function() {        
     };
     const getRound = function() {        
@@ -488,7 +490,7 @@ const GameState = function() {
     }
     const hasEmptyBoard = function() {        
     }
-    return {flag,playerOne, playerTwo, boardRecord,start,changePlayer, getPlayerON ,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial, hasEmptyBoard};
+    return {flag,playerOne, playerTwo, boardRecord,setPlayerON, getPlayerON,start,changePlayer,setRound, getRound, setDraw, getDraw, isPlayerWin, setToInitial, hasEmptyBoard};
 };
 
 /*
