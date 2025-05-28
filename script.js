@@ -541,7 +541,7 @@ function changeStateAndLight(player) {
     player.changeLight();       
 }
 
-module.exports = {createRecord, createPlayer, GameState}
+
 
 // GameState data & method definition 
 /*
@@ -636,10 +636,6 @@ function funForGameState(gameState) {
 
 
 
-
-
-
-
 // Board Data Definition
 function createBoard(indexList, className) {
     const index = indexList;
@@ -711,11 +707,9 @@ function funForResult(result) {
     }
 }
 */
-
-
+   
 
 // GameBoard Data & Method definition
-/*
 const GameBoard = function(container) {     
     const listOfBoard = setGameBoard(9, "board", container);
     const clear = function() {
@@ -724,8 +718,7 @@ const GameBoard = function(container) {
         }        
     }
     return {listOfBoard, clear}    
-}(gameBoardEl);
-*/
+}; 
 // interp. 9 square box to play Tic TacToe Game
 /*
 function forGameBoard(gameBoard) {
@@ -826,3 +819,4 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
 }
 
 
+module.exports = {createRecord, createPlayer, GameState}
