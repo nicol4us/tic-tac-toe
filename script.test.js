@@ -20,11 +20,16 @@ try {
 
 
 
-const {createRecord} = require('./script')
+
 
 
 
 describe('Record data & method testing', () => {
+    beforeEach(() => {
+        document.body.innerHTML = '';
+        
+    });
+    const {createRecord} = require('./script')
     const record = createRecord();
 
     test("input 0 for set method should should save index into listRecord of index 0, 3, 6", () => {
