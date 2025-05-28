@@ -455,7 +455,7 @@ function funForBoardRecord(boardRecord) {
 
 
 // GameState data & method definition 
-const GameState = function() {
+ const GameState = function() {
     let playerON;
     let flag            = false;
     let round           = 0;
@@ -819,4 +819,10 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
 }
 
 
-module.exports = {createRecord, createPlayer, GameState}
+//module.exports = {}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        createRecord, createPlayer, GameState
+    };
+  }
