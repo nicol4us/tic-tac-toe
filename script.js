@@ -732,13 +732,17 @@ function setGameBoard(number, className, container) {
 
 // Functions Declaration 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function gamePlay() {
-    GameState.flag = true;
-    GameState.start();
-    setBoardListener(GameBoard, GameState, Message)
+
+// () -> ()
+// To initiate the Game
+function main() {
+    const playerOne = createPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+    const playerTwo = createPlayer("playerTwoMarker", "Tester Two", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
+    const gameState = GameState()
+    const gameBoard = GameBoard(gameBoardEl);
+
+    
 }
-
-
 
 
 // (GameBoard, GameState, Message) -> ()
