@@ -717,7 +717,6 @@ function forGameBoard(gameBoard) {
 
 // GameBoard helper function
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 // (Number, String, Element) -> Array
 // To produce listofBoard according to the number
 function setGameBoard(number, className, container) {
@@ -807,6 +806,6 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer, GameState
+        createRecord, createPlayer, GameState, GameBoard
     };
   }

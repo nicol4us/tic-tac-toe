@@ -284,3 +284,49 @@ describe("GameState data & method testing", () => {
     })
 })
 
+
+describe("GameBoard testing", () => {
+    let gameBoardTester;
+
+    // Set up the DOM before each test
+    beforeEach(() => {
+        // 1. Clear the DOM and load the HTML content
+        document.body.innerHTML = htmlContent;
+
+        // 2. IMPORTANT: Reset module cache and re-import/require your JS
+        // This ensures the factory function runs against the newly loaded DOM
+        jest.resetModules();
+        const { GameBoard: reLoadedGameBoard } = require('./script');
+        const gameBoardEl = document.querySelector(".game-board")
+        gameBoardTester = reLoadedGameBoard(gameBoardEl); // Re-create the object with the new DOM context
+    });
+
+    afterEach(() => {
+        // Clean up the DOM after each test (optional but good practice)
+        document.body.innerHTML = '';
+    });
+
+    describe("Test listOfBoard attribute of GameBoard", () => {
+        test("Check if there is 9 board available", () => {           
+            expect(gameBoardTester.listOfBoard.length).toBe(9);
+        })
+        test("Check if we can put some marker into one of the board", () => {
+            gameBoardTester.listOfBoard[0].textContent = "O";
+            expect(gameBoardTester.listOfBoard[0].textContent).toBe("O")
+        })
+    })
+    describe("Test clear method of GameBoard", () => {
+        test("Check if we can erase all marker after we put all mark into GameBoard", () => {
+            gameBoardTester.listOfBoard[0].textContent = "X"
+            expect(gameBoardTester.listOfBoard[0].textContent).toBe("X")
+            gameBoardTester.listOfBoard[1].textContent = "O"
+            expect(gameBoardTester.listOfBoard[1].textContent).toBe("O")
+            gameBoardTester.listOfBoard[2].textContent = "X"
+            expect(gameBoardTester.listOfBoard[2].textContent).toBe("X")
+            gameBoardTester.listOfBoard[3].textContent = "O"
+            expect(gameBoardTester.listOfBoard[3].textContent).toBe("O")
+            gameBoardTester.listOfBoard[4].textContent = "X"
+            expect(gameBoardTester.listOfBoard[4].textContent).toBe("X")
+        })
+    })
+})
