@@ -655,6 +655,7 @@ function funforBoard(board) {
 
 
 
+
 // Message is 
 const Message = function(dialogTag, messageID, buttonID) {
     const dialog        = document.querySelector(dialogTag);
@@ -707,19 +708,17 @@ const GameBoard = function(container) {
 // interp. 9 square box to play Tic TacToe Game
 /*
 function forGameBoard(gameBoard) {
-    ... funForListOfBoard(gameBoard.listOfBoard)
+    ... gameBoard.listOfBoard;
     ... gameBoard.clear();
     }
 */
 // Template rule used:
 //  - Compound data
-//  - Reference : ListOfBoard
-
 
 // GameBoard helper function
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// (Number, GameState, Element) -> Array
+// (Number, String, Element) -> Array
 // To produce listofBoard according to the number
 function setGameBoard(number, className, container) {
     const listBoard = [];
