@@ -654,31 +654,14 @@ function funforBoard(board) {
 
 
 
-// ListOfBoard is 9 of Board
-// interp. 9 Board to play the game
-/*
-function funForListOfBoard(listOfBoard) {
-    for(let i = 0; i < listOfBoard.length; i++) {
-        ... funForBoard(listOfBoard[i]) {                
-        }
-    }
-}
-*/
-// Template rule used:
-//  - Array of loop
-//  - Reference : Board
-
-
 
 // Message is 
-/*
 const Message = function(dialogTag, messageID, buttonID) {
     const dialog        = document.querySelector(dialogTag);
     const text          = document.querySelector(messageID);
     const closeButton   = document.querySelector(buttonID);
     return {dialog, text, closeButton}
 }("dialog", "#message", "#close-dialog-button");
-*/
 // interp. Dialog Element to send message if player win or get draw
 /*
 function funForMessage(message) {
@@ -707,6 +690,8 @@ function funForResult(result) {
     }
 }
 */
+// Template rule used:
+//  - One of: 2 cases
    
 
 // GameBoard Data & Method definition
