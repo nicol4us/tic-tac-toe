@@ -311,22 +311,41 @@ describe("GameBoard testing", () => {
             expect(gameBoardTester.listOfBoard.length).toBe(9);
         })
         test("Check if we can put some marker into one of the board", () => {
-            gameBoardTester.listOfBoard[0].textContent = "O";
-            expect(gameBoardTester.listOfBoard[0].textContent).toBe("O")
+            gameBoardTester.listOfBoard[0].boardEl.textContent = "O";
+            expect(gameBoardTester.listOfBoard[0].boardEl.textContent).toBe("O")
         })
     })
     describe("Test clear method of GameBoard", () => {
         test("Check if we can erase all marker after we put all mark into GameBoard", () => {
-            gameBoardTester.listOfBoard[0].textContent = "X"
-            expect(gameBoardTester.listOfBoard[0].textContent).toBe("X")
-            gameBoardTester.listOfBoard[1].textContent = "O"
-            expect(gameBoardTester.listOfBoard[1].textContent).toBe("O")
-            gameBoardTester.listOfBoard[2].textContent = "X"
-            expect(gameBoardTester.listOfBoard[2].textContent).toBe("X")
-            gameBoardTester.listOfBoard[3].textContent = "O"
-            expect(gameBoardTester.listOfBoard[3].textContent).toBe("O")
-            gameBoardTester.listOfBoard[4].textContent = "X"
-            expect(gameBoardTester.listOfBoard[4].textContent).toBe("X")
+            gameBoardTester.listOfBoard[0].boardEl.textContent = "X"
+            expect(gameBoardTester.listOfBoard[0].boardEl.textContent).toBe("X")            
+            gameBoardTester.listOfBoard[1].boardEl.textContent = "O"
+            expect(gameBoardTester.listOfBoard[1].boardEl.textContent).toBe("O")
+            gameBoardTester.listOfBoard[2].boardEl.textContent = "X"
+            expect(gameBoardTester.listOfBoard[2].boardEl.textContent).toBe("X")
+            gameBoardTester.listOfBoard[3].boardEl.textContent = "O"
+            expect(gameBoardTester.listOfBoard[3].boardEl.textContent).toBe("O")
+            gameBoardTester.listOfBoard[4].boardEl.textContent = "X"
+            expect(gameBoardTester.listOfBoard[4].boardEl.textContent).toBe("X")
+            gameBoardTester.listOfBoard[5].boardEl.textContent = "O"
+            expect(gameBoardTester.listOfBoard[5].boardEl.textContent).toBe("O")
+            gameBoardTester.listOfBoard[6].boardEl.textContent = "X"
+            expect(gameBoardTester.listOfBoard[6].boardEl.textContent).toBe("X")
+            gameBoardTester.listOfBoard[7].boardEl.textContent = "O"
+            expect(gameBoardTester.listOfBoard[7].boardEl.textContent).toBe("O")
+            gameBoardTester.listOfBoard[8].boardEl.textContent = "X"
+            expect(gameBoardTester.listOfBoard[8].boardEl.textContent).toBe("X")            
+            gameBoardTester.clear();
+            expect(gameBoardTester.listOfBoard[0].boardEl.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[1].boardEl.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[2].boardEl.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[3].boardEl.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[4].boardEl.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[5].boardEl.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[6].boardEl.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[7].boardEl.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[8].boardEl.textContent).toBe("")
+            
         })
     })
 })
