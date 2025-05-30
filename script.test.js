@@ -99,72 +99,75 @@ describe("Player data & method testing", () => {
         document.body.innerHTML = '';
     });
 
-    test("Check if initial mark is  empty using getMarker method", () => {
-        expect(playerTester.getMarker()).toBe("")
+    describe("Testing Create Player factory method", () => {    
+
+        test("Check if initial mark is  empty using getMarker method", () => {
+            expect(playerTester.getMarker()).toBe("")
+        })
+        test("Check setMarker  and getMarker method with X mark", () => {
+            playerTester.setMarker("X")
+            expect(playerTester.getMarker()).toBe("X");
+        })
+        test('Check if getName method return "Tester"', () => {
+            expect(playerTester.getName()).toBe("Tester")
+        })
+        test('Check setName method', () => {
+            playerTester.setName("Trial");
+            expect(playerTester.getName()).toBe("Trial")
+        })
+        test("Check getState method, initial value is OFF", () => {
+            expect(playerTester.getState()).toBe("OFF")
     })
-    test("Check setMarker  and getMarker method with X mark", () => {
-        playerTester.setMarker("X")
-        expect(playerTester.getMarker()).toBe("X");
-    })
-    test('Check if getName method return "Tester"', () => {
-        expect(playerTester.getName()).toBe("Tester")
-    })
-    test('Check setName method', () => {
-        playerTester.setName("Trial");
-        expect(playerTester.getName()).toBe("Trial")
-    })
-    test("Check getState method, initial value is OFF", () => {
-        expect(playerTester.getState()).toBe("OFF")
-    })
-    test("Check changeState method, from OFF become ON", () => {
-        playerTester.changeState();
-        expect(playerTester.getState()).toBe("ON")
-        playerTester.changeState();
-        expect(playerTester.getState()).toBe("OFF")
-    })    
-    test("Check getLight method, initial value should be red", () => {
-        expect(playerTester.getLight()).toBe("red")
-    })
-    test("Check changeLight method, from red become green and then from green to red", () => {
-        expect(playerTester.getLight()).toBe("red");
-        playerTester.changeLight();        
-        expect(playerTester.getLight()).toBe("green")
-        playerTester.changeLight();
-        expect(playerTester.getLight()).toBe("red");
-    })    
-    test("Check getWin method, initial value should be 0", () => {
-        expect(playerTester.getWin()).toBe(0);
-    })
-    test("Check setWin method, it should increase 1 from previous value", () => {
-        playerTester.setWin();
-        expect(playerTester.getWin()).toBe(1)
-        playerTester.setWin()
-        expect(playerTester.getWin()).toBe(2)
-    })    
-    test("Check record.set(index) method with index 4 then record become [[],[4],[],[],[4],[],[4],[4]]", () => {
-        playerTester.record.set(4);
-        expect(playerTester.record.listRecord).toEqual([[],[4],[],[],[4],[],[4],[4]])
-    })
-    test("Check setToDefault method, marker & name is empty, state is OFF, light is red, win is 0, record all is empty", () => {
-        playerTester.setMarker("X") // Initialiaze marker
-        expect(playerTester.getMarker()).toBe("X")
-        playerTester.setName("TrialName") // Initialize name
-        expect(playerTester.getName()).toBe("TrialName")
-        playerTester.changeState(); // Change state from OFF to ON
-        expect(playerTester.getState()).toBe("ON")
-        playerTester.changeLight(); // Change light from red to green
-        expect(playerTester.getLight()).toBe("green")
-        playerTester.setWin() // Increase win count
-        expect(playerTester.getWin()).toBe(1)
-        playerTester.record.set(0) // Input index 0 into record
-        expect(playerTester.record.listRecord).toEqual([[0],[],[],[0],[],[],[0],[]])
-        playerTester.setToDefault()
-        expect(playerTester.getMarker()).toBe("")
-        expect(playerTester.getName()).toBe("")
-        expect(playerTester.getState()).toBe("OFF")
-        expect(playerTester.getLight()).toBe("red")
-        expect(playerTester.getWin()).toBe(0)
-        expect(playerTester.record.listRecord).toEqual([[],[],[],[],[],[],[],[]]);
+        test("Check changeState method, from OFF become ON", () => {
+            playerTester.changeState();
+            expect(playerTester.getState()).toBe("ON")
+            playerTester.changeState();
+            expect(playerTester.getState()).toBe("OFF")
+        })    
+        test("Check getLight method, initial value should be red", () => {
+            expect(playerTester.getLight()).toBe("red")
+        })
+        test("Check changeLight method, from red become green and then from green to red", () => {
+            expect(playerTester.getLight()).toBe("red");
+            playerTester.changeLight();        
+            expect(playerTester.getLight()).toBe("green")
+            playerTester.changeLight();
+            expect(playerTester.getLight()).toBe("red");
+        })    
+        test("Check getWin method, initial value should be 0", () => {
+            expect(playerTester.getWin()).toBe(0);
+        })
+        test("Check setWin method, it should increase 1 from previous value", () => {
+            playerTester.setWin();
+            expect(playerTester.getWin()).toBe(1)
+            playerTester.setWin()
+            expect(playerTester.getWin()).toBe(2)
+        })    
+        test("Check record.set(index) method with index 4 then record become [[],[4],[],[],[4],[],[4],[4]]", () => {
+            playerTester.record.set(4);
+            expect(playerTester.record.listRecord).toEqual([[],[4],[],[],[4],[],[4],[4]])
+        })
+        test("Check setToDefault method, marker & name is empty, state is OFF, light is red, win is 0, record all is empty", () => {
+            playerTester.setMarker("X") // Initialiaze marker
+            expect(playerTester.getMarker()).toBe("X")
+            playerTester.setName("TrialName") // Initialize name
+            expect(playerTester.getName()).toBe("TrialName")
+            playerTester.changeState(); // Change state from OFF to ON
+            expect(playerTester.getState()).toBe("ON")
+            playerTester.changeLight(); // Change light from red to green
+            expect(playerTester.getLight()).toBe("green")
+            playerTester.setWin() // Increase win count
+            expect(playerTester.getWin()).toBe(1)
+            playerTester.record.set(0) // Input index 0 into record
+            expect(playerTester.record.listRecord).toEqual([[0],[],[],[0],[],[],[0],[]])
+            playerTester.setToDefault()
+            expect(playerTester.getMarker()).toBe("")
+            expect(playerTester.getName()).toBe("")
+            expect(playerTester.getState()).toBe("OFF")
+            expect(playerTester.getLight()).toBe("red")
+            expect(playerTester.getWin()).toBe(0)
+            expect(playerTester.record.listRecord).toEqual([[],[],[],[],[],[],[],[]]);
+        })
     }) 
 } )
 
