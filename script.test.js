@@ -349,3 +349,43 @@ describe("GameBoard testing", () => {
         })
     })
 })
+
+
+describe("main() function testing", () => {
+
+    // Set up the DOM before each test
+    beforeEach(() => {
+        // 1. Clear the DOM and load the HTML content
+        document.body.innerHTML = htmlContent;
+
+        // 2. IMPORTANT: Reset module cache and re-import/require your JS
+        // This ensures the factory function runs against the newly loaded DOM
+        jest.resetModules();
+        const { main } = require('./script');
+        main()
+        const round = document.querySelector("#round")
+        const draw  = document.querySelector("#draw")
+        const firstPlayerMarker     = document.querySelector("#playerOneMarker")
+        
+    });
+
+    afterEach(() => {
+        // Clean up the DOM after each test (optional but good practice)
+        document.body.innerHTML = '';
+    });
+
+    describe("Testing Game Info section", () => {
+        
+        test("Check if round number start with 0", () => {
+            expect(round.textContent).toBe("0")
+        })
+        
+        test("Check if draw number start with 0", () => {
+            expect(draw.textContent).toBe("0")
+        })
+        console.log(firstPlayerMarker)
+       
+        
+    })
+
+})

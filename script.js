@@ -810,6 +810,6 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer, GameState, GameBoard
+        createRecord, createPlayer, GameState, GameBoard, main
     };
   }
