@@ -1,8 +1,12 @@
 /**
  * @jest-environment jsdom
  */
+
+
+
 const fs = require('fs');
 const path = require('path');
+const { library } = require('webpack');
 
 // 1. Define the path to your index.html file
 const htmlFilePath = path.resolve(__dirname, 'index.html');
@@ -386,6 +390,9 @@ describe("main function testing", () => {
         })
         test("Check inital name must be empty", () => {
             expect(firstPlayerName.textContent).toBe("")
+        })
+        test("Check initial state must be OFF", () => {
+            expect(firstPlayerState.textContent).toBe("OFF")
         })
     })
 
