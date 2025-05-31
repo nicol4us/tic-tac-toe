@@ -183,14 +183,14 @@ function funForIndex(index) {
 
 // Record data definition & method
 function createRecord() {
-    const firstRow = []
-    const secondRow = []
-    const thirdRow = []
-    const firstColumn = []
-    const secondColumn = []
-    const thirdColumn = []
-    const firstDiagonal = []
-    const secondDiagonal = []
+    let firstRow = []
+    let secondRow = []
+    let thirdRow = []
+    let firstColumn = []
+    let secondColumn = []
+    let thirdColumn = []
+    let firstDiagonal = []
+    let secondDiagonal = []
     listRecord = [firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal]
     const set = function(index) { 
         switch (index) {
@@ -224,9 +224,7 @@ function createRecord() {
         }                 
     }
     const clear = function() {  
-        for (let i= 0; i < listRecord.length; i++) {
-            listRecord[i].length = 0;
-        }
+       listRecord.forEach(element => element.length = 0)
    }
     return {listRecord, set, clear} 
 }
@@ -736,8 +734,8 @@ function setGameBoard(number, className, container) {
 // () -> ()
 // To initiate the Game
 function main() {
-    const playerOne = createPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-    const playerTwo = createPlayer("playerTwoMarker", "Tester Two", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
+    const playerOne = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+    const playerTwo = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
     const gameState = GameState()
     const gameBoard = GameBoard(gameBoardEl);
 

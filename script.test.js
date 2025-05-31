@@ -18,17 +18,12 @@ try {
 
 
 
-
-
-
-
-
-
 describe('Record data & method testing', () => {
     beforeEach(() => {
-        document.body.innerHTML = '';
+        document.body.innerHTML = htmlContent;
         
     });
+    jest.resetModules()
     const {createRecord} = require('./script')
     const record = createRecord();
 
@@ -73,7 +68,7 @@ describe('Record data & method testing', () => {
         expect(record.listRecord).toEqual([[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4, 8], [2,4,6]]);
     })
     test("clear method will clear all element inside listRecord", () => {
-        record.clear();
+        record.clear();        
         expect(record.listRecord).toEqual([[], [], [], [], [], [], [], []]);
     })
 })
@@ -351,41 +346,48 @@ describe("GameBoard testing", () => {
 })
 
 
-describe("main() function testing", () => {
-
-    // Set up the DOM before each test
+describe("main function testing", () => {
+    let round;
+    let draw;
+    let firstPlayerMarker;
+    let firstPlayerName;    
+    let firstPlayerState;
+    let firstPlayerLight;
     beforeEach(() => {
-        // 1. Clear the DOM and load the HTML content
-        document.body.innerHTML = htmlContent;
-
-        // 2. IMPORTANT: Reset module cache and re-import/require your JS
-        // This ensures the factory function runs against the newly loaded DOM
-        jest.resetModules();
-        const { main } = require('./script');
+        document.body.innerHTML = htmlContent
+        jest.resetModules()
+        const {main} = require('./script')        
         main()
-        const round = document.querySelector("#round")
-        const draw  = document.querySelector("#draw")
-        const firstPlayerMarker     = document.querySelector("#playerOneMarker")
-        
-    });
-
+        round               = document.querySelector("#round")
+        draw                = document.querySelector("#draw")
+        firstPlayerMarker   = document.querySelector("#playerOneMarker")
+        firstPlayerName     = document.querySelector("#playerOneName")
+        firstPlayerState    = document.querySelector("#playerOneState")
+        firstPlayerLight    = document.querySelector("#playerOneLight")
+    })
+      
     afterEach(() => {
         // Clean up the DOM after each test (optional but good practice)
         document.body.innerHTML = '';
     });
 
-    describe("Testing Game Info section", () => {
-        
-        test("Check if round number start with 0", () => {
+    describe("Check Game Info section for Round and Draw", () => {
+        test("Check initial value of round must be 0", () => {
             expect(round.textContent).toBe("0")
         })
-        
-        test("Check if draw number start with 0", () => {
+        test("Check initial value draw must be 0", () => {
             expect(draw.textContent).toBe("0")
         })
-        console.log(firstPlayerMarker)
-       
-        
     })
 
+    describe("Check First Player section", () => {
+        test("Check initial marker must be empty", () => {
+            expect(firstPlayerMarker.textContent).toBe("")
+        })
+        test("Check inital name must be empty", () => {
+            expect(firstPlayerName.textContent).toBe("")
+        })
+    })
+
+    
 })
