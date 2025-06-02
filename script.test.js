@@ -364,8 +364,8 @@ describe("main function testing", () => {
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
-        const {main} = require('./script')        
-        main()
+        const {init} = require('./script')        
+        init()
         round               = document.querySelector("#round")
         draw                = document.querySelector("#draw")
         firstPlayerMarker   = document.querySelector("#playerOneMarker")

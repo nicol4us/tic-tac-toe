@@ -732,8 +732,8 @@ function setGameBoard(number, className, container) {
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // () -> ()
-// To initiate the Game
-function main() {
+// To initialize the Tic-Tac-Toe Game
+function init() {
     const playerOne = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
     const playerTwo = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
     const gameState = GameState()
@@ -808,6 +808,6 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer, GameState, GameBoard, main
+        createRecord, createPlayer, GameState, GameBoard, init
     };
   }
