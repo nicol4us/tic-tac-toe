@@ -361,6 +361,8 @@ describe("main function testing", () => {
     let secondPlayerName;
     let secondPlayerState;
     let secondPlayerLight;
+    let startButton;
+    let endButton;
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
@@ -376,6 +378,8 @@ describe("main function testing", () => {
         secondPlayerName    = document.querySelector("#playerTwoName")
         secondPlayerState   = document.querySelector("#playerTwoState")
         secondPlayerLight   = document.querySelector("#playerTwoLight")
+        startButton         = document.querySelector("#startButton")
+        endButton           = document.querySelector("#endButton")
         
     })
       
@@ -422,6 +426,26 @@ describe("main function testing", () => {
         test("Check inital color must be red", () => {
             const computeStyle = window.getComputedStyle(secondPlayerLight)
             expect(computeStyle.backgroundColor).toBe('red')
+        })
+    })
+
+    describe("Check Start button section", () => {
+        test("Check if Start button enable to be click", () => {
+            expect(startButton).not.toBeDisabled()            
+        })
+        test("Check if background Start button is green", () => {
+            const computeStyle = window.getComputedStyle(startButton)
+            expect(computeStyle.backgroundColor).toBe("green")
+        })
+    })
+
+    describe("Check End button section", () => {
+        test("Check if Start button enable to be click", () => {
+            expect(endButton).toBeDisabled()            
+        })
+        test("Check if background End button is gray", () => {
+            const computeStyle = window.getComputedStyle(startButton)
+            expect(computeStyle.backgroundColor).toBe("gray")
         })
     })
 
