@@ -191,7 +191,7 @@ function createRecord() {
     let thirdColumn = []
     let firstDiagonal = []
     let secondDiagonal = []
-    listRecord = [firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal]
+    let listRecord = [firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal]
     const set = function(index) { 
         switch (index) {
             case 0 :
