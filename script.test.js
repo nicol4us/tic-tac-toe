@@ -357,6 +357,10 @@ describe("main function testing", () => {
     let firstPlayerName;    
     let firstPlayerState;
     let firstPlayerLight;
+    let secondPlayerMarker;
+    let secondPlayerName;
+    let secondPlayerState;
+    let secondPlayerLight;
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
@@ -368,6 +372,11 @@ describe("main function testing", () => {
         firstPlayerName     = document.querySelector("#playerOneName")
         firstPlayerState    = document.querySelector("#playerOneState")
         firstPlayerLight    = document.querySelector("#playerOneLight")
+        secondPlayerMarker  = document.querySelector("#playerTwoMarker")
+        secondPlayerName    = document.querySelector("#playerTwoName")
+        secondPlayerState   = document.querySelector("#playerTwoState")
+        secondPlayerLight   = document.querySelector("#playerTwoLight")
+        
     })
       
     afterEach(() => {
@@ -393,6 +402,26 @@ describe("main function testing", () => {
         })
         test("Check initial state must be OFF", () => {
             expect(firstPlayerState.textContent).toBe("OFF")
+        })
+        test("Check inital color must be red", () => {
+            const computeStyle = window.getComputedStyle(firstPlayerLight)
+            expect(computeStyle.backgroundColor).toBe('red')
+        })
+    })
+
+    describe("Check Second Player section", () => {
+        test("Check initial marker must be empty", () => {
+            expect(secondPlayerMarker.textContent).toBe("")
+        })
+        test("Check inital name must be empty", () => {
+            expect(secondPlayerName.textContent).toBe("")
+        })
+        test("Check initial state must be OFF", () => {
+            expect(secondPlayerState.textContent).toBe("OFF")
+        })
+        test("Check inital color must be red", () => {
+            const computeStyle = window.getComputedStyle(secondPlayerLight)
+            expect(computeStyle.backgroundColor).toBe('red')
         })
     })
 
