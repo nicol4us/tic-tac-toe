@@ -444,7 +444,7 @@ describe("main function testing", () => {
             expect(endButton).toBeDisabled()            
         })
         test("Check if background End button is gray", () => {
-            const computeStyle = window.getComputedStyle(startButton)
+            const computeStyle = window.getComputedStyle(endButton)
             expect(computeStyle.backgroundColor).toBe("gray")
         })
     })

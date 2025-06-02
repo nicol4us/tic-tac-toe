@@ -738,8 +738,26 @@ function init() {
     const playerTwo = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
     const gameState = GameState()
     const gameBoard = GameBoard(gameBoardEl);
+    setStartAndEndButton(startButton, endButton, "ON")    
+}
 
-    
+// (Button, Button, State) -> ()
+// To Activate or deactivate button according to the State data
+function setStartAndEndButton(startButton, endButton, state) {
+    switch(state) {
+        case "ON" :
+            startButton.disabled = false;
+            startButton.style.backgroundColor = "green" ;           
+            endButton.disabled = true;   
+            endButton.style.backgroundColor = "gray"        
+            break;
+        case "OFF" :
+            startButton.disabled = true;
+            startButton.style.backgroundColor = "gray" ;           
+            endButton.disabled = false;   
+            endButton.style.backgroundColor = "green" 
+            break;
+    }
 }
 
 
