@@ -836,10 +836,10 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
 // To swap player ON
 function changePlayer(gameState, playerOne, playerTwo) {
     switch(true) {        
-        case (gameState.getPlayerON().marker === playerOne.marker):
+        case (gameState.getPlayerON().getMarker() === playerOne.getMarker()):
             gameState.setPlayerChange(playerTwo) ;
             break;
-        case (gameState.getPlayerON().marker === playerTwo.marker):
+        case (gameState.getPlayerON().getMarker() === playerTwo.getMarker()):
             gameState.setPlayerChange(playerOne);
             break;
     }
