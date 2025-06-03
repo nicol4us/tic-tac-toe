@@ -818,7 +818,7 @@ function setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo, mess
         switch (result) {
             case "Win" :                
                 gameState.getPlayerON().setWin();
-                break;
+                swapMarker(gameState, playerOne, playerTwo)
             case "Draw" :
                 gameState.setDraw();
                 break;
@@ -848,16 +848,20 @@ function changePlayer(gameState, playerOne, playerTwo) {
 // (GameState, Player, Player) -> ()
 // To swap marker between player
 function swapMarker(gameState, playerOne, playerTwo) {
-    const playerOnMarker = gameState.getPlayerON().getMarker
-    switch(true) {        
-        case (playerOnMarker === playerOne.getMarker()):
-             playerOne.setMarker(playerTwo.getMarker());
-             playerTwo.setMarker(playerOnMarker);
+    const playerWinMarker = gameState.getPlayerON().getMarker()    
+    switch(true)      { 
+        case (playerWinMarker ==="X" && playerOne.getMarker() === "X"):
+            changePlayer(gameState, playerOne, playerTwo)
+            playerOne.setMarker("O");
+            playerTwo.setMarker("X");
             break;
-        case (playerOnMarker === playerTwo.getMarker()):
-            playerTwo.setMarker(playerOne.getMarker());
-            playerOne.setMarker(playerOnMarker)
+        case (playerWinMarker === "X" && playerTwo.getMarker() === "X"):
+            changePlayer(gameState, playerOne, playerTwo)
+            playerOne.setMarker("X");
+            playerTwo.setMarker("O");
             break;
+        case(playerWinMarker === "O"):
+            changePlayer(gameState, playerOne, playerTwo);
     }
 }
 
