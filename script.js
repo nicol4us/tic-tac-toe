@@ -5,10 +5,9 @@
 // Constant Declarations
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+const minNameLength     = 2;
 const maxRowAndColumn   = 3;
 const maxBoard          = 9;
-const inputPlayerOne    = document.querySelector("#inputPlayerOne");
-const inputPlayerTwo    = document.querySelector("#inputPlayerTwo");
 const startButton       = document.querySelector("#startButton");
 const endButton         = document.querySelector("#endButton");
 const gameBoardEl       = document.querySelector(".game-board");
@@ -728,17 +727,26 @@ function setGameBoard(number, className, container) {
 }
 
 
-// Functions Declaration 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-// () -> ()
+// (Element, Element) -> ()
 // To initialize the Tic-Tac-Toe Game
-function init() {
-    const playerOne = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-    const playerTwo = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
-    const gameState = GameState()
-    const gameBoard = GameBoard(gameBoardEl);
-    setStartAndEndButton(startButton, endButton, "ON")    
+function init(startButton, endButton) {
+    let playerOne = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+    let playerTwo = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
+    let gameState = GameState()
+    let gameBoard = GameBoard(gameBoardEl);
+    let inputNamePlayerOne  = document.querySelector("#inputPlayerOne")
+    let inputNamePlayerTwo  = document.querySelector("#inputPlayerTwo")
+    startButton.addEventListener("click", function() {
+        if(inputNamePlayerOne.textContent >= minNameLength && inputNamePlayerTwo.textContent >= minNameLength) {
+            playerOne.setName(inputNamePlayerOne.textContent)
+            playerOne.setMarker("X")
+            playerTwo.setName(inputNamePlayerTwo.textContent)
+            playerTwo.setMarker("O")
+            gameState.setPlayerON(playerOne)
+            setBoardListener(gameBoard, gameState, playerOne, playerTwo, Message)
+        }
+    })
+      
 }
 
 // (Button, Button, State) -> ()
@@ -763,7 +771,7 @@ function setStartAndEndButton(startButton, endButton, state) {
 
 // (GameBoard, GameState, Message) -> ()
 // To add event listener for Board Element
-function setBoardListener(gameBoard, gameState, message) {  
+function setBoardListener(gameBoard, gameState,playerOne, playerTwo, message) {    
     for(let i = 0; i < gameBoard.listOfBoard.length; i++) {
         const board = gameBoard.listOfBoard[i]
         board.boardEl.addEventListener("click", function() {
@@ -771,7 +779,7 @@ function setBoardListener(gameBoard, gameState, message) {
                     board.boardEl.textContent = gameState.getPlayerON().marker;
                     gameState.getPlayerON().record.set(board.index); 
                     gameState.boardRecord.push(board.index)               
-                    checkGameState(gameBoard, gameState, message) ;       
+                    checkGameState(gameBoard, gameState, playerOne, playerTwo, message) ;       
                 }
             })
     
@@ -781,7 +789,7 @@ function setBoardListener(gameBoard, gameState, message) {
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
-function checkGameState(gameBoard, gameState, message) {  
+function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {  
     switch (true) {
         case gameState.isPlayerWin() :         
             message.text.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
@@ -789,7 +797,7 @@ function checkGameState(gameBoard, gameState, message) {
             setDialogCloseListener(gameBoard, gameState, message, "Win"); 
             break;
         case gameState.hasEmptyBoard() :
-            gameState.changePlayer()
+            changePlayer(gameState, playerOne, playerTwo)
             break; 
         case (gameState.boardRecord.length === maxBoard) :
             message.text.textContent = "You both get draw result";
@@ -820,6 +828,8 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
         message.dialog.close();              
     })
 }
+
+
 
 
 //module.exports = {}
