@@ -797,7 +797,7 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
         case gameState.isPlayerOnWin() :         
             message.text.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
             message.dialog.showModal();
-            setDialogCloseListener(gameBoard, gameState, message, "Win"); 
+            setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo, message, "Win"); 
             break;
         case gameState.hasEmptyBoard() :
             changePlayer(gameState, playerOne, playerTwo)
@@ -805,7 +805,7 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
         case (gameState.boardRecord.length === maxBoard) :
             message.text.textContent = "You both get draw result";
             message.dialog.showModal();
-            setDialogCloseListener(gameBoard, gameState, message, "Draw")
+            setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo,message, "Draw")
             break;
     
     }
@@ -813,7 +813,7 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
 
 // (GameState, Dialog, String) -> ()
 // To add event listener for close the dialog and update gameState
-function setDialogCloseListener(gameBoard, gameState, message, result) {
+function setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo, message, result) {
     message.closeButton.addEventListener("click", function(){
         switch (result) {
             case "Win" :                
@@ -824,8 +824,8 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
                 break;
         }
         gameState.setRound();
-        gameState.playerOne.record.clear();        
-        gameState.playerTwo.record.clear();         
+        playerOne.record.clear();        
+        playerTwo.record.clear();         
         gameState.boardRecord.length = 0;         
         gameBoard.clear() ; 
         message.dialog.close();              
@@ -841,6 +841,22 @@ function changePlayer(gameState, playerOne, playerTwo) {
             break;
         case (gameState.getPlayerON().getMarker() === playerTwo.getMarker()):
             gameState.setPlayerChange(playerOne);
+            break;
+    }
+}
+
+// (GameState, Player, Player) -> ()
+// To swap marker between player
+function swapMarker(gameState, playerOne, playerTwo) {
+    const playerOnMarker = gameState.getPlayerON().getMarker
+    switch(true) {        
+        case (playerOnMarker === playerOne.getMarker()):
+             playerOne.setMarker(playerTwo.getMarker());
+             playerTwo.setMarker(playerOnMarker);
+            break;
+        case (playerOnMarker === playerTwo.getMarker()):
+            playerTwo.setMarker(playerOne.getMarker());
+            playerOne.setMarker(playerOnMarker)
             break;
     }
 }
