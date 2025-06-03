@@ -737,12 +737,15 @@ function init(startButton, endButton) {
     let inputNamePlayerOne  = document.querySelector("#inputPlayerOne")
     let inputNamePlayerTwo  = document.querySelector("#inputPlayerTwo")
     startButton.addEventListener("click", function() {
-        if(inputNamePlayerOne.textContent >= minNameLength && inputNamePlayerTwo.textContent >= minNameLength) {
-            playerOne.setName(inputNamePlayerOne.textContent)
+        const firstPlayerName = inputNamePlayerOne.value       
+        const secondPlayerName = inputNamePlayerTwo.value
+        if(firstPlayerName.length >= minNameLength && secondPlayerName.length >= minNameLength) {
+            playerOne.setName(firstPlayerName)
             playerOne.setMarker("X")
-            playerTwo.setName(inputNamePlayerTwo.textContent)
+            playerTwo.setName(secondPlayerName)
             playerTwo.setMarker("O")
             gameState.setPlayerON(playerOne)
+            gameState.flag = true
             setBoardListener(gameBoard, gameState, playerOne, playerTwo, Message)
         }
     })
@@ -775,8 +778,8 @@ function setBoardListener(gameBoard, gameState,playerOne, playerTwo, message) {
     for(let i = 0; i < gameBoard.listOfBoard.length; i++) {
         const board = gameBoard.listOfBoard[i]
         board.boardEl.addEventListener("click", function() {
-            if(gameState.flag && board.boardEl.textContent === "") {
-                    board.boardEl.textContent = gameState.getPlayerON().marker;
+            if(gameState.flag && board.boardEl.textContent === "") {                    
+                    board.boardEl.textContent = gameState.getPlayerON().getMarker();
                     gameState.getPlayerON().record.set(board.index); 
                     gameState.boardRecord.push(board.index)               
                     checkGameState(gameBoard, gameState, playerOne, playerTwo, message) ;       
@@ -791,7 +794,7 @@ function setBoardListener(gameBoard, gameState,playerOne, playerTwo, message) {
 // To check if Player win, if false change the player
 function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {  
     switch (true) {
-        case gameState.isPlayerWin() :         
+        case gameState.isPlayerOnWin() :         
             message.text.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
             message.dialog.showModal();
             setDialogCloseListener(gameBoard, gameState, message, "Win"); 
@@ -829,8 +832,20 @@ function setDialogCloseListener(gameBoard, gameState, message, result) {
     })
 }
 
+// (GameState, Player, Player) -> ()
+// To swap player ON
+function changePlayer(gameState, playerOne, playerTwo) {
+    switch(true) {        
+        case (gameState.getPlayerON().marker === playerOne.marker):
+            gameState.setPlayerChange(playerTwo) ;
+            break;
+        case (gameState.getPlayerON().marker === playerTwo.marker):
+            gameState.setPlayerChange(playerOne);
+            break;
+    }
+}
 
-
+init(startButton, endButton)
 
 //module.exports = {}
 
