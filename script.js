@@ -818,7 +818,8 @@ function setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo, mess
         switch (result) {
             case "Win" :                
                 gameState.getPlayerON().setWin();
-                swapMarker(gameState, playerOne, playerTwo)
+                setPlayerForNext(gameState, playerOne, playerTwo)
+                break;
             case "Draw" :
                 gameState.setDraw();
                 break;
@@ -847,21 +848,28 @@ function changePlayer(gameState, playerOne, playerTwo) {
 
 // (GameState, Player, Player) -> ()
 // To swap marker between player
-function swapMarker(gameState, playerOne, playerTwo) {
-    const playerWinMarker = gameState.getPlayerON().getMarker()    
+function setPlayerForNext(gameState, playerOne, playerTwo) {
+    const playerWin = gameState.getPlayerON() 
     switch(true)      { 
-        case (playerWinMarker ==="X" && playerOne.getMarker() === "X"):
-            changePlayer(gameState, playerOne, playerTwo)
+        case (playerWin == playerOne && playerOne.getMarker() === "X"):           
             playerOne.setMarker("O");
             playerTwo.setMarker("X");
+            gameState.setPlayerON(playerTwo)
+            changeStateAndLight(playerOne);
             break;
-        case (playerWinMarker === "X" && playerTwo.getMarker() === "X"):
-            changePlayer(gameState, playerOne, playerTwo)
+        case (playerWin == playerTwo && playerTwo.getMarker() === "X"):            
             playerOne.setMarker("X");
             playerTwo.setMarker("O");
+            gameState.setPlayerON(playerOne)
+            changeStateAndLight(playerTwo)
             break;
-        case(playerWinMarker === "O"):
-            changePlayer(gameState, playerOne, playerTwo);
+        case(playerWin == playerOne && playerOne.getMarker() === "O"):
+            gameState.setPlayerON(playerTwo)
+            changeStateAndLight(playerOne)
+            break;
+        case(playerWin == playerTwo && playerTwo.getMarker() === "O"):
+            gameState.setPlayerON(playerOne)
+            changeStateAndLight(playerTwo);
     }
 }
 
