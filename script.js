@@ -668,9 +668,15 @@ const Message = function() {
         text.textContent        =  "You both get draw result"
         dialog.showModal();
     }
+    const close    = function() {
+        closeButton.addEventListener("click", function() {
+            dialog.close()
+        })
+
+    }
 
 
-    return {dialog, text, closeButton}
+    return {win, draw, close}
 };
 // interp. Dialog Element to send message if player win or get draw
 /*
