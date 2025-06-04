@@ -655,14 +655,23 @@ function funforBoard(board) {
 
 
 
-
 // Message is 
-const Message = function(dialogTag, messageID, buttonID) {
-    const dialog        = document.querySelector(dialogTag);
-    const text          = document.querySelector(messageID);
-    const closeButton   = document.querySelector(buttonID);
+const Message = function() {
+    const dialog            = document.querySelector("dialog");
+    const text              = document.querySelector("#message");
+    const closeButton       = document.querySelector("#close-dialog-button");
+    const win               = function(player) {        
+        text.textContent        =  "Congratulations " + player.getName() + ", you are the winner!!!"
+        dialog.showModal();
+    }
+    const draw              = function() {
+        text.textContent        =  "You both get draw result"
+        dialog.showModal();
+    }
+
+
     return {dialog, text, closeButton}
-}("dialog", "#message", "#close-dialog-button");
+};
 // interp. Dialog Element to send message if player win or get draw
 /*
 function funForMessage(message) {
