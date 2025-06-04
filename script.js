@@ -797,43 +797,52 @@ function setBoardListener(gameBoard, gameState,playerOne, playerTwo, message) {
 // To check if Player win, if false change the player
 function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {  
     switch (true) {
-        case gameState.isPlayerOnWin() :         
+        case (gameState.isPlayerOnWin()) :         
             message.text.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
             message.dialog.showModal();
+            gameState.getPlayerON().setWin();
             setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo, message, "Win"); 
+            setNextRound(gameState, gameBoard, playerOne, playerTwo)
             break;
-        case gameState.hasEmptyBoard() :
+        case (gameState.hasEmptyBoard()) :
             changePlayer(gameState, playerOne, playerTwo)
             break; 
         case (gameState.boardRecord.length === maxBoard) :
             message.text.textContent = "You both get draw result";
             message.dialog.showModal();
             setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo,message, "Draw")
-            break;
-    
+            setNextRound(gameState, gameBoard, playerOne, playerTwo)
+            break;    
     }
+    
 }
 
 // (GameState, Dialog, String) -> ()
 // To add event listener for close the dialog and update gameState
 function setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo, message, result) {
-    message.closeButton.addEventListener("click", function(){
+    message.closeButton.addEventListener("click", function(){        
         switch (result) {
-            case "Win" :                
-                gameState.getPlayerON().setWin();
-                setPlayerForNext(gameState, playerOne, playerTwo)
+            case "Win" :            
+                
+                setPlayerForNext(gameState, playerOne, playerTwo)                
                 break;
             case "Draw" :
-                gameState.setDraw();
+                gameState.setDraw();               
                 break;
-        }
-        gameState.setRound();
-        playerOne.record.clear();        
-        playerTwo.record.clear();         
-        gameState.boardRecord.length = 0;         
-        gameBoard.clear() ; 
+        }      
+         
         message.dialog.close();              
     })
+}
+
+//(GameState, GameBoard, Player, Player) -> ()
+// To set state for next round
+function setNextRound(gameState, gameBoard, playerOne, playerTwo) {
+    gameState.setRound()
+    playerOne.record.clear();        
+        playerTwo.record.clear();         
+        gameState.boardRecord.length = 0;         
+        gameBoard.clear() 
 }
 
 // (GameState, Player, Player) -> ()
