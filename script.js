@@ -297,7 +297,10 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
         lightEl.style.backgroundColor = light;           
     };   
     const getLight  = () => light
-    const setWin    = () => win++; 
+    const setWin    = function() {
+        win++;
+        winEl.textContent = win;
+    }; 
     const getWin    = () => win;  
     const setToDefault = function() {    
         marker.textContent  = "" ;
