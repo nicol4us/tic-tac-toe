@@ -820,9 +820,7 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
         case (gameState.isPlayerOnWin()) :         
             message.win(gameState.getPlayerON())
             message.close()
-            gameState.getPlayerON().setWin();
-            setPlayerForNext(gameState, playerOne, playerTwo)
-            setNextRound(gameState, gameBoard)
+            updateState(gameBoard, gameState, playerOne, playerTwo, "Win")
             break;
         case (gameState.hasEmptyBoard()) :
             changePlayer(gameState, playerOne, playerTwo)
@@ -830,13 +828,25 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
         case (gameState.boardRecord.length === maxBoard) :
             message.draw()
             message.close()
-            gameState.setDraw()
-            setPlayerForNext(gameState, playerOne, playerTwo)
-            setNextRound(gameState, gameBoard)
+            updateState(gameBoard, gameState, playerOne, playerTwo, "Draw")
             break;    
     }    
 }
 
+// (GameBoard, GameState, Player, Player, Result) -> ()
+// To update state of Player and Game
+function updateState(gameBoard, gameState, playerOne, playerTwo, result) {
+    switch (result) {
+        case "Win" :
+            gameState.getPlayerON().setWin();;
+            break;
+        case "Draw" :
+            gameState.setDraw();
+            break;
+    }
+    setPlayerForNext(gameState, playerOne, playerTwo)
+    setNextRound(gameState, gameBoard)
+}
 
 
 //(GameState, GameBoard, Player, Player) -> ()
