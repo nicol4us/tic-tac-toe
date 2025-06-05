@@ -762,12 +762,14 @@ function init(startButton, endButton) {
     let gameBoard = GameBoard(gameBoardEl);
     let inputNamePlayerOne  = document.querySelector("#inputPlayerOne")
     let inputNamePlayerTwo  = document.querySelector("#inputPlayerTwo")
+    setStartAndEndButton(startButton, endButton, "ON")
     startButton.addEventListener("click", function() {
         const firstPlayerName = inputNamePlayerOne.value       
         const secondPlayerName = inputNamePlayerTwo.value
         if(firstPlayerName.length >= minNameLength && secondPlayerName.length >= minNameLength) {
             gameState.start(firstPlayerName, playerOne, secondPlayerName, playerTwo);
             setBoardListener(gameBoard, gameState, playerOne, playerTwo, Message())
+            setStartAndEndButton(startButton, endButton, "OFF")
         }
     })
       
@@ -780,12 +782,12 @@ function setStartAndEndButton(startButton, endButton, state) {
         case "ON" :
             startButton.disabled = false;
             startButton.style.backgroundColor = "green" ;           
-            endButton.disabled = true;   
-            endButton.style.backgroundColor = "gray"        
+            endButton.disabled = true;  
+            endButton.style.backgroundColor = "gray"                   
             break;
         case "OFF" :
-            startButton.disabled = true;
-            startButton.style.backgroundColor = "gray" ;           
+            startButton.disabled = true;  
+            startButton.style.backgroundColor = "gray"                    
             endButton.disabled = false;   
             endButton.style.backgroundColor = "green" 
             break;
