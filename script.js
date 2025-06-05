@@ -764,7 +764,7 @@ function init(startButton, endButton) {
             playerTwo.setMarker("O")
             gameState.setPlayerON(playerOne)
             gameState.flag = true
-            setBoardListener(gameBoard, gameState, playerOne, playerTwo, Message)
+            setBoardListener(gameBoard, gameState, playerOne, playerTwo, Message())
         }
     })
       
@@ -813,19 +813,19 @@ function setBoardListener(gameBoard, gameState,playerOne, playerTwo, message) {
 function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {  
     switch (true) {
         case (gameState.isPlayerOnWin()) :         
-            message.text.textContent = "Congratulations " + gameState.getPlayerON().getName() + ", you are the winner!!!";
-            message.dialog.showModal();
+            message.win(gameState.getPlayerON())
+            message.close()
             gameState.getPlayerON().setWin();
-            setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo, message, "Win"); 
+            setPlayerForNext(gameState, playerOne, playerTwo)
             setNextRound(gameState, gameBoard, playerOne, playerTwo)
             break;
         case (gameState.hasEmptyBoard()) :
             changePlayer(gameState, playerOne, playerTwo)
             break; 
         case (gameState.boardRecord.length === maxBoard) :
-            message.text.textContent = "You both get draw result";
-            message.dialog.showModal();
-            setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo,message, "Draw")
+            message.draw()
+            message.close()
+            setPlayerForNext(gameState, playerOne, playerTwo)
             setNextRound(gameState, gameBoard, playerOne, playerTwo)
             break;    
     }
@@ -834,20 +834,19 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
 
 // (GameState, Dialog, String) -> ()
 // To add event listener for close the dialog and update gameState
-function setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo, message, result) {
-    message.closeButton.addEventListener("click", function(){        
+function setFirstPlayer(gameState, playerOne, playerTwo, result) {         
         switch (result) {
-            case "Win" :            
+            case "Win" :          
                 
                 setPlayerForNext(gameState, playerOne, playerTwo)                
                 break;
             case "Draw" :
                 gameState.setDraw();               
                 break;
-        }      
+        }  
          
-        message.dialog.close();              
-    })
+                   
+    
 }
 
 //(GameState, GameBoard, Player, Player) -> ()
@@ -855,9 +854,9 @@ function setDialogCloseListener(gameBoard, gameState, playerOne, playerTwo, mess
 function setNextRound(gameState, gameBoard, playerOne, playerTwo) {
     gameState.setRound()
     playerOne.record.clear();        
-        playerTwo.record.clear();         
-        gameState.boardRecord.length = 0;         
-        gameBoard.clear() 
+    playerTwo.record.clear();         
+    gameState.boardRecord.length = 0;         
+    gameBoard.clear() 
 }
 
 // (GameState, Player, Player) -> ()
