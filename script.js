@@ -506,7 +506,15 @@ function funForBoardRecord(boardRecord) {
     const hasEmptyBoard = function() {    
         return boardRecord.length < maxBoard
     }
-    return {flag, boardRecord,setPlayerON, getPlayerON,setPlayerChange,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard};
+    const start         = function(firstPlayerName, playerOne, secondPlayerName, playerTwo) {
+        playerOne.setName(firstPlayerName);
+        playerOne.setMarker("X");
+        playerTwo.setName(secondPlayerName);
+        playerTwo.setMarker("O");
+        this.flag = true;
+        this.setPlayerON(playerOne);
+    }
+    return {flag, boardRecord,setPlayerON, getPlayerON,setPlayerChange,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard, start};
 };
 /*
 function funForGameState(gameState) {
@@ -758,12 +766,7 @@ function init(startButton, endButton) {
         const firstPlayerName = inputNamePlayerOne.value       
         const secondPlayerName = inputNamePlayerTwo.value
         if(firstPlayerName.length >= minNameLength && secondPlayerName.length >= minNameLength) {
-            playerOne.setName(firstPlayerName)
-            playerOne.setMarker("X")
-            playerTwo.setName(secondPlayerName)
-            playerTwo.setMarker("O")
-            gameState.setPlayerON(playerOne)
-            gameState.flag = true
+            gameState.start(firstPlayerName, playerOne, secondPlayerName, playerTwo);
             setBoardListener(gameBoard, gameState, playerOne, playerTwo, Message())
         }
     })
@@ -828,26 +831,10 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
             setPlayerForNext(gameState, playerOne, playerTwo)
             setNextRound(gameState, gameBoard, playerOne, playerTwo)
             break;    
-    }
-    
+    }    
 }
 
-// (GameState, Dialog, String) -> ()
-// To add event listener for close the dialog and update gameState
-function setFirstPlayer(gameState, playerOne, playerTwo, result) {         
-        switch (result) {
-            case "Win" :          
-                
-                setPlayerForNext(gameState, playerOne, playerTwo)                
-                break;
-            case "Draw" :
-                gameState.setDraw();               
-                break;
-        }  
-         
-                   
-    
-}
+
 
 //(GameState, GameBoard, Player, Player) -> ()
 // To set state for next round
