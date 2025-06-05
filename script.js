@@ -822,7 +822,7 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
             message.close()
             gameState.getPlayerON().setWin();
             setPlayerForNext(gameState, playerOne, playerTwo)
-            setNextRound(gameState, gameBoard, playerOne, playerTwo)
+            setNextRound(gameState, gameBoard)
             break;
         case (gameState.hasEmptyBoard()) :
             changePlayer(gameState, playerOne, playerTwo)
@@ -830,8 +830,9 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
         case (gameState.boardRecord.length === maxBoard) :
             message.draw()
             message.close()
+            gameState.setDraw()
             setPlayerForNext(gameState, playerOne, playerTwo)
-            setNextRound(gameState, gameBoard, playerOne, playerTwo)
+            setNextRound(gameState, gameBoard)
             break;    
     }    
 }
@@ -840,10 +841,8 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
 
 //(GameState, GameBoard, Player, Player) -> ()
 // To set state for next round
-function setNextRound(gameState, gameBoard, playerOne, playerTwo) {
-    gameState.setRound()
-    playerOne.record.clear();        
-    playerTwo.record.clear();         
+function setNextRound(gameState, gameBoard) {
+    gameState.setRound()            
     gameState.boardRecord.length = 0;         
     gameBoard.clear() 
 }
@@ -886,6 +885,8 @@ function setPlayerForNext(gameState, playerOne, playerTwo) {
             gameState.setPlayerON(playerOne)
             changeStateAndLight(playerTwo);
     }
+    playerOne.record.clear();        
+    playerTwo.record.clear(); 
 }
 
 init(startButton, endButton)
