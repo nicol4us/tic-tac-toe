@@ -667,7 +667,7 @@ function setGameBoard(number, className, container) {
 
 // (Element, Element) -> ()
 // To initialize the Tic-Tac-Toe Game
-function init(startButton, endButton, gameState, gameBoard, message) {
+function gamePlay(startButton, endButton, gameState, gameBoard, message) {
     let playerOne = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
     let playerTwo = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")    
     let inputNamePlayerOne  = document.querySelector("#inputPlayerOne")
@@ -821,6 +821,6 @@ function setPlayerForNext(gameState, playerOne, playerTwo) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer, GameState, GameBoard, init, Message
+        createRecord, createPlayer, GameState, GameBoard, gamePlay, Message
     };
   }

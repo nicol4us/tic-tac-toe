@@ -350,7 +350,7 @@ describe("GameBoard testing", () => {
 })
 
 
-describe("init function testing", () => {
+describe("gamePlay function testing", () => {
     let gameState;    
     let inputFirstPlayerName;
     let firstPlayerMarker;
@@ -383,7 +383,7 @@ describe("init function testing", () => {
             console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
         }
 
-        const {init, GameState, GameBoard, Message} = require('./script')   
+        const {gamePlay, GameState, GameBoard, Message} = require('./script')   
         gameState           = GameState()        
         inputFirstPlayerName= document.querySelector("#inputPlayerOne")
         firstPlayerMarker   = document.querySelector("#playerOneMarker")
@@ -400,7 +400,7 @@ describe("init function testing", () => {
         endButton           = document.querySelector("#endButton")
         firstInputName      = "Evan"
         secondInputName     = "Dhika"
-        init(startButton, endButton, GameState(), GameBoard(), Message());
+        gamePlay(startButton, endButton, GameState(), GameBoard(), Message());
         
     })
       
