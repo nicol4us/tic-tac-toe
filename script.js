@@ -262,10 +262,10 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
     let light           = "red";
     let win             = 0;
     let record          = createRecord();    
-    const lightEl       = document.querySelector("#"+ idLightState);
-    lightEl.style.backgroundColor = light;
-    const winEl         = document.querySelector("#" + idWin) ; 
-    winEl.textContent   = win;
+    const lightElement  = document.querySelector("#"+ idLightState);
+    lightElement.style.backgroundColor = light;
+    const winElement          = document.querySelector("#" + idWin) ; 
+    winElement .textContent   = win;
     const setMarker     = function(newMarker) { 
         marker.textContent = newMarker            
     }  
@@ -294,12 +294,12 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
                 light = "red" ;                
                 break;
         }
-        lightEl.style.backgroundColor = light;           
+        lightElement.style.backgroundColor = light;           
     };   
     const getLight  = () => light
     const setWin    = function() {
         win++;
-        winEl.textContent = win;
+        winElement .textContent = win;
     }; 
     const getWin    = () => win;  
     const setToDefault = function() {    
@@ -311,10 +311,12 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
         record.clear();
 
     }        
-    return {record,color, setMarker, getMarker,setName, getName,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
+    return {record,color, lightElement, winElement,
+        setMarker, getMarker,setName, getName,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
 // Example
-// const playerTest = createPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan");
+//const firstPlayer = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+//const secondPlayer = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue") 
 /*
 function funForPlayer(player) {
     ... funForRecord(player.record);
@@ -667,9 +669,7 @@ function setGameBoard(number, className, container) {
 
 // (Element, Element) -> ()
 // To initialize the Tic-Tac-Toe Game
-function gamePlay(startButton, endButton, gameState, gameBoard, message) {
-    let playerOne = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-    let playerTwo = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")    
+function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer ,message) {       
     let inputNamePlayerOne  = document.querySelector("#inputPlayerOne")
     let inputNamePlayerTwo  = document.querySelector("#inputPlayerTwo")    
     setStartAndEndButton(startButton, endButton, "ON")
@@ -677,8 +677,8 @@ function gamePlay(startButton, endButton, gameState, gameBoard, message) {
         const firstPlayerName = inputNamePlayerOne.value       
         const secondPlayerName = inputNamePlayerTwo.value
         if(firstPlayerName.length >= minNameLength && secondPlayerName.length >= minNameLength) {
-            gameState.start(firstPlayerName, playerOne, secondPlayerName, playerTwo);
-            setBoardListener(gameBoard, gameState, playerOne, playerTwo, message)
+            gameState.start(firstPlayerName, firstPlayer, secondPlayerName, secondPlayer);
+            setBoardListener(gameBoard, gameState, firstPlayer, secondPlayer, message)
             setStartAndEndButton(startButton, endButton, "OFF")
             inputNamePlayerOne.hidden = true;
             inputNamePlayerTwo.hidden = true;

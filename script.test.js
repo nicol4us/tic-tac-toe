@@ -352,11 +352,9 @@ describe("GameBoard testing", () => {
 
 describe("gamePlay function testing", () => {
     let gameState;    
-    let inputFirstPlayerName;
-    let firstPlayerMarker;
-    let firstPlayerName;    
-    let firstPlayerState;
-    let firstPlayerLight;
+    let firstPlayer;
+    let secondPlayer;
+    let inputFirstPlayerName;    
     let inputSecondPlayerName;
     let secondPlayerMarker;
     let secondPlayerName;
@@ -383,13 +381,11 @@ describe("gamePlay function testing", () => {
             console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
         }
 
-        const {gamePlay, GameState, GameBoard, Message} = require('./script')   
+        const {gamePlay, GameState, GameBoard,createPlayer ,Message} = require('./script')   
         gameState           = GameState()        
-        inputFirstPlayerName= document.querySelector("#inputPlayerOne")
-        firstPlayerMarker   = document.querySelector("#playerOneMarker")
-        firstPlayerName     = document.querySelector("#playerOneName")
-        firstPlayerState    = document.querySelector("#playerOneState")
-        firstPlayerLight    = document.querySelector("#playerOneLight")
+        firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+        secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
+        inputFirstPlayerName= document.querySelector("#inputPlayerOne")        
         inputSecondPlayerName = document.querySelector("#inputPlayerTwo")
         secondPlayerMarker  = document.querySelector("#playerTwoMarker")
         secondPlayerName    = document.querySelector("#playerTwoName")
@@ -400,7 +396,7 @@ describe("gamePlay function testing", () => {
         endButton           = document.querySelector("#endButton")
         firstInputName      = "Evan"
         secondInputName     = "Dhika"
-        gamePlay(startButton, endButton, GameState(), GameBoard(), Message());
+        gamePlay(startButton, endButton, GameState(), GameBoard(), firstPlayer, secondPlayer,Message());
         
     })
       
@@ -425,33 +421,39 @@ describe("gamePlay function testing", () => {
 
     describe("Check First Player section", () => {
         test("Check initial marker must be empty", () => {
-            expect(firstPlayerMarker.textContent).toBe("")
+            expect(firstPlayer.getMarker()).toBe("")
         })
         test("Check inital name must be empty", () => {
-            expect(firstPlayerName.textContent).toBe("")
+            expect(firstPlayer.getName()).toBe("")
         })
         test("Check initial state must be OFF", () => {
-            expect(firstPlayerState.textContent).toBe("OFF")
+            expect(firstPlayer.getState()).toBe("OFF")
         })
         test("Check inital color must be red", () => {
-            const computeStyle = window.getComputedStyle(firstPlayerLight)
+            const computeStyle = window.getComputedStyle(firstPlayer.lightElement)
             expect(computeStyle.backgroundColor).toBe('red')
+        })
+        test("Check initial win value must be zero", () => {
+            expect(firstPlayer.winElement.textContent).toBe("0")
         })
     })
 
     describe("Check Second Player section", () => {
         test("Check initial marker must be empty", () => {
-            expect(secondPlayerMarker.textContent).toBe("")
+            expect(secondPlayer.getMarker()).toBe("")
         })
         test("Check inital name must be empty", () => {
-            expect(secondPlayerName.textContent).toBe("")
+            expect(secondPlayer.getName()).toBe("")
         })
         test("Check initial state must be OFF", () => {
-            expect(secondPlayerState.textContent).toBe("OFF")
+            expect(secondPlayer.getState()).toBe("OFF")
         })
-        test("Check inital color must be red", () => {
-            const computeStyle = window.getComputedStyle(secondPlayerLight)
+        test("Check initial color must be red", () => {
+            const computeStyle = window.getComputedStyle(secondPlayer.lightElement)
             expect(computeStyle.backgroundColor).toBe('red')
+        })
+        test("Check initial win value must be zero", () => {
+            expect(secondPlayer.winElement.textContent).toBe("0")
         })
     })
 
@@ -481,8 +483,8 @@ describe("gamePlay function testing", () => {
             inputFirstPlayerName.value = firstInputName            
             inputSecondPlayerName.value = secondInputName      
             startButton.click()
-            expect(firstPlayerName.textContent).toBe("Evan")
-            expect(secondPlayerName.textContent).toBe("Dhika")            
+            expect(firstPlayer.getName()).toBe("Evan")
+            expect(secondPlayer.getName()).toBe("Dhika")            
         })
         test("Check empty input when Start button get clicked", () => {
             startButton.click()
@@ -493,18 +495,18 @@ describe("gamePlay function testing", () => {
             inputFirstPlayerName.value = firstInputName            
             inputSecondPlayerName.value = secondInputName            
             startButton.click()
-            const computeStyle = window.getComputedStyle(firstPlayerLight)
-            expect(firstPlayerMarker.textContent).toBe("X")
-            expect(firstPlayerState.textContent).toBe("ON")
+            const computeStyle = window.getComputedStyle(firstPlayer.lightElement)
+            expect(firstPlayer.getMarker()).toBe("X")
+            expect(firstPlayer.getState()).toBe("ON")
             expect(computeStyle.backgroundColor).toBe("green")
         })
         test("Check second player state when Start button get clicked", () => {
             inputFirstPlayerName.value = firstInputName            
             inputSecondPlayerName.value = secondInputName            
             startButton.click()
-            const computeStyle = window.getComputedStyle(secondPlayerLight)
-            expect(secondPlayerMarker.textContent).toBe("O")
-            expect(secondPlayerState.textContent).toBe("OFF")
+            const computeStyle = window.getComputedStyle(secondPlayer.lightElement)
+            expect(secondPlayer.getMarker()).toBe("O")
+            expect(secondPlayer.getState()).toBe("OFF")
             expect(computeStyle.backgroundColor).toBe("red")
         })
         test("Check if Start button get disable & End button get enable when Start button got clicked", () => {
