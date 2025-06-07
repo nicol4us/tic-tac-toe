@@ -676,6 +676,10 @@ const Message = function() {
         text.textContent        =  "You both get draw result"
         dialog.showModal();
     }
+    const nameError         = function() {
+        text.textContent        = "Please insert your name properly!!"
+        dialog.showModal()
+    }
     const close    = function() {
         closeButton.addEventListener("click", function() {
             dialog.close()
@@ -683,8 +687,7 @@ const Message = function() {
 
     }
 
-
-    return {win, draw, close}
+    return {win, draw,nameError,close}
 };
 // interp. Dialog Element to send message if player win or get draw
 /*
