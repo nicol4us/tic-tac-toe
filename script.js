@@ -457,14 +457,14 @@ function funForBoardRecord(boardRecord) {
 // GameState data & method definition 
  const GameState = function() {
     let playerON;
-    let flag            = false;
-    let round           = 0;
-    let draw            = 0;
-    let boardRecord     = [];       
-    const roundEl       = document.querySelector("#round");
-    roundEl.textContent = round;
-    const drawEl        = document.querySelector("#draw");
-    drawEl.textContent  = draw; 
+    let flag                    = false;
+    let round                   = 0;
+    let draw                    = 0;
+    let boardRecord             = [];       
+    const roundElement          = document.querySelector("#round");
+    roundElement.textContent    = round;
+    const drawElement           = document.querySelector("#draw");
+    drawElement.textContent     = draw; 
     const setPlayerON = function(player) { 
         playerON = player 
         changeStateAndLight(player)      
@@ -477,12 +477,12 @@ function funForBoardRecord(boardRecord) {
     }
     const setRound = function() {
         round++;
-        roundEl.textContent = round;
+        roundElement.textContent = round;
     }
     const getRound = () => round;
     const setDraw = function() {    
         draw++;
-        drawEl.textContent = draw;    
+        drawElement.textContent = draw;    
     };
     const getDraw = () => draw;
     const isPlayerOnWin = function() {  
@@ -497,9 +497,9 @@ function funForBoardRecord(boardRecord) {
         playerON = undefined;
         this.flag = false;
         round = 0;
-        roundEl.textContent = 0
+        roundElement.textContent = 0
         draw = 0
-        drawEl.textContent = 0
+        drawElement.textContent = 0
         boardRecord.length = 0
 
     }
@@ -514,7 +514,8 @@ function funForBoardRecord(boardRecord) {
         this.flag = true;
         this.setPlayerON(playerOne);
     }
-    return {flag, boardRecord,setPlayerON, getPlayerON,setPlayerChange,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard, start};
+    return {flag, boardRecord,roundElement, drawElement,
+        setPlayerON, getPlayerON,setPlayerChange,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard, start};
 };
 /*
 function funForGameState(gameState) {

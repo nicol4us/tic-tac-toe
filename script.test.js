@@ -351,8 +351,7 @@ describe("GameBoard testing", () => {
 
 
 describe("init function testing", () => {
-    let round;
-    let draw;
+    let gameState;    
     let inputFirstPlayerName;
     let firstPlayerMarker;
     let firstPlayerName;    
@@ -384,9 +383,8 @@ describe("init function testing", () => {
             console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
         }
 
-        const {init, GameState, GameBoard, Message} = require('./script')             
-        round               = document.querySelector("#round")
-        draw                = document.querySelector("#draw")
+        const {init, GameState, GameBoard, Message} = require('./script')   
+        gameState           = GameState()        
         inputFirstPlayerName= document.querySelector("#inputPlayerOne")
         firstPlayerMarker   = document.querySelector("#playerOneMarker")
         firstPlayerName     = document.querySelector("#playerOneName")
@@ -418,10 +416,10 @@ describe("init function testing", () => {
 
     describe("Check Game Info section for Round and Draw", () => {
         test("Check initial value of round must be 0", () => {
-            expect(round.textContent).toBe("0")
+            expect(gameState.roundElement.textContent).toBe("0")
         })
         test("Check initial value draw must be 0", () => {
-            expect(draw.textContent).toBe("0")
+            expect(gameState.drawElement.textContent).toBe("0")
         })
     })
 
@@ -527,7 +525,5 @@ describe("init function testing", () => {
             expect(inputFirstPlayerName.hidden).toBeTruthy()
             expect(inputSecondPlayerName.hidden).toBeTruthy()
         })
-    })
-
-    
+    })    
 })
