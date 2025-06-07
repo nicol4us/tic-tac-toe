@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import { getByTestId } from '@testing-library/dom';
 import {render, screen} from '@testing-library/jest-dom'
 
 const fs = require('fs');
@@ -350,13 +351,15 @@ describe("GameBoard testing", () => {
 })
 
 
-describe("main function testing", () => {
+describe("init function testing", () => {
     let round;
     let draw;
+    let inputFirstPlayerName;
     let firstPlayerMarker;
     let firstPlayerName;    
     let firstPlayerState;
     let firstPlayerLight;
+    let inputSecondPlayerName;
     let secondPlayerMarker;
     let secondPlayerName;
     let secondPlayerState;
@@ -366,20 +369,22 @@ describe("main function testing", () => {
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
-        const {init} = require('./script')        
-        init()
+        const {init} = require('./script')             
         round               = document.querySelector("#round")
         draw                = document.querySelector("#draw")
+        inputFirstPlayerName= document.querySelector("#inputPlayerOne")
         firstPlayerMarker   = document.querySelector("#playerOneMarker")
         firstPlayerName     = document.querySelector("#playerOneName")
         firstPlayerState    = document.querySelector("#playerOneState")
         firstPlayerLight    = document.querySelector("#playerOneLight")
+        inputSecondPlayerName = document.querySelector("#inputPlayerTwo")
         secondPlayerMarker  = document.querySelector("#playerTwoMarker")
         secondPlayerName    = document.querySelector("#playerTwoName")
         secondPlayerState   = document.querySelector("#playerTwoState")
         secondPlayerLight   = document.querySelector("#playerTwoLight")
         startButton         = document.querySelector("#startButton")
         endButton           = document.querySelector("#endButton")
+        init(startButton, endButton);
         
     })
       
@@ -446,6 +451,19 @@ describe("main function testing", () => {
         test("Check if background End button is gray", () => {
             const computeStyle = window.getComputedStyle(endButton)
             expect(computeStyle.backgroundColor).toBe("gray")
+        })
+    })
+
+    describe("Check Start Button event", () => {
+        test("Check input when Start Button get clicked", () => {            
+            const firstInputName = "Evan"
+            const secondInputName= "Dhika"
+            inputFirstPlayerName.value = firstInputName            
+            inputSecondPlayerName.value = secondInputName      
+            startButton.click()
+            expect(firstPlayerName.textContent).toBe("Evan")
+            expect(secondPlayerName.textContent).toBe("Dhika")
+            
         })
     })
 

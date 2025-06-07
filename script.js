@@ -899,7 +899,6 @@ function setPlayerForNext(gameState, playerOne, playerTwo) {
     playerTwo.record.clear(); 
 }
 
-init(startButton, endButton)
 
 //module.exports = {}
 
