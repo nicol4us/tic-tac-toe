@@ -772,6 +772,8 @@ function init(startButton, endButton, gameState, gameBoard, message) {
             gameState.start(firstPlayerName, playerOne, secondPlayerName, playerTwo);
             setBoardListener(gameBoard, gameState, playerOne, playerTwo, message)
             setStartAndEndButton(startButton, endButton, "OFF")
+            inputNamePlayerOne.hidden = true;
+            inputNamePlayerTwo.hidden = true;
         }
         else {
             message.nameError()
