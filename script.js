@@ -500,7 +500,7 @@ const Message = function() {
 
     }
 
-    return {win, draw,nameError,close}
+    return {text, win, draw,nameError,close}
 };
 // interp. Dialog Element to send message if player win or get draw
 /*

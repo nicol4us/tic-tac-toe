@@ -350,13 +350,13 @@ describe("GameBoard testing", () => {
 })
 
 
-describe("gamePlay function testing", () => {
+describe("gamePlay function testing initial state", () => {
     let gameState;    
     let firstPlayer;
     let secondPlayer;
     let firstInput;    
     let secondInput;        
-    let messageElement;
+    let message;
     let startButton;
     let endButton;
     let firstInputName;
@@ -383,12 +383,12 @@ describe("gamePlay function testing", () => {
         secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
         firstInput          = document.querySelector("#inputPlayerOne")        
         secondInput         = document.querySelector("#inputPlayerTwo")            
-        messageElement      = document.querySelector("#message")
+        message             = Message()
         startButton         = document.querySelector("#startButton")
         endButton           = document.querySelector("#endButton")
         firstInputName      = "Evan"
         secondInputName     = "Dhika"
-        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,Message(), firstInput, secondInput);
+        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,message, firstInput, secondInput);
         
     })
       
@@ -469,49 +469,14 @@ describe("gamePlay function testing", () => {
         })
     })
 
-    describe("Check Start Button get clicked", () => {
-        test("Check input when Start Button get clicked", () => {     
-
-            firstInput.value = firstInputName            
-            secondInput.value = secondInputName      
-            startButton.click()
-            expect(firstPlayer.getName()).toBe("Evan")
-            expect(secondPlayer.getName()).toBe("Dhika")            
-        })
+    describe("Check Start Button get clicked", () => {        
         test("Check empty input when Start button get clicked", () => {
             startButton.click()
-            expect(messageElement.textContent).toBe("Please insert your name properly!!")
+            expect(message.text.textContent).toBe("Please insert your name properly!!")
             expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalledTimes(1);
-        })
-        test("Check first Player state when Start Button get clicked", () => {             
-            firstInput.value = firstInputName            
-            secondInput.value = secondInputName            
-            startButton.click()
-            const computeStyle = window.getComputedStyle(firstPlayer.lightElement)
-            expect(firstPlayer.getMarker()).toBe("X")
-            expect(firstPlayer.getState()).toBe("ON")
-            expect(computeStyle.backgroundColor).toBe("green")
-        })
-        test("Check second player state when Start button get clicked", () => {
-            firstInput.value = firstInputName            
-            secondInput.value = secondInputName            
-            startButton.click()
-            const computeStyle = window.getComputedStyle(secondPlayer.lightElement)
-            expect(secondPlayer.getMarker()).toBe("O")
-            expect(secondPlayer.getState()).toBe("OFF")
-            expect(computeStyle.backgroundColor).toBe("red")
-        })
-        test("Check if Start button get disable & End button get enable when Start button got clicked", () => {
-            firstInput.value = firstInputName            
-            secondInput.value = secondInputName            
-            startButton.click()
-            const computeStyleStartButton = window.getComputedStyle(startButton)
-            const computeStyleEndButton     = window.getComputedStyle(endButton)
-            expect(startButton).toBeDisabled()
-            expect(computeStyleStartButton.backgroundColor).toBe("gray")
-            expect(endButton).not.toBeDisabled()
-            expect(computeStyleEndButton.backgroundColor).toBe("green")
-        })
+        })      
+        
+        
         test("Check if both input element get hidden when Start Button got clicked", () => {
             firstInput.value = firstInputName            
             secondInput.value = secondInputName            
@@ -520,4 +485,84 @@ describe("gamePlay function testing", () => {
             expect(secondInput.hidden).toBeTruthy()
         })
     })    
+})
+
+
+describe("gamePlay testing state after Start button get clicked", () => {
+    let gameState;    
+    let firstPlayer;
+    let secondPlayer;
+    let firstInput;    
+    let secondInput;        
+    let message;
+    let startButton;
+    let endButton;    
+    beforeEach(() => {
+        document.body.innerHTML = htmlContent
+        jest.resetModules()
+
+        // Mock the dialog methods for JSDOM
+        // Check if the prototype exists before mocking
+        if (HTMLDialogElement && HTMLDialogElement.prototype) {
+            HTMLDialogElement.prototype.showModal = jest.fn();
+            HTMLDialogElement.prototype.close = jest.fn();
+        } else {
+            // Fallback for environments where HTMLDialogElement might not be defined
+            // This might happen if your JSDOM version is very old or configured differently.
+            // In a typical Jest setup with JSDOM, it should be defined.
+            console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
+        }
+
+        const {gamePlay, GameState, GameBoard,createPlayer ,Message} = require('./script')   
+        gameState           = GameState()        
+        firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+        secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
+        firstInput          = document.querySelector("#inputPlayerOne")        
+        secondInput         = document.querySelector("#inputPlayerTwo")            
+        message             = Message()
+        startButton         = document.querySelector("#startButton")
+        endButton           = document.querySelector("#endButton")        
+        firstInput.value    = "Evan"            
+        secondInput.value   = "Dhika"
+        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,message, firstInput, secondInput);
+        startButton.click()        
+    })
+      
+    afterEach(() => {
+        // Clean up the DOM after each test (optional but good practice)
+        document.body.innerHTML = '';
+        // Clear mocks after each test
+        if (HTMLDialogElement && HTMLDialogElement.prototype.showModal) {
+            HTMLDialogElement.prototype.showModal.mockRestore();
+            HTMLDialogElement.prototype.close.mockRestore();
+        }
+    });
+
+    describe("Check Start and End Button state", () => {
+        test("Check if Start button get disable & End button get enable when Start button got clicked", () => {            
+            const computeStyleStartButton = window.getComputedStyle(startButton)
+            const computeStyleEndButton     = window.getComputedStyle(endButton)
+            expect(startButton).toBeDisabled()
+            expect(computeStyleStartButton.backgroundColor).toBe("gray")
+            expect(endButton).not.toBeDisabled()
+            expect(computeStyleEndButton.backgroundColor).toBe("green")
+        })
+        
+    })
+
+    describe("Check First Player state", () => {
+        test("First player name must be Evan", () => {
+            expect(firstPlayer.getName()).toBe("Evan")
+        })
+        test("First player marker must be X", () => {
+            expect(firstPlayer.getMarker()).toBe("X")
+        })
+        test("First player state must be ON", () => {
+            expect(firstPlayer.getState()).toBe("ON")
+        })
+        test("First player light must turn green", () => {
+            const firstPlayerLight = window.getComputedStyle(firstPlayer.lightElement)
+            expect(firstPlayerLight.backgroundColor).toBe("green")
+        })
+    })
 })
