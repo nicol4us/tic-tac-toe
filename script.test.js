@@ -520,6 +520,13 @@ describe("init function testing", () => {
             expect(endButton).not.toBeDisabled()
             expect(computeStyleEndButton.backgroundColor).toBe("green")
         })
+        test("Check if both input element get hidden when Start Button got clicked", () => {
+            inputFirstPlayerName.value = firstInputName            
+            inputSecondPlayerName.value = secondInputName            
+            startButton.click()
+            expect(inputFirstPlayerName.hidden).toBeTruthy()
+            expect(inputSecondPlayerName.hidden).toBeTruthy()
+        })
     })
 
     
