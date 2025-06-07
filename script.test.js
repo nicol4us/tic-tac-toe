@@ -362,8 +362,7 @@ describe("init function testing", () => {
     let secondPlayerMarker;
     let secondPlayerName;
     let secondPlayerState;
-    let secondPlayerLight;   
-    let dialog; 
+    let secondPlayerLight;     
     let messageElement;
     let startButton;
     let endButton;
@@ -397,8 +396,7 @@ describe("init function testing", () => {
         secondPlayerMarker  = document.querySelector("#playerTwoMarker")
         secondPlayerName    = document.querySelector("#playerTwoName")
         secondPlayerState   = document.querySelector("#playerTwoState")
-        secondPlayerLight   = document.querySelector("#playerTwoLight")
-        dialog              = document.querySelector("dialog")
+        secondPlayerLight   = document.querySelector("#playerTwoLight")        
         messageElement      = document.querySelector("#message")
         startButton         = document.querySelector("#startButton")
         endButton           = document.querySelector("#endButton")
@@ -510,6 +508,17 @@ describe("init function testing", () => {
             expect(secondPlayerMarker.textContent).toBe("O")
             expect(secondPlayerState.textContent).toBe("OFF")
             expect(computeStyle.backgroundColor).toBe("red")
+        })
+        test("Check if Start button get disable & End button get enable when Start button got clicked", () => {
+            inputFirstPlayerName.value = firstInputName            
+            inputSecondPlayerName.value = secondInputName            
+            startButton.click()
+            const computeStyleStartButton = window.getComputedStyle(startButton)
+            const computeStyleEndButton     = window.getComputedStyle(endButton)
+            expect(startButton).toBeDisabled()
+            expect(computeStyleStartButton.backgroundColor).toBe("gray")
+            expect(endButton).not.toBeDisabled()
+            expect(computeStyleEndButton.backgroundColor).toBe("green")
         })
     })
 
