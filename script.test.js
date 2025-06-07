@@ -454,7 +454,7 @@ describe("init function testing", () => {
         })
     })
 
-    describe("Check Start Button event", () => {
+    describe("Check Start Button get clicked", () => {
         test("Check input when Start Button get clicked", () => {            
             const firstInputName = "Evan"
             const secondInputName= "Dhika"
@@ -462,8 +462,18 @@ describe("init function testing", () => {
             inputSecondPlayerName.value = secondInputName      
             startButton.click()
             expect(firstPlayerName.textContent).toBe("Evan")
-            expect(secondPlayerName.textContent).toBe("Dhika")
-            
+            expect(secondPlayerName.textContent).toBe("Dhika")            
+        })
+        test("Check first Player state when Start Button get clicked", () => { 
+            const firstInputName = "Evan"
+            const secondInputName= "Dhika"
+            inputFirstPlayerName.value = firstInputName            
+            inputSecondPlayerName.value = secondInputName            
+            startButton.click()
+            const computeStyle = window.getComputedStyle(firstPlayerLight)
+            expect(firstPlayerMarker.textContent).toBe("X")
+            expect(firstPlayerState.textContent).toBe("ON")
+            expect(computeStyle.backgroundColor).toBe("green")
         })
     })
 
