@@ -296,9 +296,8 @@ describe("GameBoard testing", () => {
         // 2. IMPORTANT: Reset module cache and re-import/require your JS
         // This ensures the factory function runs against the newly loaded DOM
         jest.resetModules();
-        const { GameBoard: reLoadedGameBoard } = require('./script');
-        const gameBoardEl = document.querySelector(".game-board")
-        gameBoardTester = reLoadedGameBoard(gameBoardEl); // Re-create the object with the new DOM context
+        const { GameBoard: reLoadedGameBoard } = require('./script');        
+        gameBoardTester = reLoadedGameBoard(); // Re-create the object with the new DOM context
     });
 
     afterEach(() => {
@@ -386,7 +385,7 @@ describe("init function testing", () => {
             console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
         }
 
-        const {init} = require('./script')             
+        const {init, GameState, GameBoard} = require('./script')             
         round               = document.querySelector("#round")
         draw                = document.querySelector("#draw")
         inputFirstPlayerName= document.querySelector("#inputPlayerOne")
@@ -405,7 +404,7 @@ describe("init function testing", () => {
         endButton           = document.querySelector("#endButton")
         firstInputName      = "Evan"
         secondInputName     = "Dhika"
-        init(startButton, endButton);
+        init(startButton, endButton, GameState(), GameBoard());
         
     })
       

@@ -10,7 +10,7 @@ const maxRowAndColumn   = 3;
 const maxBoard          = 9;
 const startButton       = document.querySelector("#startButton");
 const endButton         = document.querySelector("#endButton");
-const gameBoardEl       = document.querySelector(".game-board");
+
 
 
 // Atomic Data Non Distinct Definition 
@@ -722,7 +722,8 @@ function funForResult(result) {
    
 
 // GameBoard Data & Method definition
-const GameBoard = function(container) {     
+const GameBoard = function() {   
+    const container   = document.querySelector(".game-board")
     const listOfBoard = setGameBoard(9, "board", container);
     const clear = function() {
         for(let i = 0; i < listOfBoard.length; i++) {
@@ -758,11 +759,9 @@ function setGameBoard(number, className, container) {
 
 // (Element, Element) -> ()
 // To initialize the Tic-Tac-Toe Game
-function init(startButton, endButton) {
+function init(startButton, endButton, gameState, gameBoard) {
     let playerOne = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-    let playerTwo = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
-    let gameState = GameState()
-    let gameBoard = GameBoard(gameBoardEl);
+    let playerTwo = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")    
     let inputNamePlayerOne  = document.querySelector("#inputPlayerOne")
     let inputNamePlayerTwo  = document.querySelector("#inputPlayerTwo")
     let message = Message()
