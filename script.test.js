@@ -385,7 +385,7 @@ describe("init function testing", () => {
             console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
         }
 
-        const {init, GameState, GameBoard} = require('./script')             
+        const {init, GameState, GameBoard, Message} = require('./script')             
         round               = document.querySelector("#round")
         draw                = document.querySelector("#draw")
         inputFirstPlayerName= document.querySelector("#inputPlayerOne")
@@ -404,7 +404,7 @@ describe("init function testing", () => {
         endButton           = document.querySelector("#endButton")
         firstInputName      = "Evan"
         secondInputName     = "Dhika"
-        init(startButton, endButton, GameState(), GameBoard());
+        init(startButton, endButton, GameState(), GameBoard(), Message());
         
     })
       
