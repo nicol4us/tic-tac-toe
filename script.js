@@ -677,8 +677,8 @@ const Message = function() {
         dialog.showModal();
     }
     const nameError         = function() {
-        text.textContent        = "Please insert your name properly!!"
-        dialog.showModal()
+        text.textContent        = "Please insert your name properly!!";
+        dialog.showModal();
     }
     const close    = function() {
         closeButton.addEventListener("click", function() {
@@ -765,18 +765,24 @@ function init(startButton, endButton) {
     let gameBoard = GameBoard(gameBoardEl);
     let inputNamePlayerOne  = document.querySelector("#inputPlayerOne")
     let inputNamePlayerTwo  = document.querySelector("#inputPlayerTwo")
+    let message = Message()
     setStartAndEndButton(startButton, endButton, "ON")
     startButton.addEventListener("click", function() {
         const firstPlayerName = inputNamePlayerOne.value       
         const secondPlayerName = inputNamePlayerTwo.value
         if(firstPlayerName.length >= minNameLength && secondPlayerName.length >= minNameLength) {
             gameState.start(firstPlayerName, playerOne, secondPlayerName, playerTwo);
-            setBoardListener(gameBoard, gameState, playerOne, playerTwo, Message())
+            setBoardListener(gameBoard, gameState, playerOne, playerTwo, message)
             setStartAndEndButton(startButton, endButton, "OFF")
+        }
+        else {
+            message.nameError()
+            message.close()
         }
     })
       
 }
+
 
 // (Button, Button, State) -> ()
 // To Activate or deactivate button according to the State data

@@ -363,13 +363,29 @@ describe("init function testing", () => {
     let secondPlayerMarker;
     let secondPlayerName;
     let secondPlayerState;
-    let secondPlayerLight;    
-    let message;
+    let secondPlayerLight;   
+    let dialog; 
+    let messageElement;
     let startButton;
     let endButton;
+    let firstInputName;
+    let secondInputName;
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
+
+        // Mock the dialog methods for JSDOM
+        // Check if the prototype exists before mocking
+        if (HTMLDialogElement && HTMLDialogElement.prototype) {
+            HTMLDialogElement.prototype.showModal = jest.fn();
+            HTMLDialogElement.prototype.close = jest.fn();
+        } else {
+            // Fallback for environments where HTMLDialogElement might not be defined
+            // This might happen if your JSDOM version is very old or configured differently.
+            // In a typical Jest setup with JSDOM, it should be defined.
+            console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
+        }
+
         const {init} = require('./script')             
         round               = document.querySelector("#round")
         draw                = document.querySelector("#draw")
@@ -383,9 +399,12 @@ describe("init function testing", () => {
         secondPlayerName    = document.querySelector("#playerTwoName")
         secondPlayerState   = document.querySelector("#playerTwoState")
         secondPlayerLight   = document.querySelector("#playerTwoLight")
-        message             = document.querySelector("#message")
+        dialog              = document.querySelector("dialog")
+        messageElement      = document.querySelector("#message")
         startButton         = document.querySelector("#startButton")
         endButton           = document.querySelector("#endButton")
+        firstInputName      = "Evan"
+        secondInputName     = "Dhika"
         init(startButton, endButton);
         
     })
@@ -393,6 +412,11 @@ describe("init function testing", () => {
     afterEach(() => {
         // Clean up the DOM after each test (optional but good practice)
         document.body.innerHTML = '';
+        // Clear mocks after each test
+        if (HTMLDialogElement && HTMLDialogElement.prototype.showModal) {
+            HTMLDialogElement.prototype.showModal.mockRestore();
+            HTMLDialogElement.prototype.close.mockRestore();
+        }
     });
 
     describe("Check Game Info section for Round and Draw", () => {
@@ -457,9 +481,8 @@ describe("init function testing", () => {
     })
 
     describe("Check Start Button get clicked", () => {
-        test("Check input when Start Button get clicked", () => {            
-            const firstInputName = "Evan"
-            const secondInputName= "Dhika"
+        test("Check input when Start Button get clicked", () => {     
+
             inputFirstPlayerName.value = firstInputName            
             inputSecondPlayerName.value = secondInputName      
             startButton.click()
@@ -468,11 +491,10 @@ describe("init function testing", () => {
         })
         test("Check empty input when Start button get clicked", () => {
             startButton.click()
-            expect(message.textContent).toBe("Please insert your name properly!!")
+            expect(messageElement.textContent).toBe("Please insert your name properly!!")
+            expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalledTimes(1);
         })
-        test("Check first Player state when Start Button get clicked", () => { 
-            const firstInputName = "Evan"
-            const secondInputName= "Dhika"
+        test("Check first Player state when Start Button get clicked", () => {             
             inputFirstPlayerName.value = firstInputName            
             inputSecondPlayerName.value = secondInputName            
             startButton.click()
@@ -481,6 +503,7 @@ describe("init function testing", () => {
             expect(firstPlayerState.textContent).toBe("ON")
             expect(computeStyle.backgroundColor).toBe("green")
         })
+        
     })
 
     
