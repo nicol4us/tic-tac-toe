@@ -363,7 +363,8 @@ describe("init function testing", () => {
     let secondPlayerMarker;
     let secondPlayerName;
     let secondPlayerState;
-    let secondPlayerLight;
+    let secondPlayerLight;    
+    let message;
     let startButton;
     let endButton;
     beforeEach(() => {
@@ -382,6 +383,7 @@ describe("init function testing", () => {
         secondPlayerName    = document.querySelector("#playerTwoName")
         secondPlayerState   = document.querySelector("#playerTwoState")
         secondPlayerLight   = document.querySelector("#playerTwoLight")
+        message             = document.querySelector("#message")
         startButton         = document.querySelector("#startButton")
         endButton           = document.querySelector("#endButton")
         init(startButton, endButton);
@@ -463,6 +465,10 @@ describe("init function testing", () => {
             startButton.click()
             expect(firstPlayerName.textContent).toBe("Evan")
             expect(secondPlayerName.textContent).toBe("Dhika")            
+        })
+        test("Check empty input when Start button get clicked", () => {
+            startButton.click()
+            expect(message.textContent).toBe("Please insert your name properly!!")
         })
         test("Check first Player state when Start Button get clicked", () => { 
             const firstInputName = "Evan"
