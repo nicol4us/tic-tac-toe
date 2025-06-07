@@ -355,11 +355,7 @@ describe("gamePlay function testing", () => {
     let firstPlayer;
     let secondPlayer;
     let inputFirstPlayerName;    
-    let inputSecondPlayerName;
-    let secondPlayerMarker;
-    let secondPlayerName;
-    let secondPlayerState;
-    let secondPlayerLight;     
+    let inputSecondPlayerName;        
     let messageElement;
     let startButton;
     let endButton;
@@ -386,11 +382,7 @@ describe("gamePlay function testing", () => {
         firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
         secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
         inputFirstPlayerName= document.querySelector("#inputPlayerOne")        
-        inputSecondPlayerName = document.querySelector("#inputPlayerTwo")
-        secondPlayerMarker  = document.querySelector("#playerTwoMarker")
-        secondPlayerName    = document.querySelector("#playerTwoName")
-        secondPlayerState   = document.querySelector("#playerTwoState")
-        secondPlayerLight   = document.querySelector("#playerTwoLight")        
+        inputSecondPlayerName = document.querySelector("#inputPlayerTwo")            
         messageElement      = document.querySelector("#message")
         startButton         = document.querySelector("#startButton")
         endButton           = document.querySelector("#endButton")
