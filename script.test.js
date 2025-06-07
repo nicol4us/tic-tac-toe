@@ -503,7 +503,15 @@ describe("init function testing", () => {
             expect(firstPlayerState.textContent).toBe("ON")
             expect(computeStyle.backgroundColor).toBe("green")
         })
-        
+        test("Check second player state when Start button get clicked", () => {
+            inputFirstPlayerName.value = firstInputName            
+            inputSecondPlayerName.value = secondInputName            
+            startButton.click()
+            const computeStyle = window.getComputedStyle(secondPlayerLight)
+            expect(secondPlayerMarker.textContent).toBe("O")
+            expect(secondPlayerState.textContent).toBe("OFF")
+            expect(computeStyle.backgroundColor).toBe("red")
+        })
     })
 
     
