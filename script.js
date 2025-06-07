@@ -572,19 +572,17 @@ function setGameBoard(number, className, container) {
 
 // (Element, Element) -> ()
 // To initialize the Tic-Tac-Toe Game
-function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer ,message) {       
-    let inputNamePlayerOne  = document.querySelector("#inputPlayerOne")
-    let inputNamePlayerTwo  = document.querySelector("#inputPlayerTwo")    
+function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer ,message, firstInput, secondInput) {
     setStartAndEndButton(startButton, endButton, "ON")
     startButton.addEventListener("click", function() {
-        const firstPlayerName = inputNamePlayerOne.value       
-        const secondPlayerName = inputNamePlayerTwo.value
+        const firstPlayerName = firstInput.value       
+        const secondPlayerName = secondInput.value
         if(firstPlayerName.length >= minNameLength && secondPlayerName.length >= minNameLength) {
             gameState.start(firstPlayerName, firstPlayer, secondPlayerName, secondPlayer);
             setBoardListener(gameBoard, gameState, firstPlayer, secondPlayer, message)
             setStartAndEndButton(startButton, endButton, "OFF")
-            inputNamePlayerOne.hidden = true;
-            inputNamePlayerTwo.hidden = true;
+            firstInput.hidden = true;
+            secondInput.hidden = true;
         }
         else {
             message.nameError()

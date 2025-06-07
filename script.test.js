@@ -354,8 +354,8 @@ describe("gamePlay function testing", () => {
     let gameState;    
     let firstPlayer;
     let secondPlayer;
-    let inputFirstPlayerName;    
-    let inputSecondPlayerName;        
+    let firstInput;    
+    let secondInput;        
     let messageElement;
     let startButton;
     let endButton;
@@ -381,14 +381,14 @@ describe("gamePlay function testing", () => {
         gameState           = GameState()        
         firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
         secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
-        inputFirstPlayerName= document.querySelector("#inputPlayerOne")        
-        inputSecondPlayerName = document.querySelector("#inputPlayerTwo")            
+        firstInput          = document.querySelector("#inputPlayerOne")        
+        secondInput         = document.querySelector("#inputPlayerTwo")            
         messageElement      = document.querySelector("#message")
         startButton         = document.querySelector("#startButton")
         endButton           = document.querySelector("#endButton")
         firstInputName      = "Evan"
         secondInputName     = "Dhika"
-        gamePlay(startButton, endButton, GameState(), GameBoard(), firstPlayer, secondPlayer,Message());
+        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,Message(), firstInput, secondInput);
         
     })
       
@@ -472,8 +472,8 @@ describe("gamePlay function testing", () => {
     describe("Check Start Button get clicked", () => {
         test("Check input when Start Button get clicked", () => {     
 
-            inputFirstPlayerName.value = firstInputName            
-            inputSecondPlayerName.value = secondInputName      
+            firstInput.value = firstInputName            
+            secondInput.value = secondInputName      
             startButton.click()
             expect(firstPlayer.getName()).toBe("Evan")
             expect(secondPlayer.getName()).toBe("Dhika")            
@@ -484,8 +484,8 @@ describe("gamePlay function testing", () => {
             expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalledTimes(1);
         })
         test("Check first Player state when Start Button get clicked", () => {             
-            inputFirstPlayerName.value = firstInputName            
-            inputSecondPlayerName.value = secondInputName            
+            firstInput.value = firstInputName            
+            secondInput.value = secondInputName            
             startButton.click()
             const computeStyle = window.getComputedStyle(firstPlayer.lightElement)
             expect(firstPlayer.getMarker()).toBe("X")
@@ -493,8 +493,8 @@ describe("gamePlay function testing", () => {
             expect(computeStyle.backgroundColor).toBe("green")
         })
         test("Check second player state when Start button get clicked", () => {
-            inputFirstPlayerName.value = firstInputName            
-            inputSecondPlayerName.value = secondInputName            
+            firstInput.value = firstInputName            
+            secondInput.value = secondInputName            
             startButton.click()
             const computeStyle = window.getComputedStyle(secondPlayer.lightElement)
             expect(secondPlayer.getMarker()).toBe("O")
@@ -502,8 +502,8 @@ describe("gamePlay function testing", () => {
             expect(computeStyle.backgroundColor).toBe("red")
         })
         test("Check if Start button get disable & End button get enable when Start button got clicked", () => {
-            inputFirstPlayerName.value = firstInputName            
-            inputSecondPlayerName.value = secondInputName            
+            firstInput.value = firstInputName            
+            secondInput.value = secondInputName            
             startButton.click()
             const computeStyleStartButton = window.getComputedStyle(startButton)
             const computeStyleEndButton     = window.getComputedStyle(endButton)
@@ -513,11 +513,11 @@ describe("gamePlay function testing", () => {
             expect(computeStyleEndButton.backgroundColor).toBe("green")
         })
         test("Check if both input element get hidden when Start Button got clicked", () => {
-            inputFirstPlayerName.value = firstInputName            
-            inputSecondPlayerName.value = secondInputName            
+            firstInput.value = firstInputName            
+            secondInput.value = secondInputName            
             startButton.click()
-            expect(inputFirstPlayerName.hidden).toBeTruthy()
-            expect(inputSecondPlayerName.hidden).toBeTruthy()
+            expect(firstInput.hidden).toBeTruthy()
+            expect(secondInput.hidden).toBeTruthy()
         })
     })    
 })
