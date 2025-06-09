@@ -675,3 +675,124 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
     })
 
 })
+
+describe("Game play simulation", () => {
+    let gameState;    
+    let gameBoard;
+    let firstPlayer;
+    let secondPlayer;
+    let firstInput;    
+    let secondInput;        
+    let message;
+    let startButton;
+    let endButton;    
+    beforeEach(() => {
+        document.body.innerHTML = htmlContent
+        jest.resetModules()
+
+        // Mock the dialog methods for JSDOM
+        // Check if the prototype exists before mocking
+        if (HTMLDialogElement && HTMLDialogElement.prototype) {
+            HTMLDialogElement.prototype.showModal = jest.fn();
+            HTMLDialogElement.prototype.close = jest.fn();
+        } else {
+            // Fallback for environments where HTMLDialogElement might not be defined
+            // This might happen if your JSDOM version is very old or configured differently.
+            // In a typical Jest setup with JSDOM, it should be defined.
+            console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
+        }
+
+        const {gamePlay, GameState, GameBoard,createPlayer ,Message} = require('./script')   
+        gameState           = GameState()    
+        gameBoard           = GameBoard()    
+        firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+        secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
+        firstInput          = document.querySelector("#inputPlayerOne")        
+        secondInput         = document.querySelector("#inputPlayerTwo")            
+        message             = Message()
+        startButton         = document.querySelector("#startButton")
+        endButton           = document.querySelector("#endButton")        
+        firstInput.value    = "Evan"            
+        secondInput.value   = "Dhika"
+        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, firstInput, secondInput);
+        startButton.click()               
+    })
+      
+    afterEach(() => {
+        // Clean up the DOM after each test (optional but good practice)
+        document.body.innerHTML = '';
+        // Clear mocks after each test
+        if (HTMLDialogElement && HTMLDialogElement.prototype.showModal) {
+            HTMLDialogElement.prototype.showModal.mockRestore();
+            HTMLDialogElement.prototype.close.mockRestore();
+        }
+    });
+
+    describe("Check state if First Player win using first diagonal row", () => {
+        test("Second player get X marker after loose and play first  for next , first player get win become 1, round also 1", () => {
+            gameBoard.listOfBoard[4].boardElement.click()
+            gameBoard.listOfBoard[1].boardElement.click()
+            gameBoard.listOfBoard[0].boardElement.click()
+            gameBoard.listOfBoard[6].boardElement.click()
+            gameBoard.listOfBoard[8].boardElement.click()
+            const firstPlayerLight = window.getComputedStyle(firstPlayer.lightElement)
+            const secondPlayerLight = window.getComputedStyle(secondPlayer.lightElement)
+            expect(firstPlayer.getMarker()).toBe("O")
+            expect(firstPlayer.getState()).toBe("OFF")
+            expect(firstPlayerLight.backgroundColor).toBe("red")
+            expect(firstPlayer.winElement.textContent).toBe("1")
+            expect(secondPlayer.getMarker()).toBe("X")
+            expect(secondPlayer.getState()).toBe("ON")
+            expect(secondPlayerLight.backgroundColor).toBe("green")
+            expect(secondPlayer.winElement.textContent).toBe("0")
+            expect(gameState.roundElement.textContent).toBe("1")
+        })
+    })
+
+    describe("Check state if Second Player win using first row", () => {
+        test("Second player still get O marker after win, second player get win become 1, round also 1", () => {
+            gameBoard.listOfBoard[4].boardElement.click()
+            gameBoard.listOfBoard[1].boardElement.click()
+            gameBoard.listOfBoard[8].boardElement.click()
+            gameBoard.listOfBoard[0].boardElement.click()
+            gameBoard.listOfBoard[5].boardElement.click()
+            gameBoard.listOfBoard[2].boardElement.click()
+            const firstPlayerLight = window.getComputedStyle(firstPlayer.lightElement)
+            const secondPlayerLight = window.getComputedStyle(secondPlayer.lightElement)
+            expect(firstPlayer.getMarker()).toBe("X")
+            expect(firstPlayer.getState()).toBe("ON")
+            expect(firstPlayerLight.backgroundColor).toBe("green")
+            expect(firstPlayer.winElement.textContent).toBe("0")
+            expect(secondPlayer.getMarker()).toBe("O")
+            expect(secondPlayer.getState()).toBe("OFF")
+            expect(secondPlayerLight.backgroundColor).toBe("red")
+            expect(secondPlayer.winElement.textContent).toBe("1")
+        })
+    })
+
+    describe("Check message if first Player win using third column", () => {
+        test("Message to congratulate First player has to appear", () => {
+            gameBoard.listOfBoard[4].boardElement.click()
+            gameBoard.listOfBoard[1].boardElement.click()
+            gameBoard.listOfBoard[8].boardElement.click()
+            gameBoard.listOfBoard[0].boardElement.click()
+            gameBoard.listOfBoard[2].boardElement.click()
+            gameBoard.listOfBoard[6].boardElement.click()
+            gameBoard.listOfBoard[5].boardElement.click()
+            expect(message.text.textContent).toBe("Congratulations " + firstPlayer.getName() + ", you are the winner!!!")            
+        })
+    })
+
+    describe("Check message if second Player win using first column", () => {
+        test("Message to congratulate First player has to appear", () => {
+            gameBoard.listOfBoard[4].boardElement.click()
+            gameBoard.listOfBoard[0].boardElement.click()
+            gameBoard.listOfBoard[2].boardElement.click()
+            gameBoard.listOfBoard[6].boardElement.click()
+            gameBoard.listOfBoard[8].boardElement.click()
+            gameBoard.listOfBoard[3].boardElement.click()            
+            expect(message.text.textContent).toBe("Congratulations " + secondPlayer.getName() + ", you are the winner!!!")            
+        })
+    })
+
+})
