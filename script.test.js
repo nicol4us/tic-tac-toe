@@ -580,3 +580,99 @@ describe("gamePlay testing state after Start button get clicked", () => {
         })
     })
 })
+
+describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
+    let gameState;    
+    let gameBoard;
+    let firstPlayer;
+    let secondPlayer;
+    let firstInput;    
+    let secondInput;        
+    let message;
+    let startButton;
+    let endButton;    
+    beforeEach(() => {
+        document.body.innerHTML = htmlContent
+        jest.resetModules()
+
+        // Mock the dialog methods for JSDOM
+        // Check if the prototype exists before mocking
+        if (HTMLDialogElement && HTMLDialogElement.prototype) {
+            HTMLDialogElement.prototype.showModal = jest.fn();
+            HTMLDialogElement.prototype.close = jest.fn();
+        } else {
+            // Fallback for environments where HTMLDialogElement might not be defined
+            // This might happen if your JSDOM version is very old or configured differently.
+            // In a typical Jest setup with JSDOM, it should be defined.
+            console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
+        }
+
+        const {gamePlay, GameState, GameBoard,createPlayer ,Message} = require('./script')   
+        gameState           = GameState()    
+        gameBoard           = GameBoard()    
+        firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+        secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
+        firstInput          = document.querySelector("#inputPlayerOne")        
+        secondInput         = document.querySelector("#inputPlayerTwo")            
+        message             = Message()
+        startButton         = document.querySelector("#startButton")
+        endButton           = document.querySelector("#endButton")        
+        firstInput.value    = "Evan"            
+        secondInput.value   = "Dhika"
+        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, firstInput, secondInput);
+        startButton.click()  
+        gameBoard.listOfBoard[4].boardEl.click()      
+    })
+      
+    afterEach(() => {
+        // Clean up the DOM after each test (optional but good practice)
+        document.body.innerHTML = '';
+        // Clear mocks after each test
+        if (HTMLDialogElement && HTMLDialogElement.prototype.showModal) {
+            HTMLDialogElement.prototype.showModal.mockRestore();
+            HTMLDialogElement.prototype.close.mockRestore();
+        }
+    });
+
+    describe("Check first player state", () => {
+        test("First player state must be off", () => {
+            expect(firstPlayer.getState()).toBe("OFF")
+        })
+        test("First player light must be red", () => {
+            const firstPlayerLight = window.getComputedStyle(firstPlayer.lightElement)
+            expect(firstPlayerLight.backgroundColor).toBe("red")
+        })
+    })
+
+    describe("Check Second Player state", () => {        
+        test("Second player state must be ON", () => {
+            expect(secondPlayer.getState()).toBe("ON")
+        })
+        test("Second player light must turn green", () => {
+            const secondPlayerLight = window.getComputedStyle(secondPlayer.lightElement)
+            expect(secondPlayerLight.backgroundColor).toBe("green")
+        })
+    })
+    
+    describe("Check Gameboard state", () => {
+        test("GameBoard index 4 must have X marker", () => {
+            expect(gameBoard.listOfBoard[4].boardEl.textContent).toBe("X")
+        })
+    })
+
+    describe("Check  state if GameBoard index 1 got clicked", () => {
+        test("Check first, second player & gameboard state", () => {
+            gameBoard.listOfBoard[1].boardEl.click()
+            const firstPlayerLight = window.getComputedStyle(firstPlayer.lightElement)
+            const secondPlayerLight = window.getComputedStyle(secondPlayer.lightElement)
+            expect(firstPlayer.getState()).toBe("ON")
+            expect(firstPlayerLight.backgroundColor).toBe("green")
+            expect(secondPlayer.getState()).toBe("OFF")
+            expect(secondPlayerLight.backgroundColor).toBe("red")
+            expect(gameBoard.listOfBoard[1].boardEl.textContent).toBe("O")
+        })
+        
+        
+    })
+
+})
