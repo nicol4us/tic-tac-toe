@@ -358,9 +358,7 @@ describe("gamePlay function testing initial state", () => {
     let secondInput;        
     let message;
     let startButton;
-    let endButton;
-    let firstInputName;
-    let secondInputName;
+    let endButton;    
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
@@ -385,9 +383,7 @@ describe("gamePlay function testing initial state", () => {
         secondInput         = document.querySelector("#inputPlayerTwo")            
         message             = Message()
         startButton         = document.querySelector("#startButton")
-        endButton           = document.querySelector("#endButton")
-        firstInputName      = "Evan"
-        secondInputName     = "Dhika"
+        endButton           = document.querySelector("#endButton")        
         gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,message, firstInput, secondInput);
         
     })
@@ -460,7 +456,7 @@ describe("gamePlay function testing initial state", () => {
     })
 
     describe("Check End button section", () => {
-        test("Check if Start button enable to be click", () => {
+        test("Check if End button not enable to be click", () => {
             expect(endButton).toBeDisabled()            
         })
         test("Check if background End button is gray", () => {
@@ -474,22 +470,16 @@ describe("gamePlay function testing initial state", () => {
             startButton.click()
             expect(message.text.textContent).toBe("Please insert your name properly!!")
             expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalledTimes(1);
-        })      
+        })            
         
         
-        test("Check if both input element get hidden when Start Button got clicked", () => {
-            firstInput.value = firstInputName            
-            secondInput.value = secondInputName            
-            startButton.click()
-            expect(firstInput.hidden).toBeTruthy()
-            expect(secondInput.hidden).toBeTruthy()
-        })
     })    
 })
 
 
 describe("gamePlay testing state after Start button get clicked", () => {
     let gameState;    
+    let gameBoard;
     let firstPlayer;
     let secondPlayer;
     let firstInput;    
@@ -514,7 +504,8 @@ describe("gamePlay testing state after Start button get clicked", () => {
         }
 
         const {gamePlay, GameState, GameBoard,createPlayer ,Message} = require('./script')   
-        gameState           = GameState()        
+        gameState           = GameState()    
+        gameBoard           = GameBoard()    
         firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
         secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
         firstInput          = document.querySelector("#inputPlayerOne")        
@@ -524,7 +515,7 @@ describe("gamePlay testing state after Start button get clicked", () => {
         endButton           = document.querySelector("#endButton")        
         firstInput.value    = "Evan"            
         secondInput.value   = "Dhika"
-        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,message, firstInput, secondInput);
+        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, firstInput, secondInput);
         startButton.click()        
     })
       
@@ -550,6 +541,13 @@ describe("gamePlay testing state after Start button get clicked", () => {
         
     })
 
+    describe("Check Input state after Start got clicked", () => {
+        test("Check if both input element get hidden when Start Button got clicked", () => {            
+            expect(firstInput.hidden).toBeTruthy()
+            expect(secondInput.hidden).toBeTruthy()
+        })        
+    })
+
     describe("Check First Player state", () => {
         test("First player name must be Evan", () => {
             expect(firstPlayer.getName()).toBe("Evan")
@@ -563,6 +561,22 @@ describe("gamePlay testing state after Start button get clicked", () => {
         test("First player light must turn green", () => {
             const firstPlayerLight = window.getComputedStyle(firstPlayer.lightElement)
             expect(firstPlayerLight.backgroundColor).toBe("green")
+        })
+    })
+
+    describe("Check Second Player state", () => {
+        test("Second player name must be Dhika", () => {
+            expect(secondPlayer.getName()).toBe("Dhika")
+        })
+        test("First player marker must be X", () => {
+            expect(secondPlayer.getMarker()).toBe("O")
+        })
+        test("Second player state must be OFF", () => {
+            expect(secondPlayer.getState()).toBe("OFF")
+        })
+        test("Second player light must turn red", () => {
+            const secondPlayerLight = window.getComputedStyle(secondPlayer.lightElement)
+            expect(secondPlayerLight.backgroundColor).toBe("red")
         })
     })
 })
