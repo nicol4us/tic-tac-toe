@@ -460,14 +460,14 @@ function changeStateAndLight(player) {
 // Board Data Definition
 function createBoard(indexList, className) {
     const index = indexList;
-    const boardEl = document.createElement("div");
-    boardEl.classList.add(className);
-    return {index, boardEl}
+    const boardElement = document.createElement("div");
+    boardElement.classList.add(className);
+    return {index, boardElement}
 }
 /*
 function funforBoard(board) {
     ... board.index;
-    ... board.boardEl;
+    ... board.boardElement;
 }
 */
 // Rule template used:
@@ -540,7 +540,7 @@ const GameBoard = function() {
     const listOfBoard = setGameBoard(9, "board", container);
     const clear = function() {
         for(let i = 0; i < listOfBoard.length; i++) {
-            listOfBoard[i].boardEl.textContent = "";        
+            listOfBoard[i].boardElement.textContent = "";        
         }        
     }
     return {listOfBoard, clear}    
@@ -564,7 +564,7 @@ function setGameBoard(number, className, container) {
     for (let i = 0 ; i < number; i++) {
         const board = createBoard(i, className);
         listBoard.push(board)        
-        container.appendChild(board.boardEl);
+        container.appendChild(board.boardElement);
     }        
     return listBoard;
 }
@@ -618,9 +618,9 @@ function setStartAndEndButton(startButton, endButton, state) {
 function setBoardListener(gameBoard, gameState,playerOne, playerTwo, message) {    
     for(let i = 0; i < gameBoard.listOfBoard.length; i++) {
         const board = gameBoard.listOfBoard[i]
-        board.boardEl.addEventListener("click", function() {
-            if(gameState.flag && board.boardEl.textContent === "") {                    
-                    board.boardEl.textContent = gameState.getPlayerON().getMarker();
+        board.boardElement.addEventListener("click", function() {
+            if(gameState.flag && board.boardElement.textContent === "") {                    
+                    board.boardElement.textContent = gameState.getPlayerON().getMarker();
                     gameState.getPlayerON().record.set(board.index); 
                     gameState.boardRecord.push(board.index)               
                     checkGameState(gameBoard, gameState, playerOne, playerTwo, message) ;       

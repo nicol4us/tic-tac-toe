@@ -310,40 +310,40 @@ describe("GameBoard testing", () => {
             expect(gameBoardTester.listOfBoard.length).toBe(9);
         })
         test("Check if we can put some marker into one of the board", () => {
-            gameBoardTester.listOfBoard[0].boardEl.textContent = "O";
-            expect(gameBoardTester.listOfBoard[0].boardEl.textContent).toBe("O")
+            gameBoardTester.listOfBoard[0].boardElement.textContent = "O";
+            expect(gameBoardTester.listOfBoard[0].boardElement.textContent).toBe("O")
         })
     })
     describe("Test clear method of GameBoard", () => {
         test("Check if we can erase all marker after we put all mark into GameBoard", () => {
-            gameBoardTester.listOfBoard[0].boardEl.textContent = "X"
-            expect(gameBoardTester.listOfBoard[0].boardEl.textContent).toBe("X")            
-            gameBoardTester.listOfBoard[1].boardEl.textContent = "O"
-            expect(gameBoardTester.listOfBoard[1].boardEl.textContent).toBe("O")
-            gameBoardTester.listOfBoard[2].boardEl.textContent = "X"
-            expect(gameBoardTester.listOfBoard[2].boardEl.textContent).toBe("X")
-            gameBoardTester.listOfBoard[3].boardEl.textContent = "O"
-            expect(gameBoardTester.listOfBoard[3].boardEl.textContent).toBe("O")
-            gameBoardTester.listOfBoard[4].boardEl.textContent = "X"
-            expect(gameBoardTester.listOfBoard[4].boardEl.textContent).toBe("X")
-            gameBoardTester.listOfBoard[5].boardEl.textContent = "O"
-            expect(gameBoardTester.listOfBoard[5].boardEl.textContent).toBe("O")
-            gameBoardTester.listOfBoard[6].boardEl.textContent = "X"
-            expect(gameBoardTester.listOfBoard[6].boardEl.textContent).toBe("X")
-            gameBoardTester.listOfBoard[7].boardEl.textContent = "O"
-            expect(gameBoardTester.listOfBoard[7].boardEl.textContent).toBe("O")
-            gameBoardTester.listOfBoard[8].boardEl.textContent = "X"
-            expect(gameBoardTester.listOfBoard[8].boardEl.textContent).toBe("X")            
+            gameBoardTester.listOfBoard[0].boardElement.textContent = "X"
+            expect(gameBoardTester.listOfBoard[0].boardElement.textContent).toBe("X")            
+            gameBoardTester.listOfBoard[1].boardElement.textContent = "O"
+            expect(gameBoardTester.listOfBoard[1].boardElement.textContent).toBe("O")
+            gameBoardTester.listOfBoard[2].boardElement.textContent = "X"
+            expect(gameBoardTester.listOfBoard[2].boardElement.textContent).toBe("X")
+            gameBoardTester.listOfBoard[3].boardElement.textContent = "O"
+            expect(gameBoardTester.listOfBoard[3].boardElement.textContent).toBe("O")
+            gameBoardTester.listOfBoard[4].boardElement.textContent = "X"
+            expect(gameBoardTester.listOfBoard[4].boardElement.textContent).toBe("X")
+            gameBoardTester.listOfBoard[5].boardElement.textContent = "O"
+            expect(gameBoardTester.listOfBoard[5].boardElement.textContent).toBe("O")
+            gameBoardTester.listOfBoard[6].boardElement.textContent = "X"
+            expect(gameBoardTester.listOfBoard[6].boardElement.textContent).toBe("X")
+            gameBoardTester.listOfBoard[7].boardElement.textContent = "O"
+            expect(gameBoardTester.listOfBoard[7].boardElement.textContent).toBe("O")
+            gameBoardTester.listOfBoard[8].boardElement.textContent = "X"
+            expect(gameBoardTester.listOfBoard[8].boardElement.textContent).toBe("X")            
             gameBoardTester.clear();
-            expect(gameBoardTester.listOfBoard[0].boardEl.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[1].boardEl.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[2].boardEl.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[3].boardEl.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[4].boardEl.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[5].boardEl.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[6].boardEl.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[7].boardEl.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[8].boardEl.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[0].boardElement.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[1].boardElement.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[2].boardElement.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[3].boardElement.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[4].boardElement.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[5].boardElement.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[6].boardElement.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[7].boardElement.textContent).toBe("")
+            expect(gameBoardTester.listOfBoard[8].boardElement.textContent).toBe("")
             
         })
     })
@@ -621,7 +621,7 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
         secondInput.value   = "Dhika"
         gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, firstInput, secondInput);
         startButton.click()  
-        gameBoard.listOfBoard[4].boardEl.click()      
+        gameBoard.listOfBoard[4].boardElement.click()      
     })
       
     afterEach(() => {
@@ -656,22 +656,21 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
     
     describe("Check Gameboard state", () => {
         test("GameBoard index 4 must have X marker", () => {
-            expect(gameBoard.listOfBoard[4].boardEl.textContent).toBe("X")
+            expect(gameBoard.listOfBoard[4].boardElement.textContent).toBe("X")
         })
     })
 
     describe("Check  state if GameBoard index 1 got clicked", () => {
         test("Check first, second player & gameboard state", () => {
-            gameBoard.listOfBoard[1].boardEl.click()
+            gameBoard.listOfBoard[1].boardElement.click()
             const firstPlayerLight = window.getComputedStyle(firstPlayer.lightElement)
             const secondPlayerLight = window.getComputedStyle(secondPlayer.lightElement)
             expect(firstPlayer.getState()).toBe("ON")
             expect(firstPlayerLight.backgroundColor).toBe("green")
             expect(secondPlayer.getState()).toBe("OFF")
             expect(secondPlayerLight.backgroundColor).toBe("red")
-            expect(gameBoard.listOfBoard[1].boardEl.textContent).toBe("O")
-        })
-        
+            expect(gameBoard.listOfBoard[1].boardElement.textContent).toBe("O")
+        })       
         
     })
 
