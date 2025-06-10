@@ -315,8 +315,8 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
         setMarker, getMarker,setName, getName,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
 // Example
-const firstPlayer = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-const secondPlayer = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue") 
+//const firstPlayer = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+//const secondPlayer = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue") 
 /*
 function funForPlayer(player) {
     ... funForRecord(player.record);
@@ -578,9 +578,13 @@ function setGameBoard(number, className, container) {
 
 // InputPlayerName is
 const InputPlayerName = function() {
-    const first = document.querySelector("#inputPlayerOne")
-    const second = document.querySelector("#inputPlayerTwo")
-    return {first, second}
+    const first     = document.querySelector("#inputPlayerOne")
+    const second    = document.querySelector("#inputPlayerTwo")
+    const hide      = function() {
+        first.hidden    = true;
+        second.hidden   = true;
+    }
+    return {first, second, hide}
 }
 // interp. Input HTML element for player name
 /*
@@ -596,17 +600,14 @@ function funForInputPlayerName(inputPlayerName) {
 
 // (Element, Element) -> ()
 // To initialize the Tic-Tac-Toe Game
-function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer ,message, firstInput, secondInput) {
+function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer ,message, inputPlayerName) {
     setStartAndEndButton(startButton, endButton, "ON")
-    startButton.addEventListener("click", function() {
-        const firstPlayerName = firstInput.value       
-        const secondPlayerName = secondInput.value
-        if(firstPlayerName.length >= minNameLength && secondPlayerName.length >= minNameLength) {
-            gameState.start(firstPlayerName, firstPlayer, secondPlayerName, secondPlayer);
+    startButton.addEventListener("click", function() {        
+        if(inputPlayerName.first.value.length >= minNameLength && inputPlayerName.second.value.length >= minNameLength) {
+            gameState.start(inputPlayerName.first.value, firstPlayer, inputPlayerName.second.value, secondPlayer);
             setBoardListener(gameBoard, gameState, firstPlayer, secondPlayer, message)
             setStartAndEndButton(startButton, endButton, "OFF")
-            firstInput.hidden = true;
-            secondInput.hidden = true;
+            inputPlayerName.hide()
         }
         else {
             message.nameError()
@@ -752,6 +753,6 @@ function setPlayerForNext(gameState, playerOne, playerTwo) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer, GameState, GameBoard, gamePlay, Message
+        createRecord, createPlayer, GameState, GameBoard, gamePlay, Message, InputPlayerName
     };
   }

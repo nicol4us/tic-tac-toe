@@ -29,7 +29,7 @@ describe('Record data & method testing', () => {
         
     });
     jest.resetModules()
-    const {createRecord} = require('./script')
+    const {createRecord, InputPlayerName} = require('./script')
     const record = createRecord();
 
     test("input 0 for set method should should save index into listRecord of index 0, 3, 6", () => {
@@ -357,8 +357,7 @@ describe("gamePlay function testing initial state", () => {
     let firstInput;    
     let secondInput;        
     let message;
-    let startButton;
-    let endButton;    
+    let inputPlayerName    
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
@@ -375,16 +374,15 @@ describe("gamePlay function testing initial state", () => {
             console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
         }
 
-        const {gamePlay, GameState, GameBoard,createPlayer ,Message} = require('./script')   
+        const {gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')   
         gameState           = GameState()        
         firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
         secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
         firstInput          = document.querySelector("#inputPlayerOne")        
         secondInput         = document.querySelector("#inputPlayerTwo")            
         message             = Message()
-        startButton         = document.querySelector("#startButton")
-        endButton           = document.querySelector("#endButton")        
-        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,message, firstInput, secondInput);
+        inputPlayerName     = InputPlayerName()        
+        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,message, inputPlayerName);
         
     })
       
@@ -485,8 +483,7 @@ describe("gamePlay testing state after Start button get clicked", () => {
     let firstInput;    
     let secondInput;        
     let message;
-    let startButton;
-    let endButton;    
+    let inputPlayerName;    
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
@@ -503,7 +500,7 @@ describe("gamePlay testing state after Start button get clicked", () => {
             console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
         }
 
-        const {gamePlay, GameState, GameBoard,createPlayer ,Message} = require('./script')   
+        const {gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')   
         gameState           = GameState()    
         gameBoard           = GameBoard()    
         firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
@@ -512,10 +509,11 @@ describe("gamePlay testing state after Start button get clicked", () => {
         secondInput         = document.querySelector("#inputPlayerTwo")            
         message             = Message()
         startButton         = document.querySelector("#startButton")
-        endButton           = document.querySelector("#endButton")        
-        firstInput.value    = "Evan"            
-        secondInput.value   = "Dhika"
-        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, firstInput, secondInput);
+        endButton           = document.querySelector("#endButton")    
+        inputPlayerName     = InputPlayerName()    
+        inputPlayerName.first.value    = "Evan"            
+        inputPlayerName.second.value   = "Dhika"
+        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName);
         startButton.click()        
     })
       
@@ -543,8 +541,8 @@ describe("gamePlay testing state after Start button get clicked", () => {
 
     describe("Check Input state after Start got clicked", () => {
         test("Check if both input element get hidden when Start Button got clicked", () => {            
-            expect(firstInput.hidden).toBeTruthy()
-            expect(secondInput.hidden).toBeTruthy()
+            expect(inputPlayerName.first.hidden).toBeTruthy()
+            expect(inputPlayerName.second.hidden).toBeTruthy()
         })        
     })
 
@@ -589,8 +587,7 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
     let firstInput;    
     let secondInput;        
     let message;
-    let startButton;
-    let endButton;    
+    let inputPlayerName;   
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
@@ -607,7 +604,7 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
             console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
         }
 
-        const {gamePlay, GameState, GameBoard,createPlayer ,Message} = require('./script')   
+        const {gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')   
         gameState           = GameState()    
         gameBoard           = GameBoard()    
         firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
@@ -616,10 +613,11 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
         secondInput         = document.querySelector("#inputPlayerTwo")            
         message             = Message()
         startButton         = document.querySelector("#startButton")
-        endButton           = document.querySelector("#endButton")        
-        firstInput.value    = "Evan"            
-        secondInput.value   = "Dhika"
-        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, firstInput, secondInput);
+        endButton           = document.querySelector("#endButton") 
+        inputPlayerName     = InputPlayerName()       
+        inputPlayerName.first.value    = "Evan"            
+        inputPlayerName.second.value   = "Dhika"
+        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName);
         startButton.click()  
         gameBoard.listOfBoard[4].boardElement.click()      
     })
@@ -684,8 +682,7 @@ describe("Game play simulation", () => {
     let firstInput;    
     let secondInput;        
     let message;
-    let startButton;
-    let endButton;    
+    let inputPlayerName;    
     beforeEach(() => {
         document.body.innerHTML = htmlContent
         jest.resetModules()
@@ -702,7 +699,7 @@ describe("Game play simulation", () => {
             console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
         }
 
-        const {gamePlay, GameState, GameBoard,createPlayer ,Message} = require('./script')   
+        const {gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')   
         gameState           = GameState()    
         gameBoard           = GameBoard()    
         firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
@@ -711,10 +708,11 @@ describe("Game play simulation", () => {
         secondInput         = document.querySelector("#inputPlayerTwo")            
         message             = Message()
         startButton         = document.querySelector("#startButton")
-        endButton           = document.querySelector("#endButton")        
-        firstInput.value    = "Evan"            
-        secondInput.value   = "Dhika"
-        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, firstInput, secondInput);
+        endButton           = document.querySelector("#endButton")      
+        inputPlayerName     = InputPlayerName()  
+        inputPlayerName.first.value    = "Evan"            
+        inputPlayerName.second.value   = "Dhika"
+        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName);
         startButton.click()               
     })
       
