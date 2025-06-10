@@ -315,8 +315,8 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
         setMarker, getMarker,setName, getName,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
 // Example
-//const firstPlayer = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-//const secondPlayer = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue") 
+const firstPlayer = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+const secondPlayer = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue") 
 /*
 function funForPlayer(player) {
     ... funForRecord(player.record);
@@ -576,6 +576,23 @@ function setGameBoard(number, className, container) {
     return listBoard;
 }
 
+// InputPlayerName is
+const InputPlayerName = function() {
+    const first = document.querySelector("#inputPlayerOne")
+    const second = document.querySelector("#inputPlayerTwo")
+    return {first, second}
+}
+// interp. Input HTML element for player name
+/*
+function funForInputPlayerName(inputPlayerName) {
+    inputPlayerName.first...
+    inputPlayerName.second...
+}
+*/
+// Template rule used:
+//  - Compound data 
+
+
 
 // (Element, Element) -> ()
 // To initialize the Tic-Tac-Toe Game
@@ -728,6 +745,7 @@ function setPlayerForNext(gameState, playerOne, playerTwo) {
     playerOne.record.clear();        
     playerTwo.record.clear(); 
 }
+
 
 
 //module.exports = {}
