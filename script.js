@@ -499,8 +499,15 @@ const Message = function() {
         })
 
     }
+    const summary = function(gameState, firstPlayer, secondPlayer) {
+        text.textContent = "Summary:\n" 
+        + firstPlayer.getName() + " get win : " + firstPlayer.getWin() + " times.\n"
+        + secondPlayer.getName() +" get win : " + secondPlayer.getWin() + " times.\n"
+        + "Total draw : " + gameState.getDraw() + " times.\n" 
+        + "Total round : " + gameState.getRound() + " times."
+    }
 
-    return {text, win, draw,nameError,close}
+    return {text, win, draw,nameError,close, summary}
 };
 // interp. Dialog Element to send message if player win or get draw
 /*
@@ -588,6 +595,11 @@ function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, sec
             message.nameError()
             message.close()
         }
+    })
+    endButton.addEventListener("click", function() {
+        message.summary(gameState, firstPlayer, secondPlayer)
+        message.close()
+        setStartAndEndButton(startButton, endButton, "OFF")
     })
       
 }
