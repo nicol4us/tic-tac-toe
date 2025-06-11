@@ -474,53 +474,6 @@ function funforBoard(board) {
 //  - Compound data;
 
 
-
-
-// Message is 
-const Message = function() {
-    const dialog            = document.querySelector("dialog");
-    const text              = document.querySelector("#message");
-    const closeButton       = document.querySelector("#close-dialog-button");
-    const win               = function(player) {        
-        text.textContent        =  "Congratulations " + player.getName() + ", you are the winner!!!"
-        dialog.showModal();
-    }
-    const draw              = function() {
-        text.textContent        =  "You both get draw result"
-        dialog.showModal();
-    }
-    const nameError         = function() {
-        text.textContent        = "Please insert your name properly!!";
-        dialog.showModal();
-    }
-    const close    = function() {
-        closeButton.addEventListener("click", function() {
-            dialog.close()
-        })
-
-    }
-    const summary = function(gameState, firstPlayer, secondPlayer) {
-        text.textContent = "Summary:\n" 
-        + firstPlayer.getName() + " get win : " + firstPlayer.getWin() + " times.\n"
-        + secondPlayer.getName() +" get win : " + secondPlayer.getWin() + " times.\n"
-        + "Total draw : " + gameState.getDraw() + " times.\n" 
-        + "Total round : " + gameState.getRound() + " times."
-    }
-
-    return {text, win, draw,nameError,close, summary}
-};
-// interp. Dialog Element to send message if player win or get draw
-/*
-function funForMessage(message) {
-    ... message.dialog;
-    ... message.text;
-    ... message.closeButton;
-}
-*/
-// Template rule used:
-//  - Compound data
-
-
 // Result is one of:
 //  - "Win"
 //  - "Draw"
@@ -575,6 +528,55 @@ function setGameBoard(number, className, container) {
     }        
     return listBoard;
 }
+
+// Message is 
+const Message = function() {
+    const dialog            = document.querySelector("dialog");
+    const text              = document.querySelector("#message");
+    const closeButton       = document.querySelector("#close-dialog-button");
+    const win               = function(player) {        
+        text.textContent        =  "Congratulations " + player.getName() + ", you are the winner!!!"
+        dialog.showModal();
+    }
+    const draw              = function() {
+        text.textContent        =  "You both get draw result"
+        dialog.showModal();
+    }
+    const nameError         = function() {
+        text.textContent        = "Please insert your name properly!!";
+        dialog.showModal();
+    }
+    const close    = function() {
+        closeButton.addEventListener("click", function() {
+            dialog.close()
+        })
+    }
+    const summary = function(gameState, firstPlayer, secondPlayer) {
+        text.textContent = "Summary:\n" 
+        + firstPlayer.getName() + " get win : " + firstPlayer.getWin() + " times.\n"
+        + secondPlayer.getName() +" get win : " + secondPlayer.getWin() + " times.\n"
+        + "Total draw : " + gameState.getDraw() + " times.\n" 
+        + "Total round : " + gameState.getRound() + " times."
+    }
+
+    return {text, win, draw,nameError,close, summary}
+};
+// interp. Dialog Element to send message if player win or get draw
+/*
+function funForMessage(message) {    
+    ... message.text;
+    ... message.win(funForPlayer(player));
+    ... message.draw();
+    ... message.nameError();
+    ... message.close();
+    ... message.summary(funForGameState(gameState), funForPlayer(player), funForPlayer(player)); 
+}
+*/
+// Template rule used:
+//  - Compound data
+//  - Reference : Player
+//  - Reference : GameState 
+
 
 // InputPlayerName is
 const InputPlayerName = function() {
@@ -646,7 +648,7 @@ function setStartAndEndButton(startButton, endButton, state) {
 
 // (GameBoard, GameState, Message) -> ()
 // To add event listener for Board Element
-function setBoardListener(gameBoard, gameState,playerOne, playerTwo, message) {    
+function setBoardListener(gameBoard, gameState,firstPlayer, secondPlayer, message) {    
     for(let i = 0; i < gameBoard.listOfBoard.length; i++) {
         const board = gameBoard.listOfBoard[i]
         board.boardElement.addEventListener("click", function() {
@@ -654,7 +656,7 @@ function setBoardListener(gameBoard, gameState,playerOne, playerTwo, message) {
                     board.boardElement.textContent = gameState.getPlayerON().getMarker();
                     gameState.getPlayerON().record.set(board.index); 
                     gameState.boardRecord.push(board.index)               
-                    checkGameState(gameBoard, gameState, playerOne, playerTwo, message) ;       
+                    checkGameState(gameBoard, gameState, firstPlayer, secondPlayer, message) ;       
                 }
             })
     
@@ -664,20 +666,20 @@ function setBoardListener(gameBoard, gameState,playerOne, playerTwo, message) {
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
-function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {  
+function checkGameState(gameBoard, gameState, firstPlayer, secondPlayer, message) {  
     switch (true) {
         case (gameState.isPlayerOnWin()) :         
             message.win(gameState.getPlayerON())
             message.close()
-            updateState(gameBoard, gameState, playerOne, playerTwo, "Win")
+            updateState(gameBoard, gameState, firstPlayer, secondPlayer, "Win")
             break;
         case (gameState.hasEmptyBoard()) :
-            changePlayer(gameState, playerOne, playerTwo)
+            changePlayer(gameState, firstPlayer, secondPlayer)
             break; 
         case (gameState.boardRecord.length === maxBoard) :
             message.draw()
             message.close()
-            updateState(gameBoard, gameState, playerOne, playerTwo, "Draw")
+            updateState(gameBoard, gameState, firstPlayer, secondPlayer, "Draw")
             break;    
     }    
 }
