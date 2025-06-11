@@ -598,7 +598,21 @@ function funForInputPlayerName(inputPlayerName) {
 // Template rule used:
 //  - Compound data 
 
-
+// GameButton is
+const GameButton = function() {
+    const start   = document.querySelector("#startButton")
+    const end     = document.querySelector("#endButton")
+    return {start, end}
+}
+// interp. all button used for the game
+/*
+function funForGameButton(gameButton) {
+    ... gameButton.start;
+    ... gameButton.end;
+}
+*/
+// Template rule used:
+//  - Compound data;
 
 
 // (Element, Element) -> ()
