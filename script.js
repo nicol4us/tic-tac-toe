@@ -770,6 +770,6 @@ function setPlayerForNext(gameState, firstPlayer, secondPlayer) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer, GameState, GameBoard, gamePlay, Message, InputPlayerName
+        createRecord, createPlayer, GameState, GameBoard, gamePlay, Message, InputPlayerName, GameButton
     };
   }

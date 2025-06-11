@@ -19,15 +19,16 @@ try {
 }
 
 // 3. Import function from script.js
-const {createRecord,gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')
+const {createRecord,gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName, GameButton} = require('./script')
 
-// 4. Initialize
+// 4. Initialize variable
 let gameState;    
 let gameBoard;
 let firstPlayer;
 let secondPlayer;           
 let message;
-let inputPlayerName;    
+let inputPlayerName; 
+let gameButton;   
 
 beforeEach(() => {
     document.body.innerHTML = htmlContent
@@ -51,7 +52,8 @@ beforeEach(() => {
     message             = Message()
     startButton         = document.querySelector("#startButton")
     endButton           = document.querySelector("#endButton")    
-    inputPlayerName     = InputPlayerName()                   
+    inputPlayerName     = InputPlayerName()    
+    gameButton          = GameButton()               
 })
   
 afterEach(() => {
