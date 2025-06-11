@@ -2,9 +2,6 @@
  * @jest-environment jsdom
  */
 
-import { getByTestId } from '@testing-library/dom';
-import {render, screen} from '@testing-library/jest-dom'
-
 const fs = require('fs');
 const path = require('path');
 const { library } = require('webpack');
@@ -21,17 +18,55 @@ try {
     process.exit(1); // Exit if file cannot be read
 }
 
+// 3. Import function from script.js
+const {createRecord,gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')
 
+// 4. Initialize variable
+let gameState;    
+let gameBoard;
+let firstPlayer;
+let secondPlayer;           
+let message;
+let inputPlayerName;    
 
-describe('Record data & method testing', () => {
-    beforeEach(() => {
-        document.body.innerHTML = htmlContent;
-        
-    });
+beforeEach(() => {
+    document.body.innerHTML = htmlContent
     jest.resetModules()
-    const {createRecord, InputPlayerName} = require('./script')
-    const record = createRecord();
 
+    // Mock the dialog methods for JSDOM
+    // Check if the prototype exists before mocking
+    if (HTMLDialogElement && HTMLDialogElement.prototype) {
+        HTMLDialogElement.prototype.showModal = jest.fn();
+        HTMLDialogElement.prototype.close = jest.fn();
+    } else {
+        // Fallback for environments where HTMLDialogElement might not be defined
+        // This might happen if your JSDOM version is very old or configured differently.
+        // In a typical Jest setup with JSDOM, it should be defined.
+        console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
+    }         
+    gameState           = GameState()    
+    gameBoard           = GameBoard()    
+    firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
+    secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")                    
+    message             = Message()
+    startButton         = document.querySelector("#startButton")
+    endButton           = document.querySelector("#endButton")    
+    inputPlayerName     = InputPlayerName()                   
+})
+  
+afterEach(() => {
+    // Clean up the DOM after each test (optional but good practice)
+    document.body.innerHTML = '';
+    // Clear mocks after each test
+    if (HTMLDialogElement && HTMLDialogElement.prototype.showModal) {
+        HTMLDialogElement.prototype.showModal.mockRestore();
+        HTMLDialogElement.prototype.close.mockRestore();
+    }
+});
+
+
+describe('Record data & method testing', () => {    
+    const record = createRecord();
     test("input 0 for set method should should save index into listRecord of index 0, 3, 6", () => {
         record.set(0);
         expect(record.listRecord).toEqual([[0], [], [], [0], [], [], [0], []])
@@ -79,323 +114,220 @@ describe('Record data & method testing', () => {
 })
 
 
-describe("Player data & method testing", () => {
-    let playerTester;
-
-    // Set up the DOM before each test
-    beforeEach(() => {
-        // 1. Clear the DOM and load the HTML content
-        document.body.innerHTML = htmlContent;
-
-        // 2. IMPORTANT: Reset module cache and re-import/require your JS
-        // This ensures the factory function runs against the newly loaded DOM
-        jest.resetModules();
-        const { createPlayer: reLoadedCreateMyPlayer } = require('./script');
-        playerTester = reLoadedCreateMyPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan"); // Re-create the object with the new DOM context
-    });
-
-    afterEach(() => {
-        // Clean up the DOM after each test (optional but good practice)
-        document.body.innerHTML = '';
-    });
-
-    describe("Testing Create Player factory method", () => {    
-
+describe("Player data & method testing", () => { 
+    describe("Testing Create Player factory method", () => {
         test("Check if initial mark is  empty using getMarker method", () => {
-            expect(playerTester.getMarker()).toBe("")
+            expect(firstPlayer.getMarker()).toBe("")
         })
         test("Check setMarker  and getMarker method with X mark", () => {
-            playerTester.setMarker("X")
-            expect(playerTester.getMarker()).toBe("X");
-        })
-        test('Check if getName method return "Tester"', () => {
-            expect(playerTester.getName()).toBe("Tester")
-        })
+            firstPlayer.setMarker("X")
+            expect(firstPlayer.getMarker()).toBe("X");
+        })        
         test('Check setName method', () => {
-            playerTester.setName("Trial");
-            expect(playerTester.getName()).toBe("Trial")
+            firstPlayer.setName("Trial");
+            expect(firstPlayer.getName()).toBe("Trial")
+        })
+        test('Check if getName method return "Tester"', () => { 
+            firstPlayer.setName("Tester")           
+            expect(firstPlayer.getName()).toBe("Tester")
         })
         test("Check getState method, initial value is OFF", () => {
-            expect(playerTester.getState()).toBe("OFF")
+            expect(firstPlayer.getState()).toBe("OFF")
     })
         test("Check changeState method, from OFF become ON", () => {
-            playerTester.changeState();
-            expect(playerTester.getState()).toBe("ON")
-            playerTester.changeState();
-            expect(playerTester.getState()).toBe("OFF")
+            firstPlayer.changeState();
+            expect(firstPlayer.getState()).toBe("ON")
+            firstPlayer.changeState();
+            expect(firstPlayer.getState()).toBe("OFF")
         })    
         test("Check getLight method, initial value should be red", () => {
-            expect(playerTester.getLight()).toBe("red")
+            expect(firstPlayer.getLight()).toBe("red")
         })
         test("Check changeLight method, from red become green and then from green to red", () => {
-            expect(playerTester.getLight()).toBe("red");
-            playerTester.changeLight();        
-            expect(playerTester.getLight()).toBe("green")
-            playerTester.changeLight();
-            expect(playerTester.getLight()).toBe("red");
+            expect(firstPlayer.getLight()).toBe("red");
+            firstPlayer.changeLight();        
+            expect(firstPlayer.getLight()).toBe("green")
+            firstPlayer.changeLight();
+            expect(firstPlayer.getLight()).toBe("red");
         })    
         test("Check getWin method, initial value should be 0", () => {
-            expect(playerTester.getWin()).toBe(0);
+            expect(firstPlayer.getWin()).toBe(0);
         })
         test("Check setWin method, it should increase 1 from previous value", () => {
-            playerTester.setWin();
-            expect(playerTester.getWin()).toBe(1)
-            playerTester.setWin()
-            expect(playerTester.getWin()).toBe(2)
+            firstPlayer.setWin();
+            expect(firstPlayer.getWin()).toBe(1)
+            firstPlayer.setWin()
+            expect(firstPlayer.getWin()).toBe(2)
         })    
         test("Check record.set(index) method with index 4 then record become [[],[4],[],[],[4],[],[4],[4]]", () => {
-            playerTester.record.set(4);
-            expect(playerTester.record.listRecord).toEqual([[],[4],[],[],[4],[],[4],[4]])
+            firstPlayer.record.set(4);
+            expect(firstPlayer.record.listRecord).toEqual([[],[4],[],[],[4],[],[4],[4]])
         })
         test("Check setToDefault method, marker & name is empty, state is OFF, light is red, win is 0, record all is empty", () => {
-            playerTester.setMarker("X") // Initialiaze marker
-            expect(playerTester.getMarker()).toBe("X")
-            playerTester.setName("TrialName") // Initialize name
-            expect(playerTester.getName()).toBe("TrialName")
-            playerTester.changeState(); // Change state from OFF to ON
-            expect(playerTester.getState()).toBe("ON")
-            playerTester.changeLight(); // Change light from red to green
-            expect(playerTester.getLight()).toBe("green")
-            playerTester.setWin() // Increase win count
-            expect(playerTester.getWin()).toBe(1)
-            playerTester.record.set(0) // Input index 0 into record
-            expect(playerTester.record.listRecord).toEqual([[0],[],[],[0],[],[],[0],[]])
-            playerTester.setToDefault()
-            expect(playerTester.getMarker()).toBe("")
-            expect(playerTester.getName()).toBe("")
-            expect(playerTester.getState()).toBe("OFF")
-            expect(playerTester.getLight()).toBe("red")
-            expect(playerTester.getWin()).toBe(0)
-            expect(playerTester.record.listRecord).toEqual([[],[],[],[],[],[],[],[]]);
+            firstPlayer.setMarker("X") // Initialiaze marker
+            expect(firstPlayer.getMarker()).toBe("X")
+            firstPlayer.setName("TrialName") // Initialize name
+            expect(firstPlayer.getName()).toBe("TrialName")
+            firstPlayer.changeState(); // Change state from OFF to ON
+            expect(firstPlayer.getState()).toBe("ON")
+            firstPlayer.changeLight(); // Change light from red to green
+            expect(firstPlayer.getLight()).toBe("green")
+            firstPlayer.setWin() // Increase win count
+            expect(firstPlayer.getWin()).toBe(1)
+            firstPlayer.record.set(0) // Input index 0 into record
+            expect(firstPlayer.record.listRecord).toEqual([[0],[],[],[0],[],[],[0],[]])
+            firstPlayer.setToDefault()
+            expect(firstPlayer.getMarker()).toBe("")
+            expect(firstPlayer.getName()).toBe("")
+            expect(firstPlayer.getState()).toBe("OFF")
+            expect(firstPlayer.getLight()).toBe("red")
+            expect(firstPlayer.getWin()).toBe(0)
+            expect(firstPlayer.record.listRecord).toEqual([[],[],[],[],[],[],[],[]]);
         })
     }) 
 } )
 
 
 describe("GameState data & method testing", () => {
-    let GameStateTester;
-    let playerTester;
-    let playerTesterTwo;
-
-    // Set up the DOM before each test
-    beforeEach(() => {
-        // 1. Clear the DOM and load the HTML content
-        document.body.innerHTML = htmlContent;
-
-        // 2. IMPORTANT: Reset module cache and re-import/require your JS
-        // This ensures the factory function runs against the newly loaded DOM
-        jest.resetModules();
-        const {GameState: reLoadedGameState, createPlayer: reLoadedCreateMyPlayer } = require('./script');
-        GameStateTester = reLoadedGameState()// Re-create the object with the new DOM context
-        playerTester = reLoadedCreateMyPlayer("playerOneMarker", "Tester", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan"); // Re-create the object with the new DOM context
-        playerTesterTwo = reLoadedCreateMyPlayer("playerTwoMarker", "Tester Two", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
-    });
-
-    afterEach(() => {
-        // Clean up the DOM after each test (optional but good practice)
-        document.body.innerHTML = '';
-    });
-
     test("Check if GameState flag is false", () => {
-        expect(GameStateTester.flag).toBeFalsy();
+        expect(gameState.flag).toBeFalsy();
     })
     test("Check if GameState become true after new declaration", () => {
-        GameStateTester.flag = true;
-        expect(GameStateTester.flag).toBeTruthy()
+        gameState.flag = true;
+        expect(gameState.flag).toBeTruthy()
     })
     test("Check setPlayerON & getPlayerON method, Player will start with X marker", () => {
-        playerTester.setMarker("X")
-        GameStateTester.setPlayerON(playerTester)
-        expect(GameStateTester.getPlayerON().getMarker()).toBe("X")
-        expect(GameStateTester.getPlayerON().getName()).toBe("Tester")        
+        firstPlayer.setMarker("X")
+        firstPlayer.setName("Tester")
+        gameState.setPlayerON(firstPlayer)
+        expect(gameState.getPlayerON().getMarker()).toBe("X")
+        expect(gameState.getPlayerON().getName()).toBe("Tester")        
     })
     test("Check setPlayerChange method", () => {
-        GameStateTester.setPlayerON(playerTester); 
-        expect(playerTester.getState()).toBe("ON")
-        expect(playerTester.getLight()).toBe("green")
-        GameStateTester.setPlayerChange(playerTesterTwo);
-        expect(playerTesterTwo.getState()).toBe("ON")
-        expect(playerTesterTwo.getLight()).toBe("green")
-        expect(playerTester.getState()).toBe("OFF")
-        expect(playerTester.getLight()).toBe("red")
+        gameState.setPlayerON(firstPlayer); 
+        expect(firstPlayer.getState()).toBe("ON")
+        expect(firstPlayer.getLight()).toBe("green")
+        gameState.setPlayerChange(secondPlayer);
+        expect(secondPlayer.getState()).toBe("ON")
+        expect(secondPlayer.getLight()).toBe("green")
+        expect(firstPlayer.getState()).toBe("OFF")
+        expect(firstPlayer.getLight()).toBe("red")
     })
     test("Check setRound & getRound method", () => {
-        expect(GameStateTester.getRound()).toBe(0);
-        GameStateTester.setRound();
-        expect(GameStateTester.getRound()).toBe(1);
-        GameStateTester.setRound();
-        expect(GameStateTester.getRound()).toBe(2)
+        expect(gameState.getRound()).toBe(0);
+        gameState.setRound();
+        expect(gameState.getRound()).toBe(1);
+        gameState.setRound();
+        expect(gameState.getRound()).toBe(2)
     })
     test("Check setDraw & getDraw method", () => {
-        expect(GameStateTester.getDraw()).toBe(0);
-        GameStateTester.setDraw();
-        expect(GameStateTester.getDraw()).toBe(1);        
-        GameStateTester.setDraw();
-        expect(GameStateTester.getDraw()).toBe(2)
+        expect(gameState.getDraw()).toBe(0);
+        gameState.setDraw();
+        expect(gameState.getDraw()).toBe(1);        
+        gameState.setDraw();
+        expect(gameState.getDraw()).toBe(2)
     })
     test("Check isPlayerOnWin method", () => {
-        GameStateTester.setPlayerON(playerTester);
-        GameStateTester.getPlayerON().record.set(4);
-        expect(GameStateTester.isPlayerOnWin()).toBeFalsy()
-        GameStateTester.getPlayerON().record.set(1);
-        expect(GameStateTester.isPlayerOnWin()).toBeFalsy()
-        GameStateTester.getPlayerON().record.set(8);
-        expect(GameStateTester.isPlayerOnWin()).toBeFalsy();
-        GameStateTester.getPlayerON().record.set(7);
-        expect(GameStateTester.isPlayerOnWin()).toBeTruthy();        
+        gameState.setPlayerON(firstPlayer);
+        gameState.getPlayerON().record.set(4);
+        expect(gameState.isPlayerOnWin()).toBeFalsy()
+        gameState.getPlayerON().record.set(1);
+        expect(gameState.isPlayerOnWin()).toBeFalsy()
+        gameState.getPlayerON().record.set(8);
+        expect(gameState.isPlayerOnWin()).toBeFalsy();
+        gameState.getPlayerON().record.set(7);
+        expect(gameState.isPlayerOnWin()).toBeTruthy();        
     })
     test("Check if there is available board to play", () => {
-        GameStateTester.boardRecord.push(0) 
-        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
-        GameStateTester.boardRecord.push(1) 
-        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
-        GameStateTester.boardRecord.push(2)
-        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
-        GameStateTester.boardRecord.push(3)
-        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
-        GameStateTester.boardRecord.push(4);
-        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
-        GameStateTester.boardRecord.push(5) 
-        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
-        GameStateTester.boardRecord.push(6)
-        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
-        GameStateTester.boardRecord.push(7)
-        expect(GameStateTester.hasEmptyBoard()).toBeTruthy()
-        GameStateTester.boardRecord.push(8);
-        expect(GameStateTester.hasEmptyBoard()).toBeFalsy()
+        gameState.boardRecord.push(0) 
+        expect(gameState.hasEmptyBoard()).toBeTruthy()
+        gameState.boardRecord.push(1) 
+        expect(gameState.hasEmptyBoard()).toBeTruthy()
+        gameState.boardRecord.push(2)
+        expect(gameState.hasEmptyBoard()).toBeTruthy()
+        gameState.boardRecord.push(3)
+        expect(gameState.hasEmptyBoard()).toBeTruthy()
+        gameState.boardRecord.push(4);
+        expect(gameState.hasEmptyBoard()).toBeTruthy()
+        gameState.boardRecord.push(5) 
+        expect(gameState.hasEmptyBoard()).toBeTruthy()
+        gameState.boardRecord.push(6)
+        expect(gameState.hasEmptyBoard()).toBeTruthy()
+        gameState.boardRecord.push(7)
+        expect(gameState.hasEmptyBoard()).toBeTruthy()
+        gameState.boardRecord.push(8);
+        expect(gameState.hasEmptyBoard()).toBeFalsy()
     })
     test("Ceck setToInitial method, playerON is undefined, round and draw is both 0, flag is false, boardRecord is empty", () => {
-        GameStateTester.setPlayerON(playerTester);
-        expect(GameStateTester.getPlayerON()).toBeDefined()
-        GameStateTester.flag = true;
-        expect(GameStateTester.flag).toBeTruthy()
-        GameStateTester.setRound();
-        expect(GameStateTester.getRound()).toBe(1)
-        GameStateTester.setDraw()
-        expect(GameStateTester.getDraw()).toBe(1)
-        GameStateTester.boardRecord.push(0)
-        expect(GameStateTester.boardRecord.length).toBe(1)
-        GameStateTester.setToInitial()
-        expect(GameStateTester.getPlayerON()).toBeUndefined()        
-        expect(GameStateTester.getRound()).toBe(0)
-        expect(GameStateTester.getDraw()).toBe(0)
-        expect(GameStateTester.flag).toBeFalsy()
-        expect(GameStateTester.boardRecord.length).toBe(0)
+        gameState.setPlayerON(firstPlayer);
+        expect(gameState.getPlayerON()).toBeDefined()
+        gameState.flag = true;
+        expect(gameState.flag).toBeTruthy()
+        gameState.setRound();
+        expect(gameState.getRound()).toBe(1)
+        gameState.setDraw()
+        expect(gameState.getDraw()).toBe(1)
+        gameState.boardRecord.push(0)
+        expect(gameState.boardRecord.length).toBe(1)
+        gameState.setToInitial()
+        expect(gameState.getPlayerON()).toBeUndefined()        
+        expect(gameState.getRound()).toBe(0)
+        expect(gameState.getDraw()).toBe(0)
+        expect(gameState.flag).toBeFalsy()
+        expect(gameState.boardRecord.length).toBe(0)
     })
 })
 
 
 describe("GameBoard testing", () => {
-    let gameBoardTester;
-
-    // Set up the DOM before each test
-    beforeEach(() => {
-        // 1. Clear the DOM and load the HTML content
-        document.body.innerHTML = htmlContent;
-
-        // 2. IMPORTANT: Reset module cache and re-import/require your JS
-        // This ensures the factory function runs against the newly loaded DOM
-        jest.resetModules();
-        const { GameBoard: reLoadedGameBoard } = require('./script');        
-        gameBoardTester = reLoadedGameBoard(); // Re-create the object with the new DOM context
-    });
-
-    afterEach(() => {
-        // Clean up the DOM after each test (optional but good practice)
-        document.body.innerHTML = '';
-    });
-
     describe("Test listOfBoard attribute of GameBoard", () => {
         test("Check if there is 9 board available", () => {           
-            expect(gameBoardTester.listOfBoard.length).toBe(9);
+            expect(gameBoard.listOfBoard.length).toBe(9);
         })
         test("Check if we can put some marker into one of the board", () => {
-            gameBoardTester.listOfBoard[0].boardElement.textContent = "O";
-            expect(gameBoardTester.listOfBoard[0].boardElement.textContent).toBe("O")
+            gameBoard.listOfBoard[0].boardElement.textContent = "O";
+            expect(gameBoard.listOfBoard[0].boardElement.textContent).toBe("O")
         })
     })
     describe("Test clear method of GameBoard", () => {
         test("Check if we can erase all marker after we put all mark into GameBoard", () => {
-            gameBoardTester.listOfBoard[0].boardElement.textContent = "X"
-            expect(gameBoardTester.listOfBoard[0].boardElement.textContent).toBe("X")            
-            gameBoardTester.listOfBoard[1].boardElement.textContent = "O"
-            expect(gameBoardTester.listOfBoard[1].boardElement.textContent).toBe("O")
-            gameBoardTester.listOfBoard[2].boardElement.textContent = "X"
-            expect(gameBoardTester.listOfBoard[2].boardElement.textContent).toBe("X")
-            gameBoardTester.listOfBoard[3].boardElement.textContent = "O"
-            expect(gameBoardTester.listOfBoard[3].boardElement.textContent).toBe("O")
-            gameBoardTester.listOfBoard[4].boardElement.textContent = "X"
-            expect(gameBoardTester.listOfBoard[4].boardElement.textContent).toBe("X")
-            gameBoardTester.listOfBoard[5].boardElement.textContent = "O"
-            expect(gameBoardTester.listOfBoard[5].boardElement.textContent).toBe("O")
-            gameBoardTester.listOfBoard[6].boardElement.textContent = "X"
-            expect(gameBoardTester.listOfBoard[6].boardElement.textContent).toBe("X")
-            gameBoardTester.listOfBoard[7].boardElement.textContent = "O"
-            expect(gameBoardTester.listOfBoard[7].boardElement.textContent).toBe("O")
-            gameBoardTester.listOfBoard[8].boardElement.textContent = "X"
-            expect(gameBoardTester.listOfBoard[8].boardElement.textContent).toBe("X")            
-            gameBoardTester.clear();
-            expect(gameBoardTester.listOfBoard[0].boardElement.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[1].boardElement.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[2].boardElement.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[3].boardElement.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[4].boardElement.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[5].boardElement.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[6].boardElement.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[7].boardElement.textContent).toBe("")
-            expect(gameBoardTester.listOfBoard[8].boardElement.textContent).toBe("")
-            
+            gameBoard.listOfBoard[0].boardElement.textContent = "X"
+            expect(gameBoard.listOfBoard[0].boardElement.textContent).toBe("X")            
+            gameBoard.listOfBoard[1].boardElement.textContent = "O"
+            expect(gameBoard.listOfBoard[1].boardElement.textContent).toBe("O")
+            gameBoard.listOfBoard[2].boardElement.textContent = "X"
+            expect(gameBoard.listOfBoard[2].boardElement.textContent).toBe("X")
+            gameBoard.listOfBoard[3].boardElement.textContent = "O"
+            expect(gameBoard.listOfBoard[3].boardElement.textContent).toBe("O")
+            gameBoard.listOfBoard[4].boardElement.textContent = "X"
+            expect(gameBoard.listOfBoard[4].boardElement.textContent).toBe("X")
+            gameBoard.listOfBoard[5].boardElement.textContent = "O"
+            expect(gameBoard.listOfBoard[5].boardElement.textContent).toBe("O")
+            gameBoard.listOfBoard[6].boardElement.textContent = "X"
+            expect(gameBoard.listOfBoard[6].boardElement.textContent).toBe("X")
+            gameBoard.listOfBoard[7].boardElement.textContent = "O"
+            expect(gameBoard.listOfBoard[7].boardElement.textContent).toBe("O")
+            gameBoard.listOfBoard[8].boardElement.textContent = "X"
+            expect(gameBoard.listOfBoard[8].boardElement.textContent).toBe("X")            
+            gameBoard.clear();
+            expect(gameBoard.listOfBoard[0].boardElement.textContent).toBe("")
+            expect(gameBoard.listOfBoard[1].boardElement.textContent).toBe("")
+            expect(gameBoard.listOfBoard[2].boardElement.textContent).toBe("")
+            expect(gameBoard.listOfBoard[3].boardElement.textContent).toBe("")
+            expect(gameBoard.listOfBoard[4].boardElement.textContent).toBe("")
+            expect(gameBoard.listOfBoard[5].boardElement.textContent).toBe("")
+            expect(gameBoard.listOfBoard[6].boardElement.textContent).toBe("")
+            expect(gameBoard.listOfBoard[7].boardElement.textContent).toBe("")
+            expect(gameBoard.listOfBoard[8].boardElement.textContent).toBe("")            
         })
     })
 })
 
 
-describe("gamePlay function testing initial state", () => {
-    let gameState;    
-    let firstPlayer;
-    let secondPlayer;
-    let firstInput;    
-    let secondInput;        
-    let message;
-    let inputPlayerName    
-    beforeEach(() => {
-        document.body.innerHTML = htmlContent
-        jest.resetModules()
-
-        // Mock the dialog methods for JSDOM
-        // Check if the prototype exists before mocking
-        if (HTMLDialogElement && HTMLDialogElement.prototype) {
-            HTMLDialogElement.prototype.showModal = jest.fn();
-            HTMLDialogElement.prototype.close = jest.fn();
-        } else {
-            // Fallback for environments where HTMLDialogElement might not be defined
-            // This might happen if your JSDOM version is very old or configured differently.
-            // In a typical Jest setup with JSDOM, it should be defined.
-            console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
-        }
-
-        const {gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')   
-        gameState           = GameState()        
-        firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-        secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
-        firstInput          = document.querySelector("#inputPlayerOne")        
-        secondInput         = document.querySelector("#inputPlayerTwo")            
-        message             = Message()
-        inputPlayerName     = InputPlayerName()        
-        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,message, inputPlayerName);
-        
-    })
-      
-    afterEach(() => {
-        // Clean up the DOM after each test (optional but good practice)
-        document.body.innerHTML = '';
-        // Clear mocks after each test
-        if (HTMLDialogElement && HTMLDialogElement.prototype.showModal) {
-            HTMLDialogElement.prototype.showModal.mockRestore();
-            HTMLDialogElement.prototype.close.mockRestore();
-        }
-    });
-
+describe("gamePlay function testing initial state", () => {        
+    beforeEach(() => {               
+        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,message, inputPlayerName);        
+    })   
     describe("Check Game Info section for Round and Draw", () => {
         test("Check initial value of round must be 0", () => {
             expect(gameState.roundElement.textContent).toBe("0")
@@ -404,7 +336,6 @@ describe("gamePlay function testing initial state", () => {
             expect(gameState.drawElement.textContent).toBe("0")
         })
     })
-
     describe("Check First Player section", () => {
         test("Check initial marker must be empty", () => {
             expect(firstPlayer.getMarker()).toBe("")
@@ -423,7 +354,6 @@ describe("gamePlay function testing initial state", () => {
             expect(firstPlayer.winElement.textContent).toBe("0")
         })
     })
-
     describe("Check Second Player section", () => {
         test("Check initial marker must be empty", () => {
             expect(secondPlayer.getMarker()).toBe("")
@@ -442,7 +372,6 @@ describe("gamePlay function testing initial state", () => {
             expect(secondPlayer.winElement.textContent).toBe("0")
         })
     })
-
     describe("Check Start button section", () => {
         test("Check if Start button enable to be click", () => {
             expect(startButton).not.toBeDisabled()            
@@ -452,7 +381,6 @@ describe("gamePlay function testing initial state", () => {
             expect(computeStyle.backgroundColor).toBe("green")
         })
     })
-
     describe("Check End button section", () => {
         test("Check if End button not enable to be click", () => {
             expect(endButton).toBeDisabled()            
@@ -462,71 +390,23 @@ describe("gamePlay function testing initial state", () => {
             expect(computeStyle.backgroundColor).toBe("gray")
         })
     })
-
     describe("Check Start Button get clicked", () => {        
         test("Check empty input when Start button get clicked", () => {
             startButton.click()
             expect(message.text.textContent).toBe("Please insert your name properly!!")
             expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalledTimes(1);
-        })            
-        
-        
+        })                
     })    
 })
 
 
-describe("gamePlay testing state after Start button get clicked", () => {
-    let gameState;    
-    let gameBoard;
-    let firstPlayer;
-    let secondPlayer;
-    let firstInput;    
-    let secondInput;        
-    let message;
-    let inputPlayerName;    
-    beforeEach(() => {
-        document.body.innerHTML = htmlContent
-        jest.resetModules()
-
-        // Mock the dialog methods for JSDOM
-        // Check if the prototype exists before mocking
-        if (HTMLDialogElement && HTMLDialogElement.prototype) {
-            HTMLDialogElement.prototype.showModal = jest.fn();
-            HTMLDialogElement.prototype.close = jest.fn();
-        } else {
-            // Fallback for environments where HTMLDialogElement might not be defined
-            // This might happen if your JSDOM version is very old or configured differently.
-            // In a typical Jest setup with JSDOM, it should be defined.
-            console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
-        }
-
-        const {gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')   
-        gameState           = GameState()    
-        gameBoard           = GameBoard()    
-        firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-        secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
-        firstInput          = document.querySelector("#inputPlayerOne")        
-        secondInput         = document.querySelector("#inputPlayerTwo")            
-        message             = Message()
-        startButton         = document.querySelector("#startButton")
-        endButton           = document.querySelector("#endButton")    
-        inputPlayerName     = InputPlayerName()    
+describe("gamePlay testing state after Start button get clicked", () => {     
+    beforeEach(() => {        
         inputPlayerName.first.value    = "Evan"            
         inputPlayerName.second.value   = "Dhika"
         gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName);
         startButton.click()        
-    })
-      
-    afterEach(() => {
-        // Clean up the DOM after each test (optional but good practice)
-        document.body.innerHTML = '';
-        // Clear mocks after each test
-        if (HTMLDialogElement && HTMLDialogElement.prototype.showModal) {
-            HTMLDialogElement.prototype.showModal.mockRestore();
-            HTMLDialogElement.prototype.close.mockRestore();
-        }
-    });
-
+    })    
     describe("Check Start and End Button state", () => {
         test("Check if Start button get disable & End button get enable when Start button got clicked", () => {            
             const computeStyleStartButton = window.getComputedStyle(startButton)
@@ -535,17 +415,14 @@ describe("gamePlay testing state after Start button get clicked", () => {
             expect(computeStyleStartButton.backgroundColor).toBe("gray")
             expect(endButton).not.toBeDisabled()
             expect(computeStyleEndButton.backgroundColor).toBe("green")
-        })
-        
+        })        
     })
-
     describe("Check Input state after Start got clicked", () => {
         test("Check if both input element get hidden when Start Button got clicked", () => {            
             expect(inputPlayerName.first.hidden).toBeTruthy()
             expect(inputPlayerName.second.hidden).toBeTruthy()
         })        
     })
-
     describe("Check First Player state", () => {
         test("First player name must be Evan", () => {
             expect(firstPlayer.getName()).toBe("Evan")
@@ -561,7 +438,6 @@ describe("gamePlay testing state after Start button get clicked", () => {
             expect(firstPlayerLight.backgroundColor).toBe("green")
         })
     })
-
     describe("Check Second Player state", () => {
         test("Second player name must be Dhika", () => {
             expect(secondPlayer.getName()).toBe("Dhika")
@@ -579,59 +455,14 @@ describe("gamePlay testing state after Start button get clicked", () => {
     })
 })
 
-describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
-    let gameState;    
-    let gameBoard;
-    let firstPlayer;
-    let secondPlayer;
-    let firstInput;    
-    let secondInput;        
-    let message;
-    let inputPlayerName;   
-    beforeEach(() => {
-        document.body.innerHTML = htmlContent
-        jest.resetModules()
-
-        // Mock the dialog methods for JSDOM
-        // Check if the prototype exists before mocking
-        if (HTMLDialogElement && HTMLDialogElement.prototype) {
-            HTMLDialogElement.prototype.showModal = jest.fn();
-            HTMLDialogElement.prototype.close = jest.fn();
-        } else {
-            // Fallback for environments where HTMLDialogElement might not be defined
-            // This might happen if your JSDOM version is very old or configured differently.
-            // In a typical Jest setup with JSDOM, it should be defined.
-            console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
-        }
-
-        const {gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')   
-        gameState           = GameState()    
-        gameBoard           = GameBoard()    
-        firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-        secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
-        firstInput          = document.querySelector("#inputPlayerOne")        
-        secondInput         = document.querySelector("#inputPlayerTwo")            
-        message             = Message()
-        startButton         = document.querySelector("#startButton")
-        endButton           = document.querySelector("#endButton") 
-        inputPlayerName     = InputPlayerName()       
+describe("gamePlay testing when first GameBoard index 4 got clicked", () => {      
+    beforeEach(() => {              
         inputPlayerName.first.value    = "Evan"            
         inputPlayerName.second.value   = "Dhika"
         gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName);
         startButton.click()  
         gameBoard.listOfBoard[4].boardElement.click()      
     })
-      
-    afterEach(() => {
-        // Clean up the DOM after each test (optional but good practice)
-        document.body.innerHTML = '';
-        // Clear mocks after each test
-        if (HTMLDialogElement && HTMLDialogElement.prototype.showModal) {
-            HTMLDialogElement.prototype.showModal.mockRestore();
-            HTMLDialogElement.prototype.close.mockRestore();
-        }
-    });
-
     describe("Check first player state", () => {
         test("First player state must be off", () => {
             expect(firstPlayer.getState()).toBe("OFF")
@@ -641,7 +472,6 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
             expect(firstPlayerLight.backgroundColor).toBe("red")
         })
     })
-
     describe("Check Second Player state", () => {        
         test("Second player state must be ON", () => {
             expect(secondPlayer.getState()).toBe("ON")
@@ -650,14 +480,12 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
             const secondPlayerLight = window.getComputedStyle(secondPlayer.lightElement)
             expect(secondPlayerLight.backgroundColor).toBe("green")
         })
-    })
-    
+    })    
     describe("Check Gameboard state", () => {
         test("GameBoard index 4 must have X marker", () => {
             expect(gameBoard.listOfBoard[4].boardElement.textContent).toBe("X")
         })
     })
-
     describe("Check  state if GameBoard index 1 got clicked", () => {
         test("Check first, second player & gameboard state", () => {
             gameBoard.listOfBoard[1].boardElement.click()
@@ -668,64 +496,20 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
             expect(secondPlayer.getState()).toBe("OFF")
             expect(secondPlayerLight.backgroundColor).toBe("red")
             expect(gameBoard.listOfBoard[1].boardElement.textContent).toBe("O")
-        })       
-        
+        })        
     })
-
 })
 
-describe("Game play simulation", () => {
-    let gameState;    
-    let gameBoard;
-    let firstPlayer;
-    let secondPlayer;
-    let firstInput;    
-    let secondInput;        
-    let message;
-    let inputPlayerName;    
-    beforeEach(() => {
-        document.body.innerHTML = htmlContent
-        jest.resetModules()
-
-        // Mock the dialog methods for JSDOM
-        // Check if the prototype exists before mocking
-        if (HTMLDialogElement && HTMLDialogElement.prototype) {
-            HTMLDialogElement.prototype.showModal = jest.fn();
-            HTMLDialogElement.prototype.close = jest.fn();
-        } else {
-            // Fallback for environments where HTMLDialogElement might not be defined
-            // This might happen if your JSDOM version is very old or configured differently.
-            // In a typical Jest setup with JSDOM, it should be defined.
-            console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
-        }
-
-        const {gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')   
-        gameState           = GameState()    
-        gameBoard           = GameBoard()    
-        firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-        secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")
-        firstInput          = document.querySelector("#inputPlayerOne")        
-        secondInput         = document.querySelector("#inputPlayerTwo")            
-        message             = Message()
-        startButton         = document.querySelector("#startButton")
-        endButton           = document.querySelector("#endButton")      
-        inputPlayerName     = InputPlayerName()  
+describe("Game play simulation", () => {      
+    beforeEach(() => {         
         inputPlayerName.first.value    = "Evan"            
         inputPlayerName.second.value   = "Dhika"
         gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName);
         startButton.click()               
-    })
-      
-    afterEach(() => {
-        // Clean up the DOM after each test (optional but good practice)
-        document.body.innerHTML = '';
-        // Clear mocks after each test
-        if (HTMLDialogElement && HTMLDialogElement.prototype.showModal) {
-            HTMLDialogElement.prototype.showModal.mockRestore();
-            HTMLDialogElement.prototype.close.mockRestore();
-        }
-    });
+    })     
+    
 
+    
     describe("Check state if First Player win using first diagonal row", () => {
         test("Second player get X marker after loose and play first  for next , first player get win become 1, round also 1", () => {
             gameBoard.listOfBoard[4].boardElement.click()
@@ -746,7 +530,6 @@ describe("Game play simulation", () => {
             expect(gameState.roundElement.textContent).toBe("1")
         })
     })
-
     describe("Check state if Second Player win using first row", () => {
         test("Second player still get O marker after win, second player get win become 1, round also 1", () => {
             gameBoard.listOfBoard[4].boardElement.click()
@@ -767,7 +550,6 @@ describe("Game play simulation", () => {
             expect(secondPlayer.winElement.textContent).toBe("1")
         })
     })
-
     describe("Check message if first Player win using third column", () => {
         test("Message to congratulate First player has to appear", () => {
             gameBoard.listOfBoard[4].boardElement.click()
@@ -780,7 +562,6 @@ describe("Game play simulation", () => {
             expect(message.text.textContent).toBe("Congratulations " + firstPlayer.getName() + ", you are the winner!!!")            
         })
     })
-
     describe("Check message if second Player win using first column", () => {
         test("Message to congratulate First player has to appear", () => {
             gameBoard.listOfBoard[4].boardElement.click()
@@ -792,7 +573,6 @@ describe("Game play simulation", () => {
             expect(message.text.textContent).toBe("Congratulations " + secondPlayer.getName() + ", you are the winner!!!")            
         })
     })
-
     describe("Check state when First Player win two times a row using secondDiagonal and third row", () => {
         test("Expect first player has win 2 against 0 with last marker is O, state is OFF and light is red", () => {
             gameBoard.listOfBoard[4].boardElement.click()
@@ -822,7 +602,6 @@ describe("Game play simulation", () => {
             expect(gameState.roundElement.textContent).toBe("2")
         })
     })
-
     describe("Check state when First Player 1 times second column and Second player win 1 times using second row", () => {
         test("Expect first player & second player has win 1  each. with First player last marker is X, state is ON and light is green", () => {
             gameBoard.listOfBoard[4].boardElement.click()
@@ -853,7 +632,6 @@ describe("Game play simulation", () => {
             expect(gameState.roundElement.textContent).toBe("2")
         })
     })
-
     describe("Check for draw result", () => {
         test("Expect message for draw, second player change marker to X and get ON and green after draw result", () => {
             gameBoard.listOfBoard[4].boardElement.click()
@@ -879,7 +657,6 @@ describe("Game play simulation", () => {
             expect(gameState.drawElement.textContent).toBe("1")
         })
     })
-
     describe("Check message if Game is finish", () => {
         test("Message summary when first player win 2 times a row for 2 round and end the game", () => {
             gameBoard.listOfBoard[4].boardElement.click()
@@ -935,5 +712,4 @@ describe("Game play simulation", () => {
                 "Summary:\nEvan get win : 1 times.\nDhika get win : 1 times.\nTotal draw : 1 times.\nTotal round : 3 times.")
         })
     })
-
 })
