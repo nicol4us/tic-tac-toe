@@ -21,7 +21,7 @@ try {
 // 3. Import function from script.js
 const {createRecord,gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName} = require('./script')
 
-// 4. Initialize variable
+// 4. Initialize
 let gameState;    
 let gameBoard;
 let firstPlayer;

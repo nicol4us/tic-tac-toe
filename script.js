@@ -598,6 +598,7 @@ function funForInputPlayerName(inputPlayerName) {
 
 
 
+
 // (Element, Element) -> ()
 // To initialize the Tic-Tac-Toe Game
 function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer ,message, inputPlayerName) {
@@ -683,7 +684,7 @@ function checkGameState(gameBoard, gameState, playerOne, playerTwo, message) {
 
 // (GameBoard, GameState, Player, Player, Result) -> ()
 // To update state of Player and Game
-function updateState(gameBoard, gameState, playerOne, playerTwo, result) {
+function updateState(gameBoard, gameState, firstPlayer, secondPlayer, result) {
     switch (result) {
         case "Win" :
             gameState.getPlayerON().setWin();;
@@ -692,7 +693,7 @@ function updateState(gameBoard, gameState, playerOne, playerTwo, result) {
             gameState.setDraw();
             break;
     }
-    setPlayerForNext(gameState, playerOne, playerTwo)
+    setPlayerForNext(gameState, firstPlayer, secondPlayer)
     setNextRound(gameState, gameBoard)
 }
 
@@ -707,44 +708,44 @@ function setNextRound(gameState, gameBoard) {
 
 // (GameState, Player, Player) -> ()
 // To swap player ON
-function changePlayer(gameState, playerOne, playerTwo) {
+function changePlayer(gameState, firstPlayer, secondPlayer) {
     switch(true) {        
-        case (gameState.getPlayerON().getMarker() === playerOne.getMarker()):
-            gameState.setPlayerChange(playerTwo) ;
+        case (gameState.getPlayerON().getMarker() === firstPlayer.getMarker()):
+            gameState.setPlayerChange(secondPlayer) ;
             break;
-        case (gameState.getPlayerON().getMarker() === playerTwo.getMarker()):
-            gameState.setPlayerChange(playerOne);
+        case (gameState.getPlayerON().getMarker() === secondPlayer.getMarker()):
+            gameState.setPlayerChange(firstPlayer);
             break;
     }
 }
 
 // (GameState, Player, Player) -> ()
 // To swap marker between player
-function setPlayerForNext(gameState, playerOne, playerTwo) {
+function setPlayerForNext(gameState, firstPlayer, secondPlayer) {
     const playerWin = gameState.getPlayerON() 
     switch(true)      { 
-        case (playerWin == playerOne && playerOne.getMarker() === "X"):           
-            playerOne.setMarker("O");
-            playerTwo.setMarker("X");
-            gameState.setPlayerON(playerTwo)
-            changeStateAndLight(playerOne);
+        case (playerWin == firstPlayer && firstPlayer.getMarker() === "X"):           
+            firstPlayer.setMarker("O");
+            secondPlayer.setMarker("X");
+            gameState.setPlayerON(secondPlayer)
+            changeStateAndLight(firstPlayer);
             break;
-        case (playerWin == playerTwo && playerTwo.getMarker() === "X"):            
-            playerOne.setMarker("X");
-            playerTwo.setMarker("O");
-            gameState.setPlayerON(playerOne)
-            changeStateAndLight(playerTwo)
+        case (playerWin == secondPlayer && secondPlayer.getMarker() === "X"):            
+            firstPlayer.setMarker("X");
+            secondPlayer.setMarker("O");
+            gameState.setPlayerON(firstPlayer)
+            changeStateAndLight(secondPlayer)
             break;
-        case(playerWin == playerOne && playerOne.getMarker() === "O"):
-            gameState.setPlayerON(playerTwo)
-            changeStateAndLight(playerOne)
+        case(playerWin == firstPlayer && firstPlayer.getMarker() === "O"):
+            gameState.setPlayerON(secondPlayer)
+            changeStateAndLight(firstPlayer)
             break;
-        case(playerWin == playerTwo && playerTwo.getMarker() === "O"):
-            gameState.setPlayerON(playerOne)
-            changeStateAndLight(playerTwo);
+        case(playerWin == secondPlayer && secondPlayer.getMarker() === "O"):
+            gameState.setPlayerON(firstPlayer)
+            changeStateAndLight(secondPlayer);
     }
-    playerOne.record.clear();        
-    playerTwo.record.clear(); 
+    firstPlayer.record.clear();        
+    secondPlayer.record.clear(); 
 }
 
 
