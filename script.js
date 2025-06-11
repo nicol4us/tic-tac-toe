@@ -8,9 +8,6 @@
 const minNameLength     = 2;
 const maxRowAndColumn   = 3;
 const maxBoard          = 9;
-const startButton       = document.querySelector("#startButton");
-const endButton         = document.querySelector("#endButton");
-
 
 
 // Atomic Data Non Distinct Definition 
@@ -617,13 +614,13 @@ function funForGameButton(gameButton) {
 
 // (Element, Element) -> ()
 // To initialize the Tic-Tac-Toe Game
-function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer ,message, inputPlayerName) {
-    setStartAndEndButton(startButton, endButton, "ON")
-    startButton.addEventListener("click", function() {        
+function gamePlay(gameState, gameBoard, firstPlayer, secondPlayer ,message, inputPlayerName, gameButton) {
+    setButtonState(gameButton, "ON")
+    gameButton.start.addEventListener("click", function() {        
         if(inputPlayerName.first.value.length >= minNameLength && inputPlayerName.second.value.length >= minNameLength) {
             gameState.start(inputPlayerName.first.value, firstPlayer, inputPlayerName.second.value, secondPlayer);
             setBoardListener(gameBoard, gameState, firstPlayer, secondPlayer, message)
-            setStartAndEndButton(startButton, endButton, "OFF")
+            setButtonState(gameButton, "OFF")
             inputPlayerName.hide()
         }
         else {
@@ -631,10 +628,10 @@ function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, sec
             message.close()
         }
     })
-    endButton.addEventListener("click", function() {
+    gameButton.end.addEventListener("click", function() {
         message.summary(gameState, firstPlayer, secondPlayer)
         message.close()
-        setStartAndEndButton(startButton, endButton, "OFF")
+        setButtonState(gameButton, "OFF")
     })
       
 }
@@ -642,19 +639,19 @@ function gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, sec
 
 // (Button, Button, State) -> ()
 // To Activate or deactivate button according to the State data
-function setStartAndEndButton(startButton, endButton, state) {
+function setButtonState(gameButton, state) {
     switch(state) {
         case "ON" :
-            startButton.disabled = false;
-            startButton.style.backgroundColor = "green" ;           
-            endButton.disabled = true;  
-            endButton.style.backgroundColor = "gray"                   
+            gameButton.start.disabled = false;
+            gameButton.start.style.backgroundColor = "green" ;           
+            gameButton.end.disabled = true;  
+            gameButton.end.style.backgroundColor = "gray"                   
             break;
         case "OFF" :
-            startButton.disabled = true;  
-            startButton.style.backgroundColor = "gray"                    
-            endButton.disabled = false;   
-            endButton.style.backgroundColor = "green" 
+            gameButton.start.disabled = true;  
+            gameButton.start.style.backgroundColor = "gray"                    
+            gameButton.end.disabled = false;   
+            gameButton.end.style.backgroundColor = "green" 
             break;
     }
 }

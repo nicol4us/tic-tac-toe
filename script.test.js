@@ -49,9 +49,7 @@ beforeEach(() => {
     gameBoard           = GameBoard()    
     firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
     secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")                    
-    message             = Message()
-    startButton         = document.querySelector("#startButton")
-    endButton           = document.querySelector("#endButton")    
+    message             = Message()      
     inputPlayerName     = InputPlayerName()    
     gameButton          = GameButton()               
 })
@@ -328,7 +326,7 @@ describe("GameBoard testing", () => {
 
 describe("gamePlay function testing initial state", () => {        
     beforeEach(() => {               
-        gamePlay(startButton, endButton, gameState, GameBoard(), firstPlayer, secondPlayer,message, inputPlayerName);        
+        gamePlay(gameState, GameBoard(), firstPlayer, secondPlayer,message, inputPlayerName, gameButton);        
     })   
     describe("Check Game Info section for Round and Draw", () => {
         test("Check initial value of round must be 0", () => {
@@ -379,22 +377,22 @@ describe("gamePlay function testing initial state", () => {
             expect(startButton).not.toBeDisabled()            
         })
         test("Check if background Start button is green", () => {
-            const computeStyle = window.getComputedStyle(startButton)
+            const computeStyle = window.getComputedStyle(gameButton.start)
             expect(computeStyle.backgroundColor).toBe("green")
         })
     })
     describe("Check End button section", () => {
         test("Check if End button not enable to be click", () => {
-            expect(endButton).toBeDisabled()            
+            expect(gameButton.end).toBeDisabled()            
         })
         test("Check if background End button is gray", () => {
-            const computeStyle = window.getComputedStyle(endButton)
+            const computeStyle = window.getComputedStyle(gameButton.end)
             expect(computeStyle.backgroundColor).toBe("gray")
         })
     })
     describe("Check Start Button get clicked", () => {        
         test("Check empty input when Start button get clicked", () => {
-            startButton.click()
+            gameButton.start.click()
             expect(message.text.textContent).toBe("Please insert your name properly!!")
             expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalledTimes(1);
         })                
@@ -406,16 +404,16 @@ describe("gamePlay testing state after Start button get clicked", () => {
     beforeEach(() => {        
         inputPlayerName.first.value    = "Evan"            
         inputPlayerName.second.value   = "Dhika"
-        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName);
+        gamePlay(gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName, gameButton);
         startButton.click()        
     })    
     describe("Check Start and End Button state", () => {
         test("Check if Start button get disable & End button get enable when Start button got clicked", () => {            
-            const computeStyleStartButton = window.getComputedStyle(startButton)
-            const computeStyleEndButton     = window.getComputedStyle(endButton)
-            expect(startButton).toBeDisabled()
+            const computeStyleStartButton = window.getComputedStyle(gameButton.start)
+            const computeStyleEndButton     = window.getComputedStyle(gameButton.end)
+            expect(gameButton.start).toBeDisabled()
             expect(computeStyleStartButton.backgroundColor).toBe("gray")
-            expect(endButton).not.toBeDisabled()
+            expect(gameButton.end).not.toBeDisabled()
             expect(computeStyleEndButton.backgroundColor).toBe("green")
         })        
     })
@@ -461,8 +459,8 @@ describe("gamePlay testing when first GameBoard index 4 got clicked", () => {
     beforeEach(() => {              
         inputPlayerName.first.value    = "Evan"            
         inputPlayerName.second.value   = "Dhika"
-        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName);
-        startButton.click()  
+        gamePlay(gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName, gameButton);
+        gameButton.start.click()  
         gameBoard.listOfBoard[4].boardElement.click()      
     })
     describe("Check first player state", () => {
@@ -506,8 +504,8 @@ describe("Game play simulation", () => {
     beforeEach(() => {         
         inputPlayerName.first.value    = "Evan"            
         inputPlayerName.second.value   = "Dhika"
-        gamePlay(startButton, endButton, gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName);
-        startButton.click()               
+        gamePlay(gameState, gameBoard, firstPlayer, secondPlayer,message, inputPlayerName, gameButton);
+        gameButton.start.click()               
     })     
     
 
@@ -709,7 +707,7 @@ describe("Game play simulation", () => {
             gameBoard.listOfBoard[5].boardElement.click()
             gameBoard.listOfBoard[8].boardElement.click()
             message.close()
-            endButton.click()
+            gameButton.end.click()
             expect(message.text.textContent).toBe(
                 "Summary:\nEvan get win : 1 times.\nDhika get win : 1 times.\nTotal draw : 1 times.\nTotal round : 3 times.")
         })
