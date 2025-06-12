@@ -670,11 +670,14 @@ function setBoardListener(gameBoard, gameState,firstPlayer, secondPlayer, messag
     for(let i = 0; i < gameBoard.listOfBoard.length; i++) {
         const board = gameBoard.listOfBoard[i]
         board.boardElement.addEventListener("click", function() {
-            if(gameState.flag && board.boardElement.textContent === "") {                    
+            if(gameState.flag && board.boardElement.textContent === "") {  
+                board.writeMarker(gameState)
+                    /*                  
                     board.boardElement.textContent = gameState.getPlayerON().getMarker();
                     gameState.getPlayerON().record.set(board.index); 
-                    gameState.boardRecord.push(board.index)               
-                    checkGameState(gameBoard, gameState, firstPlayer, secondPlayer, message) ;       
+                    gameState.boardRecord.push(board.index)       
+                    */        
+                checkGameState(gameBoard, gameState, firstPlayer, secondPlayer, message) ;       
                 }
             })
     
