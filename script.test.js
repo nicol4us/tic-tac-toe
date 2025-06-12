@@ -323,6 +323,28 @@ describe("GameBoard testing", () => {
     })
 })
 
+describe("Message unit testing", () => {
+    test("Check win method", () => {
+        firstPlayer.setName("Tester")
+        message.win(firstPlayer)
+        expect(message.text.textContent).toBe("Congratulations Tester, you are the winner!!!")
+    })
+    test("Check draw method", () => {
+        message.draw()
+        expect(message.text.textContent).toBe("You both get draw result")
+    })
+    test("Check nameError method", () => {
+        message.nameError()
+        expect(message.text.textContent).toBe("Please insert your name properly!!")
+    })
+    test("Check summary method", () => {
+        firstPlayer.setName("Evan")
+        secondPlayer.setName("Dhika")
+        message.summary(gameState, firstPlayer,secondPlayer)
+        expect(message.text.textContent).toBe("Summary:\nEvan get win : 0 times.\nDhika get win : 0 times.\nTotal draw : 0 times.\nTotal round : 0 times.")
+    })
+})
+
 
 describe("gamePlay function testing initial state", () => {        
     beforeEach(() => {               
