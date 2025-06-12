@@ -455,11 +455,18 @@ function changeStateAndLight(player) {
 
 
 // Board Data Definition
-function createBoard(indexList, className) {
+const createBoard  = function(indexList, className) {
     const index = indexList;
     const boardElement = document.createElement("div");
     boardElement.classList.add(className);
-    return {index, boardElement}
+    const writeMarker = function(gameState) {
+        boardElement.textContent = gameState.getPlayerON().getMarker()
+        boardElement.style.color = gameState.getPlayerON().color
+        gameState.getPlayerON().record.set(index)
+        gameState.boardRecord.push(index)
+
+    }
+    return {index, boardElement, writeMarker}
 }
 /*
 function funforBoard(board) {
@@ -767,6 +774,6 @@ function setPlayerForNext(gameState, firstPlayer, secondPlayer) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer, GameState, GameBoard, gamePlay, Message, InputPlayerName, GameButton
+        createRecord, createPlayer, createBoard,GameState, GameBoard, gamePlay, Message, InputPlayerName, GameButton
     };
   }

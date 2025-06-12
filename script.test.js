@@ -19,10 +19,11 @@ try {
 }
 
 // 3. Import function from script.js
-const {createRecord,gamePlay, GameState, GameBoard,createPlayer ,Message, InputPlayerName, GameButton} = require('./script')
+const {createRecord,gamePlay, GameState, createBoard,GameBoard,createPlayer ,Message, InputPlayerName, GameButton} = require('./script')
 
 // 4. Initialize variable
-let gameState;    
+let gameState; 
+let board;   
 let gameBoard;
 let firstPlayer;
 let secondPlayer;           
@@ -45,7 +46,8 @@ beforeEach(() => {
         // In a typical Jest setup with JSDOM, it should be defined.
         console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
     }         
-    gameState           = GameState()    
+    gameState           = GameState()  
+    board               = createBoard(4,"board") 
     gameBoard           = GameBoard()    
     firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
     secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")                    
@@ -275,6 +277,29 @@ describe("GameState data & method testing", () => {
         expect(gameState.getDraw()).toBe(0)
         expect(gameState.flag).toBeFalsy()
         expect(gameState.boardRecord.length).toBe(0)
+    })
+})
+
+describe("Board testing", () => {
+    beforeEach(() => {
+        gameState.start("Evan", firstPlayer, "Dhika", secondPlayer)
+    })
+    test("Check if board has X marker from first Player, index is 4,", () => {
+        board.writeMarker(gameState)
+        expect(board.boardElement.textContent).toBe("X")
+        expect(board.boardElement.style.color).toBe("cyan")
+        expect(board.index).toBe(4)
+        expect(firstPlayer.record.listRecord).toEqual([[],[4],[],[],[4],[],[4],[4]])
+        expect(gameState.boardRecord).toEqual([4])
+    })
+    test("Check if board has O marker from second Player, index is 4,", () => {
+        gameState.setPlayerON(secondPlayer)
+        board.writeMarker(gameState)
+        expect(board.boardElement.textContent).toBe("O")
+        expect(board.boardElement.style.color).toBe("blue")
+        expect(board.index).toBe(4)
+        expect(secondPlayer.record.listRecord).toEqual([[],[4],[],[],[4],[],[4],[4]])
+        expect(gameState.boardRecord).toEqual([4])
     })
 })
 
