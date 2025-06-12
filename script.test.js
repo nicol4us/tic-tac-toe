@@ -345,6 +345,13 @@ describe("Message unit testing", () => {
     })
 })
 
+describe("InputPlayerName unit testing", () => {
+    test("Check hide method", () => {
+        inputPlayerName.hide()
+        expect(inputPlayerName.first.hidden).toBeTruthy()
+        expect(inputPlayerName.second.hidden).toBeTruthy()
+    })
+})
 
 describe("gamePlay function testing initial state", () => {        
     beforeEach(() => {               
