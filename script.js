@@ -7,7 +7,6 @@
 
 const minNameLength     = 2;
 const maxRowAndColumn   = 3;
-const maxBoard          = 9;
 
 
 // Atomic Data Non Distinct Definition 
@@ -347,16 +346,14 @@ function funForBoardRecord(boardRecord) {
 
 
 // GameState data & method definition 
- const GameState = function() {
+ const GameState = function() {    
     let playerON;
     let flag                    = false;
     let round                   = 0;
     let draw                    = 0;
-    let boardRecord             = [];       
-    const roundElement          = document.querySelector("#round");
-    roundElement.textContent    = round;
-    const drawElement           = document.querySelector("#draw");
-    drawElement.textContent     = draw; 
+    let boardRecord             = []; 
+    const maxBoard              = 9    
+    
     const setPlayerON = function(player) { 
         playerON = player 
         changeStateAndLight(player)      
@@ -368,13 +365,11 @@ function funForBoardRecord(boardRecord) {
         changeStateAndLight(playerON) 
     }
     const setRound = function() {
-        round++;
-        roundElement.textContent = round;
+        round++;        
     }
     const getRound = () => round;
     const setDraw = function() {    
-        draw++;
-        drawElement.textContent = draw;    
+        draw++;          
     };
     const getDraw = () => draw;
     const isPlayerOnWin = function() {  
@@ -388,25 +383,21 @@ function funForBoardRecord(boardRecord) {
     const setToInitial = function() {  
         playerON = undefined;
         this.flag = false;
-        round = 0;
-        roundElement.textContent = 0
-        draw = 0
-        drawElement.textContent = 0
+        round = 0;       
+        draw = 0        
         boardRecord.length = 0
 
     }
     const hasEmptyBoard = function() {    
         return boardRecord.length < maxBoard
     }
-    const start         = function(firstPlayerName, playerOne, secondPlayerName, playerTwo) {
-        playerOne.setName(firstPlayerName);
-        playerOne.setMarker("X");
-        playerTwo.setName(secondPlayerName);
-        playerTwo.setMarker("O");
+    const start         = function(firstPlayer, secondPlayer) {
+        firstPlayer.setMarker("X")
+        secondPlayer.setMarker("O")
         this.flag = true;
-        this.setPlayerON(playerOne);
+        this.setPlayerON(firstPlayer);
     }
-    return {flag, boardRecord,roundElement, drawElement,
+    return {flag, boardRecord,roundElement,
         setPlayerON, getPlayerON,setPlayerChange,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard, start};
 };
 /*
