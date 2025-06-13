@@ -452,87 +452,6 @@ function changeStateAndLight(player) {
     player.changeLight();       
 }
 
-
-
-// Board Data Definition
-const createBoard  = function(indexList, className) {
-    const index = indexList;
-    const boardElement = document.createElement("div");
-    boardElement.classList.add(className);
-    const writeMarker = function(gameState) {
-        boardElement.textContent = gameState.getPlayerON().getMarker()
-        boardElement.style.color = gameState.getPlayerON().color
-        gameState.getPlayerON().record.set(index)
-        gameState.boardRecord.push(index)
-
-    }
-    return {index, boardElement, writeMarker}
-}
-/*
-function funforBoard(board) {
-    ... board.index;
-    ... board.boardElement;
-}
-*/
-// Rule template used:
-//  - Compound data;
-
-
-// Result is one of:
-//  - "Win"
-//  - "Draw"
-// interp. to determine the result of the game
-/*
-function funForResult(result) {
-    switch (result) {
-        case "Win" :
-            ....;
-            break;
-        case "Draw" :
-            ...;
-            break;
-    }
-}
-*/
-// Template rule used:
-//  - One of: 2 cases
-   
-
-// GameBoard Data & Method definition
-const GameBoard = function() {   
-    const container   = document.querySelector(".game-board")
-    const listOfBoard = setGameBoard(9, "board", container);
-    const clear = function() {
-        for(let i = 0; i < listOfBoard.length; i++) {
-            listOfBoard[i].boardElement.textContent = "";        
-        }        
-    }
-    return {listOfBoard, clear}    
-}; 
-// interp. 9 square box to play Tic TacToe Game
-/*
-function forGameBoard(gameBoard) {
-    ... gameBoard.listOfBoard;
-    ... gameBoard.clear();
-    }
-*/
-// Template rule used:
-//  - Compound data
-
-// GameBoard helper function
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// (Number, String, Element) -> Array
-// To produce listofBoard according to the number
-function setGameBoard(number, className, container) {
-    const listBoard = [];
-    for (let i = 0 ; i < number; i++) {
-        const board = createBoard(i, className);
-        listBoard.push(board)        
-        container.appendChild(board.boardElement);
-    }        
-    return listBoard;
-}
-
 // Message is 
 const Message = function() {
     const dialog            = document.querySelector("dialog");
@@ -580,6 +499,92 @@ function funForMessage(message) {
 //  - Compound data
 //  - Reference : Player
 //  - Reference : GameState 
+
+// Board Data Definition
+const createBoard  = function(indexList, className) {
+    const index = indexList;
+    const boardElement = document.createElement("div");
+    boardElement.classList.add(className);
+    const writeMarker = function(gameState) {
+        boardElement.textContent = gameState.getPlayerON().getMarker()
+        boardElement.style.color = gameState.getPlayerON().color
+        gameState.getPlayerON().record.set(index)
+        gameState.boardRecord.push(index)
+
+    }
+    return {index, boardElement, writeMarker}
+}
+/*
+function funforBoard(board) {
+    ... board.index;
+    ... board.boardElement;
+}
+*/
+// Rule template used:
+//  - Compound data;
+
+
+// Result is one of:
+//  - "PlayOn"
+//  - "Win"
+//  - "Draw"
+// interp. to determine the result state of the game
+/*
+function funForResult(result) {
+    switch (result) {
+        case "PlayOn" :
+            ...;
+        case "Win" :
+            ...;
+            break;
+        case "Draw" :
+            ...;
+            break;
+    }
+}
+*/
+// Template rule used:
+//  - One of: 2 cases
+   
+
+// GameBoard Data & Method definition
+const GameBoard = function() {   
+    const container   = document.querySelector(".game-board")
+    const listOfBoard = setGameBoard(9, "board", container);
+    const clear = function() {
+        for(let i = 0; i < listOfBoard.length; i++) {
+            listOfBoard[i].boardElement.textContent = "";        
+        }        
+    }
+    const addBoardListener = function(gameState, firstPlayer, secondPlayer, message) {
+
+    }
+    return {listOfBoard, clear}    
+}; 
+// interp. 9 square box to play Tic TacToe Game
+/*
+function forGameBoard(gameBoard) {
+    ... gameBoard.listOfBoard;
+    ... gameBoard.clear();
+    }
+*/
+// Template rule used:
+//  - Compound data
+
+// GameBoard helper function
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// (Number, String, Element) -> Array
+// To produce listofBoard according to the number
+function setGameBoard(number, className, container) {
+    const listBoard = [];
+    for (let i = 0 ; i < number; i++) {
+        const board = createBoard(i, className);
+        listBoard.push(board)        
+        container.appendChild(board.boardElement);
+    }        
+    return listBoard;
+}
+
 
 
 // InputPlayerName is
@@ -671,12 +676,7 @@ function setBoardListener(gameBoard, gameState,firstPlayer, secondPlayer, messag
         const board = gameBoard.listOfBoard[i]
         board.boardElement.addEventListener("click", function() {
             if(gameState.flag && board.boardElement.textContent === "") {  
-                board.writeMarker(gameState)
-                    /*                  
-                    board.boardElement.textContent = gameState.getPlayerON().getMarker();
-                    gameState.getPlayerON().record.set(board.index); 
-                    gameState.boardRecord.push(board.index)       
-                    */        
+                board.writeMarker(gameState)                   
                 checkGameState(gameBoard, gameState, firstPlayer, secondPlayer, message) ;       
                 }
             })
