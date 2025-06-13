@@ -19,7 +19,7 @@ try {
 }
 
 // 3. Import function from script.js
-const {createRecord,createPlayer} = require('./script')
+const {createRecord,createPlayer, GameState} = require('./script')
 
 // 4. Initialize variable
 let gameState; 
@@ -46,11 +46,12 @@ beforeEach(() => {
         // In a typical Jest setup with JSDOM, it should be defined.
         console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
     }         
-    //gameState           = GameState()  
+      
     //board               = createBoard(4,"board") 
     //gameBoard           = GameBoard()    
     firstPlayer             = createPlayer("Evan", "cyan")
-    secondPlayer            = createPlayer("Dhika", "blue")                    
+    secondPlayer            = createPlayer("Dhika", "blue") 
+    gameState               = GameState()                   
     //message             = Message()      
     //inputPlayerName     = InputPlayerName()    
     //gameButton          = GameButton()               
@@ -186,9 +187,6 @@ describe("Player data & method testing", () => {
 } )
 
 
-
-/*
-
 describe("GameState data & method testing", () => {
     test("Check if GameState flag is false", () => {
         expect(gameState.flag).toBeFalsy();
@@ -198,11 +196,10 @@ describe("GameState data & method testing", () => {
         expect(gameState.flag).toBeTruthy()
     })
     test("Check setPlayerON & getPlayerON method, Player will start with X marker", () => {
-        firstPlayer.setMarker("X")
-        firstPlayer.setName("Tester")
+        firstPlayer.setMarker("X")        
         gameState.setPlayerON(firstPlayer)
         expect(gameState.getPlayerON().getMarker()).toBe("X")
-        expect(gameState.getPlayerON().getName()).toBe("Tester")        
+        expect(gameState.getPlayerON().name).toBe("Evan")        
     })
     test("Check setPlayerChange method", () => {
         gameState.setPlayerON(firstPlayer); 
@@ -278,6 +275,8 @@ describe("GameState data & method testing", () => {
         expect(gameState.boardRecord.length).toBe(0)
     })
 })
+
+/*
 
 describe("Board testing", () => {
     beforeEach(() => {

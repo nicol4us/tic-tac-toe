@@ -352,7 +352,8 @@ function funForBoardRecord(boardRecord) {
     let round                   = 0;
     let draw                    = 0;
     let boardRecord             = []; 
-    const maxBoard              = 9    
+    const maxBoard              = 9 
+    const lengthRecordToWin     = 3;   
     
     const setPlayerON = function(player) { 
         playerON = player 
@@ -374,7 +375,7 @@ function funForBoardRecord(boardRecord) {
     const getDraw = () => draw;
     const isPlayerOnWin = function() {  
         for(let i=0; i < playerON.record.listRecord.length; i++) {
-            if(playerON.record.listRecord[i].length === 3) {
+            if(playerON.record.listRecord[i].length === lengthRecordToWin) {
                 return true
             }
         } 
@@ -397,7 +398,7 @@ function funForBoardRecord(boardRecord) {
         this.flag = true;
         this.setPlayerON(firstPlayer);
     }
-    return {flag, boardRecord,roundElement,
+    return {flag, boardRecord,
         setPlayerON, getPlayerON,setPlayerChange,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard, start};
 };
 /*
