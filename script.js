@@ -525,17 +525,14 @@ function funforBoard(board) {
 
 
 // Result is one of:
-//  - "PlayOn"
 //  - "Win"
 //  - "Draw"
-// interp. to determine the result state of the game
+// interp. to determine the result of the game
 /*
 function funForResult(result) {
     switch (result) {
-        case "PlayOn" :
-            ...;
         case "Win" :
-            ...;
+            ....;
             break;
         case "Draw" :
             ...;
@@ -555,9 +552,6 @@ const GameBoard = function() {
         for(let i = 0; i < listOfBoard.length; i++) {
             listOfBoard[i].boardElement.textContent = "";        
         }        
-    }
-    const addBoardListener = function(gameState, firstPlayer, secondPlayer, message) {
-
     }
     return {listOfBoard, clear}    
 }; 
@@ -677,7 +671,7 @@ function setBoardListener(gameBoard, gameState,firstPlayer, secondPlayer, messag
         board.boardElement.addEventListener("click", function() {
             if(gameState.flag && board.boardElement.textContent === "") {  
                 board.writeMarker(gameState)                   
-                checkGameState(gameBoard, gameState, firstPlayer, secondPlayer, message) ;       
+                updateState(gameBoard,gameState,firstPlayer,secondPlayer,checkGameState(gameState, message)) ;       
                 }
             })
     
@@ -687,22 +681,20 @@ function setBoardListener(gameBoard, gameState,firstPlayer, secondPlayer, messag
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
-function checkGameState(gameBoard, gameState, firstPlayer, secondPlayer, message) {  
+function checkGameState(gameState, message) {  
     switch (true) {
         case (gameState.isPlayerOnWin()) :         
             message.win(gameState.getPlayerON())
             message.close()
-            updateState(gameBoard, gameState, firstPlayer, secondPlayer, "Win")
-            break;
-        case (gameState.hasEmptyBoard()) :
-            changePlayer(gameState, firstPlayer, secondPlayer)
-            break; 
+            return "Win"          
+        
         case (gameState.boardRecord.length === maxBoard) :
             message.draw()
             message.close()
-            updateState(gameBoard, gameState, firstPlayer, secondPlayer, "Draw")
-            break;    
-    }    
+            return "Draw"              
+    }   case (gameState.hasEmptyBoard()) :           
+            return "PlayOn"
+    
 }
 
 // (GameBoard, GameState, Player, Player, Result) -> ()
@@ -711,13 +703,20 @@ function updateState(gameBoard, gameState, firstPlayer, secondPlayer, result) {
     switch (result) {
         case "Win" :
             gameState.getPlayerON().setWin();;
+            setPlayerForNext(gameState, firstPlayer, secondPlayer)
+            setNextRound(gameState, gameBoard)
             break;
         case "Draw" :
             gameState.setDraw();
+            setPlayerForNext(gameState, firstPlayer, secondPlayer)
+            setNextRound(gameState, gameBoard)
+            break;
+        case "PlayOn" :
+            changePlayer(gameState, firstPlayer, secondPlayer)
             break;
     }
-    setPlayerForNext(gameState, firstPlayer, secondPlayer)
-    setNextRound(gameState, gameBoard)
+    //setPlayerForNext(gameState, firstPlayer, secondPlayer)
+    //setNextRound(gameState, gameBoard)
 }
 
 
