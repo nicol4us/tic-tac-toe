@@ -590,89 +590,6 @@ function setGameBoard(number, className, container) {
     return listBoard;
 }
 
-
-
-// InputPlayerName is
-const InputPlayerName = function() {
-    const first     = document.querySelector("#inputPlayerOne")
-    const second    = document.querySelector("#inputPlayerTwo")
-    const hide      = function() {
-        first.hidden    = true;
-        second.hidden   = true;
-    }
-    return {first, second, hide}
-}
-// interp. Input HTML element for player name
-/*
-function funForInputPlayerName(inputPlayerName) {
-    inputPlayerName.first...
-    inputPlayerName.second...
-}
-*/
-// Template rule used:
-//  - Compound data 
-
-// GameButton is
-const GameButton = function() {
-    const start   = document.querySelector("#startButton")
-    const end     = document.querySelector("#endButton")
-    return {start, end}
-}
-// interp. all button used for the game
-/*
-function funForGameButton(gameButton) {
-    ... gameButton.start;
-    ... gameButton.end;
-}
-*/
-// Template rule used:
-//  - Compound data;
-
-
-// (Element, Element) -> ()
-// To initialize the Tic-Tac-Toe Game
-function gamePlay(gameState, gameBoard, firstPlayer, secondPlayer ,message, inputPlayerName, gameButton) {
-    setButtonState(gameButton, "ON")
-    gameButton.start.addEventListener("click", function() {        
-        if(inputPlayerName.first.value.length >= minNameLength && inputPlayerName.second.value.length >= minNameLength) {
-            gameState.start(inputPlayerName.first.value, firstPlayer, inputPlayerName.second.value, secondPlayer);            
-            gameBoard.setListener(gameState, firstPlayer,secondPlayer, message)
-            setButtonState(gameButton, "OFF")
-            inputPlayerName.hide()
-        }
-        else {
-            message.nameError()
-            message.close()
-        }
-    })
-    gameButton.end.addEventListener("click", function() {
-        message.summary(gameState, firstPlayer, secondPlayer)
-        message.close()
-        setButtonState(gameButton, "OFF")
-    })
-      
-}
-
-
-// (Button, Button, State) -> ()
-// To Activate or deactivate button according to the State data
-function setButtonState(gameButton, state) {
-    switch(state) {
-        case "ON" :
-            gameButton.start.disabled = false;
-            gameButton.start.style.backgroundColor = "green" ;           
-            gameButton.end.disabled = true;  
-            gameButton.end.style.backgroundColor = "gray"                   
-            break;
-        case "OFF" :
-            gameButton.start.disabled = true;  
-            gameButton.start.style.backgroundColor = "gray"                    
-            gameButton.end.disabled = false;   
-            gameButton.end.style.backgroundColor = "green" 
-            break;
-    }
-}
-
 // (GameState) -> ()
 // To check if Player win, if false change the player
 function checkGameState(gameState, message) {  
@@ -763,6 +680,90 @@ function setPlayerForNext(gameState, firstPlayer, secondPlayer) {
     firstPlayer.record.clear();        
     secondPlayer.record.clear(); 
 }
+
+
+// InputPlayerName is
+const InputPlayerName = function() {
+    const first     = document.querySelector("#inputPlayerOne")
+    const second    = document.querySelector("#inputPlayerTwo")
+    const hide      = function() {
+        first.hidden    = true;
+        second.hidden   = true;
+    }
+    return {first, second, hide}
+}
+// interp. Input HTML element for player name
+/*
+function funForInputPlayerName(inputPlayerName) {
+    inputPlayerName.first...
+    inputPlayerName.second...
+}
+*/
+// Template rule used:
+//  - Compound data 
+
+// GameButton is
+const GameButton = function() {
+    const start   = document.querySelector("#startButton")
+    const end     = document.querySelector("#endButton")
+    return {start, end}
+}
+// interp. all button used for the game
+/*
+function funForGameButton(gameButton) {
+    ... gameButton.start;
+    ... gameButton.end;
+}
+*/
+// Template rule used:
+//  - Compound data;
+
+
+// (Element, Element) -> ()
+// To initialize the Tic-Tac-Toe Game
+function gamePlay(gameState, gameBoard, firstPlayer, secondPlayer ,message, inputPlayerName, gameButton) {
+    setButtonState(gameButton, "ON")
+    gameButton.start.addEventListener("click", function() {        
+        if(inputPlayerName.first.value.length >= minNameLength && inputPlayerName.second.value.length >= minNameLength) {
+            gameState.start(inputPlayerName.first.value, firstPlayer, inputPlayerName.second.value, secondPlayer);            
+            gameBoard.setListener(gameState, firstPlayer,secondPlayer, message)
+            setButtonState(gameButton, "OFF")
+            inputPlayerName.hide()
+        }
+        else {
+            message.nameError()
+            message.close()
+        }
+    })
+    gameButton.end.addEventListener("click", function() {
+        message.summary(gameState, firstPlayer, secondPlayer)
+        message.close()
+        setButtonState(gameButton, "OFF")
+    })
+      
+}
+
+
+// (Button, Button, State) -> ()
+// To Activate or deactivate button according to the State data
+function setButtonState(gameButton, state) {
+    switch(state) {
+        case "ON" :
+            gameButton.start.disabled = false;
+            gameButton.start.style.backgroundColor = "green" ;           
+            gameButton.end.disabled = true;  
+            gameButton.end.style.backgroundColor = "gray"                   
+            break;
+        case "OFF" :
+            gameButton.start.disabled = true;  
+            gameButton.start.style.backgroundColor = "gray"                    
+            gameButton.end.disabled = false;   
+            gameButton.end.style.backgroundColor = "green" 
+            break;
+    }
+}
+
+
 
 
 
