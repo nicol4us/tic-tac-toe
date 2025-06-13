@@ -255,7 +255,7 @@ function addIndexToRecord(array, index) {
 
 // Player Data & Method Definition 
 function createPlayer(name, color) {
-    let marker;    
+    let marker          = "";    
     let state           = "OFF"
     let light           = "red";
     let win             = 0;
@@ -268,10 +268,10 @@ function createPlayer(name, color) {
     const changeState = function() {  
         switch(state) {
             case "ON" :
-                state.textContent = "OFF" ;
+                state = "OFF" ;
                 break
             case "OFF" :
-                state.textContent = "ON" ;
+                state = "ON" ;
                 break;
         }            
     } 
@@ -292,9 +292,8 @@ function createPlayer(name, color) {
     }; 
     const getWin    = () => win;  
     const setToDefault = function() {    
-        marker               = "" ;
-        name                = "";
-        state.textContent   = "OFF"   
+        marker              = "" ;        
+        state               = "OFF"   
         light               = "red"
         win                 = 0;
         record.clear();

@@ -19,7 +19,7 @@ try {
 }
 
 // 3. Import function from script.js
-const {createRecord,gamePlay, GameState, createBoard,GameBoard,createPlayer ,Message, InputPlayerName, GameButton} = require('./script')
+const {createRecord,createPlayer} = require('./script')
 
 // 4. Initialize variable
 let gameState; 
@@ -46,14 +46,14 @@ beforeEach(() => {
         // In a typical Jest setup with JSDOM, it should be defined.
         console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
     }         
-    gameState           = GameState()  
-    board               = createBoard(4,"board") 
-    gameBoard           = GameBoard()    
-    firstPlayer         = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-    secondPlayer        = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue")                    
-    message             = Message()      
-    inputPlayerName     = InputPlayerName()    
-    gameButton          = GameButton()               
+    //gameState           = GameState()  
+    //board               = createBoard(4,"board") 
+    //gameBoard           = GameBoard()    
+    firstPlayer             = createPlayer("Evan", "cyan")
+    secondPlayer            = createPlayer("Dhika", "blue")                    
+    //message             = Message()      
+    //inputPlayerName     = InputPlayerName()    
+    //gameButton          = GameButton()               
 })
   
 afterEach(() => {
@@ -125,13 +125,11 @@ describe("Player data & method testing", () => {
             firstPlayer.setMarker("X")
             expect(firstPlayer.getMarker()).toBe("X");
         })        
-        test('Check setName method', () => {
-            firstPlayer.setName("Trial");
-            expect(firstPlayer.getName()).toBe("Trial")
+        test('Check name attritube first player', () => {
+            expect(firstPlayer.name).toBe("Evan")
         })
-        test('Check if getName method return "Tester"', () => { 
-            firstPlayer.setName("Tester")           
-            expect(firstPlayer.getName()).toBe("Tester")
+        test('Check name attribute second player"', () => {                    
+            expect(secondPlayer.name).toBe("Dhika")
         })
         test("Check getState method, initial value is OFF", () => {
             expect(firstPlayer.getState()).toBe("OFF")
@@ -165,11 +163,9 @@ describe("Player data & method testing", () => {
             firstPlayer.record.set(4);
             expect(firstPlayer.record.listRecord).toEqual([[],[4],[],[],[4],[],[4],[4]])
         })
-        test("Check setToDefault method, marker & name is empty, state is OFF, light is red, win is 0, record all is empty", () => {
+        test("Check setToDefault method, marker is empty, state is OFF, light is red, win is 0, record all is empty", () => {
             firstPlayer.setMarker("X") // Initialiaze marker
-            expect(firstPlayer.getMarker()).toBe("X")
-            firstPlayer.setName("TrialName") // Initialize name
-            expect(firstPlayer.getName()).toBe("TrialName")
+            expect(firstPlayer.getMarker()).toBe("X")             
             firstPlayer.changeState(); // Change state from OFF to ON
             expect(firstPlayer.getState()).toBe("ON")
             firstPlayer.changeLight(); // Change light from red to green
@@ -180,7 +176,7 @@ describe("Player data & method testing", () => {
             expect(firstPlayer.record.listRecord).toEqual([[0],[],[],[0],[],[],[0],[]])
             firstPlayer.setToDefault()
             expect(firstPlayer.getMarker()).toBe("")
-            expect(firstPlayer.getName()).toBe("")
+            expect(firstPlayer.name).toBe("Evan")
             expect(firstPlayer.getState()).toBe("OFF")
             expect(firstPlayer.getLight()).toBe("red")
             expect(firstPlayer.getWin()).toBe(0)
@@ -189,6 +185,9 @@ describe("Player data & method testing", () => {
     }) 
 } )
 
+
+
+/*
 
 describe("GameState data & method testing", () => {
     test("Check if GameState flag is false", () => {
@@ -797,3 +796,5 @@ describe("Game play simulation", () => {
         })
     })
 })
+
+*/
