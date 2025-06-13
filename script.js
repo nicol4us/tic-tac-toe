@@ -553,7 +553,18 @@ const GameBoard = function() {
             listOfBoard[i].boardElement.textContent = "";        
         }        
     }
-    return {listOfBoard, clear}    
+    const setListener = function(gameState, firstPlayer, secondPlayer, message){
+        const self = this;
+        listOfBoard.forEach(board => {
+            board.boardElement.addEventListener("click", function() {
+                if(gameState.flag && board.boardElement.textContent === "") {  
+                    board.writeMarker(gameState)                   
+                    updateState(self,gameState,firstPlayer,secondPlayer,checkGameState(gameState, message)) ;       
+                    }
+            })
+        })
+    }
+    return {listOfBoard, setListener ,clear}    
 }; 
 // interp. 9 square box to play Tic TacToe Game
 /*
@@ -624,8 +635,8 @@ function gamePlay(gameState, gameBoard, firstPlayer, secondPlayer ,message, inpu
     setButtonState(gameButton, "ON")
     gameButton.start.addEventListener("click", function() {        
         if(inputPlayerName.first.value.length >= minNameLength && inputPlayerName.second.value.length >= minNameLength) {
-            gameState.start(inputPlayerName.first.value, firstPlayer, inputPlayerName.second.value, secondPlayer);
-            setBoardListener(gameBoard, gameState, firstPlayer, secondPlayer, message)
+            gameState.start(inputPlayerName.first.value, firstPlayer, inputPlayerName.second.value, secondPlayer);            
+            gameBoard.setListener(gameState, firstPlayer,secondPlayer, message)
             setButtonState(gameButton, "OFF")
             inputPlayerName.hide()
         }
@@ -662,23 +673,6 @@ function setButtonState(gameButton, state) {
     }
 }
 
-
-// (GameBoard, GameState, Message) -> ()
-// To add event listener for Board Element
-function setBoardListener(gameBoard, gameState,firstPlayer, secondPlayer, message) {    
-    for(let i = 0; i < gameBoard.listOfBoard.length; i++) {
-        const board = gameBoard.listOfBoard[i]
-        board.boardElement.addEventListener("click", function() {
-            if(gameState.flag && board.boardElement.textContent === "") {  
-                board.writeMarker(gameState)                   
-                updateState(gameBoard,gameState,firstPlayer,secondPlayer,checkGameState(gameState, message)) ;       
-                }
-            })
-    
-        }
-        
-}
-
 // (GameState) -> ()
 // To check if Player win, if false change the player
 function checkGameState(gameState, message) {  
@@ -686,15 +680,15 @@ function checkGameState(gameState, message) {
         case (gameState.isPlayerOnWin()) :         
             message.win(gameState.getPlayerON())
             message.close()
-            return "Win"          
+            return "Win";   
         
         case (gameState.boardRecord.length === maxBoard) :
             message.draw()
             message.close()
-            return "Draw"              
-    }   case (gameState.hasEmptyBoard()) :           
-            return "PlayOn"
-    
+            return "Draw"; 
+        case (gameState.hasEmptyBoard()) :           
+            return "PlayOn";                        
+    }    
 }
 
 // (GameBoard, GameState, Player, Player, Result) -> ()
