@@ -59,12 +59,16 @@ function funForName(name) {
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Marker is one of :
+// - ""
 // - "X"
 // - "O"
 // interp. the mark for board from Player
 /*
 function  fnForMarker(marker) {
-    switch(marker) {        
+    switch(marker) { 
+        case "":
+            ...;
+            break;       
         case "X":
             ... ;
             break;
@@ -75,7 +79,8 @@ function  fnForMarker(marker) {
 }
 */
 // Template rule used:
-//  - One of: 2 cases 
+//  - One of: 3 cases 
+//  - Atomic distinct: ""
 //  - Atomic distinct: "X"
 //  - Atomic distinct: "O"
 
@@ -249,30 +254,19 @@ function addIndexToRecord(array, index) {
 }
 
 // Player Data & Method Definition 
-function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, idWin, color) {
-    const marker        = document.querySelector("#" + markerID) 
-    marker.style.color  = color  
-    const name          = document.querySelector("#" + idName)
-    name.textContent    = playerName;
-    const state         = document.querySelector("#" + idPlayerState);
-    state.textContent   = "OFF";
+function createPlayer(name, color) {
+    let marker;    
+    let state           = "OFF"
     let light           = "red";
     let win             = 0;
     let record          = createRecord();    
-    const lightElement  = document.querySelector("#"+ idLightState);
-    lightElement.style.backgroundColor = light;
-    const winElement          = document.querySelector("#" + idWin) ; 
-    winElement .textContent   = win;
     const setMarker     = function(newMarker) { 
-        marker.textContent = newMarker            
+        marker          = newMarker           
     }  
-    const getMarker = () => marker.textContent     
-    const setName = function(newName) { 
-        name.textContent = newName
-    }
-    const getName = () => name.textContent;
+    const getMarker = () => marker
+    
     const changeState = function() {  
-        switch(state.textContent) {
+        switch(state) {
             case "ON" :
                 state.textContent = "OFF" ;
                 break
@@ -281,7 +275,7 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
                 break;
         }            
     } 
-    const getState = () => state.textContent;
+    const getState = () => state;
     const changeLight = function() {  
         switch(light) {
             case "red" :
@@ -290,44 +284,41 @@ function createPlayer(markerID,playerName, idName, idPlayerState, idLightState, 
             case "green" :
                 light = "red" ;                
                 break;
-        }
-        lightElement.style.backgroundColor = light;           
+        }                  
     };   
-    const getLight  = () => light
+    const getLight  = () => light;
     const setWin    = function() {
-        win++;
-        winElement .textContent = win;
+        win++;        
     }; 
     const getWin    = () => win;  
     const setToDefault = function() {    
-        marker.textContent  = "" ;
-        name.textContent    = "";
+        marker               = "" ;
+        name                = "";
         state.textContent   = "OFF"   
         light               = "red"
         win                 = 0;
         record.clear();
 
     }        
-    return {record,color, lightElement, winElement,
-        setMarker, getMarker,setName, getName,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
+    return {name, record,color,
+        setMarker, getMarker,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
 // Example
-//const firstPlayer = createPlayer("playerOneMarker", "", "playerOneName", "playerOneState", "playerOneLight", "playerOneWin", "cyan")
-//const secondPlayer = createPlayer("playerTwoMarker", "", "playerTwoName", "playerTwoState", "playerTwoLight", "playerTwoWin", "blue") 
+//const firstPlayer = createPlayer("Evan", "cyan")
+//const secondPlayer = createPlayer("Dhika", "blue") 
 /*
 function funForPlayer(player) {
+    ... player.name;
     ... funForRecord(player.record);
     ... player.color;
-    ... player.setMarker(marker);
-    ... funForMarker(player.getMarker());
-    ... player.setName(name);
-    ... funForName(player.getName());
+    ... player.setMarker(funForMarker(marker))
+    ... player.getMarker();
     ... player.changeState();
-    ... funForState(player.getState());
+    ... player.getState();
     ... player.changeLight();
-    ... funForLight(player.getLight());
+    ... player.getLight();
     ... player.setWin();
-    ... funForWin(player.getWin());
+    ... player.getWin();
     ... player.setToDefault();
 }
 */
