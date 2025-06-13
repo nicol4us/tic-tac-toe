@@ -549,9 +549,9 @@ const GameBoard = function() {
     const container   = document.querySelector(".game-board")
     const listOfBoard = setGameBoard(9, "board", container);
     const clear = function() {
-        for(let i = 0; i < listOfBoard.length; i++) {
-            listOfBoard[i].boardElement.textContent = "";        
-        }        
+        listOfBoard.forEach(board => {
+            board.boardElement.textContent = "";
+        })       
     }
     const setListener = function(gameState, firstPlayer, secondPlayer, message){
         const self = this;
