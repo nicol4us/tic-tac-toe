@@ -527,26 +527,17 @@ function funForResult(result) {
    
 
 // GameBoard Data & Method definition
-const GameBoard = function() {   
-    const container   = document.querySelector(".game-board")
-    const listOfBoard = setGameBoard(9, "board", container);
-    const clear = function() {
-        listOfBoard.forEach(board => {
-            board.boardElement.textContent = "";
-        })       
+const GameBoard = function() {      
+    let listMarker = ["","","","","","","","",""];
+    const insertMarker = function(gameState, indexSelected) {
+        if(listMarker[indexSelected] === "") {
+            listMarker[indexSelected] = gameState.getPlayerON().getMarker()
+            gameState.swapPlayer()
+            gameState.boardRecord.push(indexSelected)
+        }
     }
-    const setListener = function(gameState, firstPlayer, secondPlayer, message){
-        const self = this;
-        listOfBoard.forEach(board => {
-            board.boardElement.addEventListener("click", function() {
-                if(gameState.flag && board.boardElement.textContent === "") {  
-                    board.writeMarker(gameState)                   
-                    updateState(self,gameState,firstPlayer,secondPlayer,checkGameState(gameState, message)) ;       
-                    }
-            })
-        })
-    }
-    return {listOfBoard, setListener ,clear}    
+   
+    return {listMarker, insertMarker}    
 }; 
 // interp. 9 square box to play Tic TacToe Game
 /*
