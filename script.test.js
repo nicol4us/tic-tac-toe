@@ -19,7 +19,7 @@ try {
 }
 
 // 3. Import function from script.js
-const {createRecord,createPlayer, GameState} = require('./script')
+const {createRecord,createPlayer, GameState, GameBoard} = require('./script')
 
 // 4. Initialize variable
 let gameState; 
@@ -47,11 +47,11 @@ beforeEach(() => {
         console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
     }         
       
-    //board               = createBoard(4,"board") 
-    //gameBoard           = GameBoard()    
+    //board               = createBoard(4,"board")        
     firstPlayer             = createPlayer("Evan", "cyan")
     secondPlayer            = createPlayer("Dhika", "blue") 
-    gameState               = GameState(firstPlayer, secondPlayer)                   
+    gameState               = GameState(firstPlayer, secondPlayer) 
+    gameBoard               = GameBoard()                  
     //message             = Message()      
     //inputPlayerName     = InputPlayerName()    
     //gameButton          = GameButton()               
@@ -287,6 +287,33 @@ describe("GameState data & method testing", () => {
     })
 })
 
+
+describe("GameBoard Testing", () => {
+    beforeEach(() => {
+        gameState.start()
+    })
+    test("Check state if First player choose index 4 to start", () => {
+        gameBoard.insertMarker(gameState, 4)
+        expect(gameBoard.listMarker).toEqual(["","","","","X","","","",""])
+        expect(gameState.getPlayerON()).toBe(secondPlayer)
+        expect(gameState.result).toBe("PlayOn")
+        expect(firstPlayer.getState()).toBe("OFF")
+        expect(firstPlayer.getLight()).toBe("red")
+        expect(secondPlayer.getState()).toBe("ON")
+        expect(secondPlayer.getLight()).toBe("green")
+    })
+    test("Check state if Second player choose index 4 also after First player choose index 4 to start", () => {
+        gameBoard.insertMarker(gameState,4)
+        gameBoard.insertMarker(gameState,4)
+        expect(gameBoard.listMarker).toEqual(["","","","","X","","","",""])
+        expect(gameState.getPlayerON()).toBe(secondPlayer)
+        expect(gameState.result).toBe("PlayOn")
+        expect(firstPlayer.getState()).toBe("OFF")
+        expect(firstPlayer.getLight()).toBe("red")
+        expect(secondPlayer.getState()).toBe("ON")
+        expect(secondPlayer.getLight()).toBe("green")
+    })
+})
 /*
 
 describe("Board testing", () => {

@@ -546,7 +546,7 @@ const GameBoard = function() {
     const insertMarker = function(gameState, indexSelected) {
         if(listMarker[indexSelected] === "") {
             listMarker[indexSelected] = gameState.getPlayerON().getMarker()
-            updateState(listMarker,gameState(checkGameState(gameState)))
+            updateState(listMarker,gameState,checkGameState(gameState))
         }
     }   
    
@@ -578,7 +578,8 @@ function setGameBoard(number, className, container) {
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
-function checkGameState(gameState) {  
+function checkGameState(gameState) { 
+    const maxBoard = 9; 
     switch (true) {
         case (gameState.isPlayerOnWin()) :       
             gameState.result = "Win"
