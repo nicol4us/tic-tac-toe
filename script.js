@@ -383,7 +383,9 @@ function funForBoardRecord(boardRecord) {
         } 
         return false;     
     }
-    const setToInitial = function() {  
+    const setToInitial = function() {
+        firstPlayer.setToDefault()
+        secondPlayer.setToDefault()
         playerON = firstPlayer;
         this.flag = false;
         round = 0;       
@@ -396,10 +398,11 @@ function funForBoardRecord(boardRecord) {
     }
     const start         = function() {
         firstPlayer.setMarker("X")
+        changeStateAndLight(firstPlayer)
         secondPlayer.setMarker("O")
         this.flag = true;        
     }
-    return {flag, boardRecord,
+    return {flag, boardRecord, firstPlayer, secondPlayer,
         swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard, start};
 };
 /*

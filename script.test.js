@@ -51,7 +51,7 @@ beforeEach(() => {
     //gameBoard           = GameBoard()    
     firstPlayer             = createPlayer("Evan", "cyan")
     secondPlayer            = createPlayer("Dhika", "blue") 
-    gameState               = GameState()                   
+    gameState               = GameState(firstPlayer, secondPlayer)                   
     //message             = Message()      
     //inputPlayerName     = InputPlayerName()    
     //gameButton          = GameButton()               
@@ -191,25 +191,28 @@ describe("GameState data & method testing", () => {
     test("Check if GameState flag is false", () => {
         expect(gameState.flag).toBeFalsy();
     })
-    test("Check if GameState become true after new declaration", () => {
-        gameState.flag = true;
+    test("Check if GameState become true after start declaration", () => {
+        gameState.start();
         expect(gameState.flag).toBeTruthy()
     })
-    test("Check setPlayerON & getPlayerON method, Player will start with X marker", () => {
-        firstPlayer.setMarker("X")        
-        gameState.setPlayerON(firstPlayer)
+    test("Check Marker, name & state after start First Player will start with X marker, second player with O", () => {
+        gameState.start()
         expect(gameState.getPlayerON().getMarker()).toBe("X")
-        expect(gameState.getPlayerON().name).toBe("Evan")        
-    })
-    test("Check setPlayerChange method", () => {
-        gameState.setPlayerON(firstPlayer); 
+        expect(gameState.getPlayerON().name).toBe("Evan")  
         expect(firstPlayer.getState()).toBe("ON")
         expect(firstPlayer.getLight()).toBe("green")
-        gameState.setPlayerChange(secondPlayer);
-        expect(secondPlayer.getState()).toBe("ON")
-        expect(secondPlayer.getLight()).toBe("green")
+        expect(secondPlayer.getMarker()).toBe("O")
+        expect(secondPlayer.name).toBe("Dhika")      
+        expect(secondPlayer.getState()).toBe("OFF")
+        expect(secondPlayer.getLight()).toBe("red")
+    })
+    test("Check swapPlayer method", () => {
+        gameState.start(); 
+        gameState.swapPlayer();
         expect(firstPlayer.getState()).toBe("OFF")
-        expect(firstPlayer.getLight()).toBe("red")
+        expect(firstPlayer.getLight()).toBe("red")        
+        expect(secondPlayer.getState()).toBe("ON")
+        expect(secondPlayer.getLight()).toBe("green")       
     })
     test("Check setRound & getRound method", () => {
         expect(gameState.getRound()).toBe(0);
@@ -225,8 +228,7 @@ describe("GameState data & method testing", () => {
         gameState.setDraw();
         expect(gameState.getDraw()).toBe(2)
     })
-    test("Check isPlayerOnWin method", () => {
-        gameState.setPlayerON(firstPlayer);
+    test("Check isPlayerOnWin method", () => {        
         gameState.getPlayerON().record.set(4);
         expect(gameState.isPlayerOnWin()).toBeFalsy()
         gameState.getPlayerON().record.set(1);
@@ -256,8 +258,8 @@ describe("GameState data & method testing", () => {
         gameState.boardRecord.push(8);
         expect(gameState.hasEmptyBoard()).toBeFalsy()
     })
-    test("Ceck setToInitial method, playerON is undefined, round and draw is both 0, flag is false, boardRecord is empty", () => {
-        gameState.setPlayerON(firstPlayer);
+    test("Ceck setToInitial method, playerON is undefined, round and draw is both 0, flag is false, boardRecord is empty", () => { 
+        gameState.start()       
         expect(gameState.getPlayerON()).toBeDefined()
         gameState.flag = true;
         expect(gameState.flag).toBeTruthy()
@@ -268,7 +270,7 @@ describe("GameState data & method testing", () => {
         gameState.boardRecord.push(0)
         expect(gameState.boardRecord.length).toBe(1)
         gameState.setToInitial()
-        expect(gameState.getPlayerON()).toBeUndefined()        
+        expect(gameState.getPlayerON()).toBe(firstPlayer)       
         expect(gameState.getRound()).toBe(0)
         expect(gameState.getDraw()).toBe(0)
         expect(gameState.flag).toBeFalsy()
