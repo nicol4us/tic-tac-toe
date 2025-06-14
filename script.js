@@ -402,8 +402,16 @@ function funForBoardRecord(boardRecord) {
         secondPlayer.setMarker("O")
         this.flag = true;        
     }
+    const messageForWin     = () =>  "Congratulations " + playerON().name + ", you are the winner!!!"
+    const messageForDraw    = () =>  "You both get draw result"  
+    const messageForSummary = () =>  "Summary:\n" 
+        + firstPlayer.name + " get win : " + firstPlayer.getWin() + " times.\n"
+        + secondPlayer.name +" get win : " + secondPlayer.getWin() + " times.\n"
+        + "Total draw : " + gameState.getDraw() + " times.\n" 
+        + "Total round : " + gameState.getRound() + " times."
     return {flag, boardRecord, firstPlayer, secondPlayer,
-        swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard, start};
+        swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, 
+        setToInitial, hasEmptyBoard, start, messageForWin, messageForDraw, messageForSummary};
 };
 /*
 function funForGameState(gameState) {
