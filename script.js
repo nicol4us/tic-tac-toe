@@ -540,12 +540,12 @@ function funForResult(result) {
    
 
 // GameBoard Data & Method definition
-const GameBoard = function() {  
-    const self = this    
+const GameBoard = function() {        
     let listMarker = ["","","","","","","","",""];
     const insertMarker = function(gameState, indexSelected) {
         if(listMarker[indexSelected] === "") {
             listMarker[indexSelected] = gameState.getPlayerON().getMarker()
+            gameState.getPlayerON().record.set(indexSelected)
             updateState(listMarker,gameState,checkGameState(gameState))
         }
     }   
@@ -646,12 +646,12 @@ function setPlayerForNext(gameState) {
     const playerWin = gameState.getPlayerON() 
     switch(true)      { 
         case (playerWin == gameState.firstPlayer && gameState.firstPlayer.getMarker() === "X"):           
-            firstPlayer.setMarker("O");
-            secondPlayer.setMarker("X");            
+            gameState.firstPlayer.setMarker("O");
+            gameState.secondPlayer.setMarker("X");            
             break;
         case (playerWin == gameState.secondPlayer && gameState.secondPlayer.getMarker() === "X"):            
-            firstPlayer.setMarker("X");
-            secondPlayer.setMarker("O");                       
+            gameState.firstPlayer.setMarker("X");
+            gameState.secondPlayer.setMarker("O");                       
             break;        
     }
     gameState.swapPlayer()
