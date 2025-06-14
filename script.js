@@ -352,6 +352,7 @@ function funForBoardRecord(boardRecord) {
     let round                   = 0;
     let draw                    = 0;
     let boardRecord             = []; 
+    let result;
     const maxBoard              = 9 
     const lengthRecordToWin     = 3;   
     
@@ -409,7 +410,7 @@ function funForBoardRecord(boardRecord) {
         + secondPlayer.name +" get win : " + secondPlayer.getWin() + " times.\n"
         + "Total draw : " + draw + " times.\n" 
         + "Total round : " + round + " times."
-    return {flag, boardRecord, firstPlayer, secondPlayer,
+    return {flag, boardRecord, firstPlayer, secondPlayer, result,
         swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, 
         setToInitial, hasEmptyBoard, start, messageForWin, messageForDraw, messageForSummary};
 };
@@ -539,14 +540,15 @@ function funForResult(result) {
    
 
 // GameBoard Data & Method definition
-const GameBoard = function() {      
+const GameBoard = function() {  
+    const self = this    
     let listMarker = ["","","","","","","","",""];
     const insertMarker = function(gameState, indexSelected) {
         if(listMarker[indexSelected] === "") {
             listMarker[indexSelected] = gameState.getPlayerON().getMarker()
-            checkGameState(gameState)
+            updateState(listMarker,gameState(checkGameState(gameState)))
         }
-    }
+    }   
    
     return {listMarker, insertMarker}    
 }; 
@@ -576,38 +578,37 @@ function setGameBoard(number, className, container) {
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
-function checkGameState(gameState, message) {  
+function checkGameState(gameState) {  
     switch (true) {
-        case (gameState.isPlayerOnWin()) :         
-            message.win(gameState.getPlayerON())
-            message.close()
+        case (gameState.isPlayerOnWin()) :       
+            gameState.result = "Win"
             return "Win";   
         
-        case (gameState.boardRecord.length === maxBoard) :
-            message.draw()
-            message.close()
+        case (gameState.boardRecord.length === maxBoard) : 
+        gameState.result = "Draw"           
             return "Draw"; 
-        case (gameState.hasEmptyBoard()) :           
+        case (gameState.hasEmptyBoard()) :
+            gameState.result = "PlayOn"           
             return "PlayOn";                        
     }    
 }
 
 // (GameBoard, GameState, Player, Player, Result) -> ()
 // To update state of Player and Game
-function updateState(gameBoard, gameState, firstPlayer, secondPlayer, result) {
+function updateState(listMarker, gameState, result) {
     switch (result) {
         case "Win" :
             gameState.getPlayerON().setWin();;
-            setPlayerForNext(gameState, firstPlayer, secondPlayer)
-            setNextRound(gameState, gameBoard)
+            setPlayerForNext(gameState)
+            setNextRound(gameState, listMarker)
             break;
         case "Draw" :
             gameState.setDraw();
-            setPlayerForNext(gameState, firstPlayer, secondPlayer)
-            setNextRound(gameState, gameBoard)
+            setPlayerForNext(gameState)
+            setNextRound(gameState, listMarker)
             break;
         case "PlayOn" :
-            changePlayer(gameState, firstPlayer, secondPlayer)
+            gameState.swapPlayer()
             break;
     }
     //setPlayerForNext(gameState, firstPlayer, secondPlayer)
@@ -617,12 +618,13 @@ function updateState(gameBoard, gameState, firstPlayer, secondPlayer, result) {
 
 //(GameState, GameBoard, Player, Player) -> ()
 // To set state for next round
-function setNextRound(gameState, gameBoard) {
+function setNextRound(gameState, listMarker) {
     gameState.setRound()            
     gameState.boardRecord.length = 0;         
-    gameBoard.clear() 
+    listMarker.map(element => "")
 }
 
+/*
 // (GameState, Player, Player) -> ()
 // To swap player ON
 function changePlayer(gameState, firstPlayer, secondPlayer) {
@@ -635,34 +637,25 @@ function changePlayer(gameState, firstPlayer, secondPlayer) {
             break;
     }
 }
+    */
 
 // (GameState, Player, Player) -> ()
 // To swap marker between player
-function setPlayerForNext(gameState, firstPlayer, secondPlayer) {
+function setPlayerForNext(gameState) {
     const playerWin = gameState.getPlayerON() 
     switch(true)      { 
-        case (playerWin == firstPlayer && firstPlayer.getMarker() === "X"):           
+        case (playerWin == gameState.firstPlayer && gameState.firstPlayer.getMarker() === "X"):           
             firstPlayer.setMarker("O");
-            secondPlayer.setMarker("X");
-            gameState.setPlayerON(secondPlayer)
-            changeStateAndLight(firstPlayer);
+            secondPlayer.setMarker("X");            
             break;
-        case (playerWin == secondPlayer && secondPlayer.getMarker() === "X"):            
+        case (playerWin == gameState.secondPlayer && gameState.secondPlayer.getMarker() === "X"):            
             firstPlayer.setMarker("X");
-            secondPlayer.setMarker("O");
-            gameState.setPlayerON(firstPlayer)
-            changeStateAndLight(secondPlayer)
-            break;
-        case(playerWin == firstPlayer && firstPlayer.getMarker() === "O"):
-            gameState.setPlayerON(secondPlayer)
-            changeStateAndLight(firstPlayer)
-            break;
-        case(playerWin == secondPlayer && secondPlayer.getMarker() === "O"):
-            gameState.setPlayerON(firstPlayer)
-            changeStateAndLight(secondPlayer);
+            secondPlayer.setMarker("O");                       
+            break;        
     }
-    firstPlayer.record.clear();        
-    secondPlayer.record.clear(); 
+    gameState.swapPlayer()
+    gameState.firstPlayer.record.clear();        
+    gameState.secondPlayer.record.clear(); 
 }
 
 
