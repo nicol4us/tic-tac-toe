@@ -313,6 +313,16 @@ describe("GameBoard Testing", () => {
         expect(secondPlayer.getState()).toBe("ON")
         expect(secondPlayer.getLight()).toBe("green")
     })
+    test("Check state if first player win first row", () => {
+        gameBoard.insertMarker(gameState, 4)
+        gameBoard.insertMarker(gameState, 3)
+        gameBoard.insertMarker(gameState, 1)
+        gameBoard.insertMarker(gameState, 7)
+        gameBoard.insertMarker(gameState, 0)
+        gameBoard.insertMarker(gameState, 8)
+        gameBoard.insertMarker(gameState, 2)
+        expect(gameBoard.listMarker).toEqual(["X","X","X","O","X","","","O","O"])
+    })
 })
 /*
 
