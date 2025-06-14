@@ -276,6 +276,15 @@ describe("GameState data & method testing", () => {
         expect(gameState.flag).toBeFalsy()
         expect(gameState.boardRecord.length).toBe(0)
     })
+    test("Check win method", () => {        
+        expect(gameState.messageForWin()).toBe("Congratulations Evan, you are the winner!!!")
+    })
+    test("Check draw method", () => {       
+        expect(gameState.messageForDraw()).toBe("You both get draw result")
+    })    
+    test("Check summary method", () => {  
+        expect(gameState.messageForSummary()).toBe("Summary:\nEvan get win : 0 times.\nDhika get win : 0 times.\nTotal draw : 0 times.\nTotal round : 0 times.")
+    })
 })
 
 /*
