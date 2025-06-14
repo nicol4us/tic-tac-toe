@@ -346,8 +346,8 @@ function funForBoardRecord(boardRecord) {
 
 
 // GameState data & method definition 
- const GameState = function() {    
-    let playerON;
+ const GameState = function(firstPlayer, secondPlayer) {    
+    let playerON                = firstPlayer
     let flag                    = false;
     let round                   = 0;
     let draw                    = 0;
@@ -355,16 +355,18 @@ function funForBoardRecord(boardRecord) {
     const maxBoard              = 9 
     const lengthRecordToWin     = 3;   
     
-    const setPlayerON = function(player) { 
-        playerON = player 
-        changeStateAndLight(player)      
+    const swapPlayer = function() {
+        if(playerON == firstPlayer) {
+            playerON = secondPlayer;
+            changeStateAndLight(firstPlayer)
+        }
+        else {
+            playerON = firstPlayer
+            changeStateAndLight(secondPlayer)
+        }
+        changeStateAndLight(playerON)
     }
-    const getPlayerON = () => playerON;
-    const setPlayerChange = function(player) {  
-        changeStateAndLight(playerON);
-        playerON = player;
-        changeStateAndLight(playerON) 
-    }
+    const getPlayerON = () => playerON;    
     const setRound = function() {
         round++;        
     }
@@ -382,7 +384,7 @@ function funForBoardRecord(boardRecord) {
         return false;     
     }
     const setToInitial = function() {  
-        playerON = undefined;
+        playerON = firstPlayer;
         this.flag = false;
         round = 0;       
         draw = 0        
@@ -392,14 +394,13 @@ function funForBoardRecord(boardRecord) {
     const hasEmptyBoard = function() {    
         return boardRecord.length < maxBoard
     }
-    const start         = function(firstPlayer, secondPlayer) {
+    const start         = function() {
         firstPlayer.setMarker("X")
         secondPlayer.setMarker("O")
-        this.flag = true;
-        this.setPlayerON(firstPlayer);
+        this.flag = true;        
     }
     return {flag, boardRecord,
-        setPlayerON, getPlayerON,setPlayerChange,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard, start};
+        swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, setToInitial, hasEmptyBoard, start};
 };
 /*
 function funForGameState(gameState) {
@@ -532,8 +533,7 @@ const GameBoard = function() {
     const insertMarker = function(gameState, indexSelected) {
         if(listMarker[indexSelected] === "") {
             listMarker[indexSelected] = gameState.getPlayerON().getMarker()
-            gameState.swapPlayer()
-            gameState.boardRecord.push(indexSelected)
+            checkGameState(gameState)
         }
     }
    
