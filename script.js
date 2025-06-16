@@ -527,11 +527,16 @@ const GameBoard = function() {
         if(listMarker[indexSelected] === "") {
             listMarker[indexSelected] = gameState.getPlayerON().getMarker()
             gameState.getPlayerON().record.set(indexSelected)
-            updateState(listMarker,checkGameState(gameState))
+            gameState.boardRecord.push(indexSelected)
+            return true
         }
-    }   
+        else return false
+    } 
+    const clearMarker = function() {
+        listMarker = ["","","","","","","","",""];
+    } 
    
-    return {listMarker, insertMarker}    
+    return {listMarker, insertMarker, clearMarker}    
 }; 
 // interp. 9 square box to play Tic TacToe Game
 /*
