@@ -541,15 +541,17 @@ const GameBoard = function() {
 // interp. 9 square box to play Tic TacToe Game
 /*
 function forGameBoard(gameBoard) {
-    ... gameBoard.listOfBoard;
-    ... gameBoard.clear();
+    ... gameBoard.listMarker;
+    ... gameBoard.insertMarker(gameState, indexSelected);
+    ... gameBoard.clearMarker()
     }
 */
 // Template rule used:
 //  - Compound data
 
-// GameBoard helper function
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
