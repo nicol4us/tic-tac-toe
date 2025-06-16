@@ -352,7 +352,7 @@ function funForBoardRecord(boardRecord) {
     let round                   = 0;
     let draw                    = 0;
     let boardRecord             = []; 
-    let result;
+    let roundResult;
     const maxBoard              = 9 
     const lengthRecordToWin     = 3;   
     
@@ -401,8 +401,14 @@ function funForBoardRecord(boardRecord) {
         firstPlayer.setMarker("X")
         changeStateAndLight(firstPlayer)
         secondPlayer.setMarker("O")
-        this.flag = true;        
+        this.flag = true;  
+        this.roundResult = "PlayOn"
+              
     }
+    const setRoundResult    = function(newRoundResult) {
+        roundResult = newRoundResult
+    }
+    const getRoundResult    = () => roundResult
     const messageForWin     = () =>  "Congratulations " + playerON.name + ", you are the winner!!!"
     const messageForDraw    = () =>  "You both get draw result"  
     const messageForSummary = () =>  "Summary:\n" 
@@ -410,9 +416,9 @@ function funForBoardRecord(boardRecord) {
         + secondPlayer.name +" get win : " + secondPlayer.getWin() + " times.\n"
         + "Total draw : " + draw + " times.\n" 
         + "Total round : " + round + " times."
-    return {flag, boardRecord, firstPlayer, secondPlayer, result,
+    return {flag, boardRecord, firstPlayer, secondPlayer,
         swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, 
-        setToInitial, hasEmptyBoard, start, messageForWin, messageForDraw, messageForSummary};
+        setToInitial, hasEmptyBoard, start, setRoundResult, getRoundResult,messageForWin, messageForDraw, messageForSummary};
 };
 /*
 function funForGameState(gameState) {
@@ -523,11 +529,14 @@ function funForResult(result) {
 // GameBoard Data & Method definition
 const GameBoard = function() {        
     let listMarker = ["","","","","","","","",""];
-    const insertMarker = function(gameState, indexSelected) {
-        if(listMarker[indexSelected] === "") {
-            listMarker[indexSelected] = gameState.getPlayerON().getMarker()
-            gameState.getPlayerON().record.set(indexSelected)
-            gameState.boardRecord.push(indexSelected)
+    const insertMarker = function(gameState, index) {
+        if(!(Number.isInteger(index))) {
+            console.log("Your input index is not Integer number")
+        }
+        if(listMarker[index] === "" && index >= 0 && index <= 8) {
+            listMarker[index] = gameState.getPlayerON().getMarker()
+            gameState.getPlayerON().record.set(index)
+            gameState.boardRecord.push(index)
             return true
         }
         else return false
