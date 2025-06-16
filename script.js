@@ -533,7 +533,7 @@ const GameBoard = function() {
         if(!(Number.isInteger(index))) {
             console.log("Your input index is not Integer number")
         }
-        if(listMarker[index] === "" && index >= 0 && index <= 8) {
+        if((listMarker[index] === "") && index >= 0 && index <= 8) {
             listMarker[index] = gameState.getPlayerON().getMarker()
             gameState.getPlayerON().record.set(index)
             gameState.boardRecord.push(index)
@@ -542,7 +542,7 @@ const GameBoard = function() {
         else return false
     } 
     const clearMarker = function() {
-        listMarker = ["","","","","","","","",""];
+        this.listMarker = ["","","","","","","","",""]        
     } 
    
     return {listMarker, insertMarker, clearMarker}    
@@ -722,6 +722,6 @@ function setButtonState(gameButton, state) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer, createBoard,GameState, GameBoard, gamePlay, Message, InputPlayerName, GameButton
+        createRecord, createPlayer,GameState, GameBoard, gamePlay, Message, InputPlayerName, GameButton
     };
   }
