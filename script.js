@@ -495,29 +495,6 @@ function funForMessage(message) {
 //  - Reference : Player
 //  - Reference : GameState 
 
-// Board Data Definition
-const createBoard  = function(indexList, className) {
-    const index = indexList;
-    const boardElement = document.createElement("div");
-    boardElement.classList.add(className);
-    const writeMarker = function(gameState) {
-        boardElement.textContent = gameState.getPlayerON().getMarker()
-        boardElement.style.color = gameState.getPlayerON().color
-        gameState.getPlayerON().record.set(index)
-        gameState.boardRecord.push(index)
-
-    }
-    return {index, boardElement, writeMarker}
-}
-/*
-function funforBoard(board) {
-    ... board.index;
-    ... board.boardElement;
-}
-*/
-// Rule template used:
-//  - Compound data;
-
 
 // Result is one of:
 //  - "Win"
@@ -546,7 +523,7 @@ const GameBoard = function() {
         if(listMarker[indexSelected] === "") {
             listMarker[indexSelected] = gameState.getPlayerON().getMarker()
             gameState.getPlayerON().record.set(indexSelected)
-            updateState(listMarker,gameState,checkGameState(gameState))
+            updateState(listMarker,checkGameState(gameState))
         }
     }   
    
@@ -564,17 +541,6 @@ function forGameBoard(gameBoard) {
 
 // GameBoard helper function
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// (Number, String, Element) -> Array
-// To produce listofBoard according to the number
-function setGameBoard(number, className, container) {
-    const listBoard = [];
-    for (let i = 0 ; i < number; i++) {
-        const board = createBoard(i, className);
-        listBoard.push(board)        
-        container.appendChild(board.boardElement);
-    }        
-    return listBoard;
-}
 
 // (GameState) -> ()
 // To check if Player win, if false change the player
@@ -582,22 +548,25 @@ function checkGameState(gameState) {
     const maxBoard = 9; 
     switch (true) {
         case (gameState.isPlayerOnWin()) :       
-            gameState.result = "Win"
-            return "Win";   
+            gameState.result = "Win" 
+            break;             
         
         case (gameState.boardRecord.length === maxBoard) : 
-        gameState.result = "Draw"           
-            return "Draw"; 
+            gameState.result = "Draw" 
+            break ;         
+            
         case (gameState.hasEmptyBoard()) :
-            gameState.result = "PlayOn"           
-            return "PlayOn";                        
-    }    
+            gameState.result = "PlayOn" 
+            break;      
+                                   
+    } 
+    return gameState 
 }
 
 // (GameBoard, GameState, Player, Player, Result) -> ()
 // To update state of Player and Game
-function updateState(listMarker, gameState, result) {
-    switch (result) {
+function updateState(listMarker,gameState) {
+    switch (gameState.result) {
         case "Win" :
             gameState.getPlayerON().setWin();;
             setPlayerForNext(gameState)
@@ -611,9 +580,7 @@ function updateState(listMarker, gameState, result) {
         case "PlayOn" :
             gameState.swapPlayer()
             break;
-    }
-    //setPlayerForNext(gameState, firstPlayer, secondPlayer)
-    //setNextRound(gameState, gameBoard)
+    }    
 }
 
 
@@ -625,20 +592,6 @@ function setNextRound(gameState, listMarker) {
     listMarker.map(element => "")
 }
 
-/*
-// (GameState, Player, Player) -> ()
-// To swap player ON
-function changePlayer(gameState, firstPlayer, secondPlayer) {
-    switch(true) {        
-        case (gameState.getPlayerON().getMarker() === firstPlayer.getMarker()):
-            gameState.setPlayerChange(secondPlayer) ;
-            break;
-        case (gameState.getPlayerON().getMarker() === secondPlayer.getMarker()):
-            gameState.setPlayerChange(firstPlayer);
-            break;
-    }
-}
-    */
 
 // (GameState, Player, Player) -> ()
 // To swap marker between player
