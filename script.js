@@ -496,9 +496,10 @@ function funForMessage(message) {
 //  - Reference : GameState 
 
 
-// Result is one of:
+// RoundResult is one of:
 //  - "Win"
 //  - "Draw"
+//  - "PlayOn"
 // interp. to determine the result of the game
 /*
 function funForResult(result) {
@@ -509,11 +510,14 @@ function funForResult(result) {
         case "Draw" :
             ...;
             break;
+        case "PlayOn" :
+            ...;
+            break;
     }
 }
 */
 // Template rule used:
-//  - One of: 2 cases
+//  - One of: 3 cases
    
 
 // GameBoard Data & Method definition
