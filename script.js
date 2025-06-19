@@ -559,7 +559,28 @@ function forGameBoard(gameBoard) {
 //  - Compound data
 
 
+// GameDisplay is
+const GameDisplay = function() {
+    const round                 = document.querySelector("#round")
+    const draw                  = document.querySelector("#draw")
+    const firstPlayerMarker     = document.querySelector("#playerOneMarker")
+    const firstPlayerName       = document.querySelector("#playerOneName")
+    const firstPlayerState      = document.querySelector("#playerOneState")
+    const firstPlayerLight      = document.querySelector("#playerOneLight")
+    const firstPlayerWin        = document.querySelector("#playerOneWin")
+    const secondPlayerMarker    = document.querySelector("#playerTwoMarker")
+    const secondPlayerName      = document.querySelector("#playerTwoName")
+    const secondPlayerState     = document.querySelector("#playerTwoState")
+    const secondPlayerLight     = document.querySelector("#playerTwoLight")
+    const secondPlayerWin       = document.querySelector("#playerTwoWin")
+    const dialog                = document.querySelector("dialog")
+    const message               = document.querySelector("#message")
+    const dialogCloseButton     = document.querySelector("#close-dialog-button")
+    const startButton           = document.querySelector("#startButton")
+    const endButton             = document.querySelector("#endButton")
 
+    
+}
 
 
 // (GameState) -> ()
