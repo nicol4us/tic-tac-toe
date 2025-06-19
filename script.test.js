@@ -301,6 +301,9 @@ describe("GameBoard Testing", () => {
         gameBoard.insertMarker(gameState, 8)
         expect(gameBoard.listMarker).toEqual(["X","","","","","","","","X"])
     })
+    test("Check if insertMarker method return true", () => {
+        expect(gameBoard.insertMarker(gameState, 2)).toBeTruthy()
+    })
     test("Check insertMarker method using index -1 and 9, result must be false", () => {
         expect(gameBoard.insertMarker(gameState, -1)).toBeFalsy()
         expect(gameBoard.insertMarker(gameState, 9)).toBeFalsy()
@@ -315,12 +318,11 @@ describe("GameBoard Testing", () => {
         gameBoard.insertMarker(gameState, 0)
         expect(gameBoard.listMarker).toEqual(["O","","","","X","","","",""])
     })
-    test("Check clear method", () => {
+    test("Check clearMarker method", () => {
         gameBoard.insertMarker(gameState, 4)
         gameState.swapPlayer()
         gameBoard.insertMarker(gameState, 0)
-        gameBoard.clearMarker()
-        console.log(gameBoard.listMarker)
+        gameBoard.clearMarker()        
         expect(gameBoard.listMarker).toEqual(["","","","","","","","",""])
     })
 })
