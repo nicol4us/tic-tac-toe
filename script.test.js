@@ -358,6 +358,29 @@ describe("Game Display Testing", () => {
             expect(listBoard[8].dataset.index).toBe("8")
         })
     })
+
+    describe("render method testing", () => {
+        beforeEach(() => {
+            gameState.start()
+            gameDisplay.setGameBoardElement() 
+            gameDisplay.render(gameState, gameBoard)           
+        })
+        describe("Check initial state", () => {
+            test("Round value must be 0", () => {
+                const round = document.querySelector("#round")
+                expect(round.textContent).toBe("0")
+            })
+            test("Draw value must be 0", () => {
+                const draw = document.querySelector("#draw")
+                expect(draw.textContent).toBe("0")
+            })
+            test("First player marker must be X and font color is cyan", () => {
+                const firstPlayerMarker = document.querySelector("#playerOneMarker")
+                expect(firstPlayerMarker.textContent).toBe("X")
+                expect(firstPlayerMarker.style.color).toBe("cyan")
+            })
+        })
+    })
 })
 
 /*
