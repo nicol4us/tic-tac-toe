@@ -338,7 +338,10 @@ describe("Game Display Testing", () => {
         })
         test("Total board quantity must be 9", () => {
             expect(listBoard.length).toBe(9)
-        })        
+        })  
+        test("Check if one of board has board class", () => {
+            expect(listBoard[0].className).toBe("board")
+        })      
         test("Board element for first row(0,1,2) must be present and in order", () => {                       
             expect(listBoard[0].dataset.index).toBe("0")
             expect(listBoard[1].dataset.index).toBe("1")
