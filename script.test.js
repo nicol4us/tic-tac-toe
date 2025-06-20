@@ -335,6 +335,9 @@ describe("Game Display Testing", () => {
         beforeEach(() => {
             gameDisplay.setGameBoardElement()
             listBoard = document.querySelectorAll(".board")
+        })
+        test("Total board quantity must be 9", () => {
+            expect(listBoard.length).toBe(9)
         })        
         test("Board element for first row(0,1,2) must be present and in order", () => {                       
             expect(listBoard[0].dataset.index).toBe("0")
