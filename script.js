@@ -572,14 +572,27 @@ const GameDisplay = function() {
     const secondPlayerName      = document.querySelector("#playerTwoName")
     const secondPlayerState     = document.querySelector("#playerTwoState")
     const secondPlayerLight     = document.querySelector("#playerTwoLight")
-    const secondPlayerWin       = document.querySelector("#playerTwoWin")
+    const secondPlayerWin       = document.querySelector("#playerTwoWin")    
     const dialog                = document.querySelector("dialog")
     const message               = document.querySelector("#message")
     const dialogCloseButton     = document.querySelector("#close-dialog-button")
     const startButton           = document.querySelector("#startButton")
     const endButton             = document.querySelector("#endButton")
+    const gameBoardElement      = setGameBoardElement()
 
-    
+
+    const setGameBoardElement = function() {
+        const container     = document.querySelector(".game-board")
+        const totalBoard    = 9;
+        for(let i= 0; i < totalBoard; i++) {
+            const board = document.createElement("div");
+            board.dataset.index = i;
+            container.appendChild(board)
+        }
+        return container;
+    }
+
+    return {gameBoardElement}
 }
 
 
@@ -743,6 +756,6 @@ function setButtonState(gameButton, state) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer,GameState, GameBoard, gamePlay, Message, InputPlayerName, GameButton
+        createRecord, createPlayer,GameState, GameBoard, GameDisplay
     };
   }
