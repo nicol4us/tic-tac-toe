@@ -588,11 +588,25 @@ const GameDisplay = function() {
             board.classList.add("board")
             board.dataset.index = i
             boardContainer.appendChild(board)
-        }
-       
+        }       
+    }
+    const render                        = function(gameState, gameBoard) {
+        round.textContent               = gameState.getRound()
+        draw.textContent                = gameState.getDraw()
+        firstPlayerMarker.textContent   = gameState.firstPlayer.getMarker()
+        firstPlayerName.textContent     = gameState.firstPlayer.getName()
+        firstPlayerState.textContent    = gameState.firstPlayer.getState()
+        firstPlayerLight.textContent    = gameState.firstPlayer.getLight()
+        firstPlayerWin.textContent      = gameState.firstPlayer.getWin()
+        secondPlayerMarker.textContent  = gameState.secondPlayer.getMarker()
+        secondPlayerName.textContent    = gameState.secondPlayer.getName()
+        secondPlayerState.textContent   = gameState.secondPlayer.getState()
+        secondPlayerLight.textContent   = gameState.secondPlayer.getLight()
+        secondPlayerWin.textContent     = gameState.secondPlayer.getWin()
+        boardContainer.childNodes.forEach((element, index) => element.textContent = gameBoard[index])
     }
 
-    return {setGameBoardElement}
+    return {setGameBoardElement, render}
 }
 
 
