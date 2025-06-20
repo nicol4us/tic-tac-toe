@@ -379,6 +379,43 @@ describe("Game Display Testing", () => {
                 expect(firstPlayerMarker.textContent).toBe("X")
                 expect(firstPlayerMarker.style.color).toBe("cyan")
             })
+            test("First player name must be Evan", () => {
+                const firstPlayerName = document.querySelector("#playerOneName")
+                expect(firstPlayerName.textContent).toBe("Evan")
+            })
+            test("First player state must be ON", () => {
+                const firstPlayerState = document.querySelector("#playerOneState")
+                expect(firstPlayerState.textContent).toBe("ON")
+            })
+            test("First player light must be green", () => {
+                const firstPlayerLight = document.querySelector("#playerOneLight")
+                expect(firstPlayerLight.style.backgroundColor).toBe("green")
+            })
+            test("First player win must be 0", () => {
+                const firstPlayerWin = document.querySelector("#playerOneWin")
+                expect(firstPlayerWin.textContent).toBe("0")
+            })
+            test("Second player marker must be O and font color is blue", () => {
+                const secondPlayerMarker = document.querySelector("#playerTwoMarker")
+                expect(secondPlayerMarker.textContent).toBe("O")
+                expect(secondPlayerMarker.style.color).toBe("blue")
+            })
+            test("Second player name must be Dhika", () => {
+                const secondPlayerName = document.querySelector("#playerTwoName")
+                expect(secondPlayerName.textContent).toBe("Dhika")
+            })
+            test("Second player state must be OFF", () => {
+                const secondPlayerState = document.querySelector("#playerTwoState")
+                expect(secondPlayerState.textContent).toBe("OFF")
+            })
+            test("First player light must be green", () => {
+                const secondPlayerLight = document.querySelector("#playerTwoLight")
+                expect(secondPlayerLight.style.backgroundColor).toBe("red")
+            })
+            test("Second player win must be 0", () => {
+                const secondPlayerWin = document.querySelector("#playerTwoWin")
+                expect(secondPlayerWin.textContent).toBe("0")
+            })
         })
     })
 })

@@ -590,21 +590,21 @@ const GameDisplay = function() {
             boardContainer.appendChild(board)
         }       
     }
-    const render                        = function(gameState, gameBoard) {
-        round.textContent               = gameState.getRound()
-        draw.textContent                = gameState.getDraw()
-        firstPlayerMarker.textContent   = gameState.firstPlayer.getMarker()
-        firstPlayerMarker.style.color   = gameState.firstPlayer.color
-        firstPlayerName.textContent     = gameState.firstPlayer.name
-        firstPlayerState.textContent    = gameState.firstPlayer.getState()
-        firstPlayerLight.textContent    = gameState.firstPlayer.getLight()
-        firstPlayerWin.textContent      = gameState.firstPlayer.getWin()
-        secondPlayerMarker.textContent  = gameState.secondPlayer.getMarker()
-        secondPlayerMarker.style.color  = gameState.secondPlayer.color
-        secondPlayerName.textContent    = gameState.secondPlayer.name
-        secondPlayerState.textContent   = gameState.secondPlayer.getState()
-        secondPlayerLight.textContent   = gameState.secondPlayer.getLight()
-        secondPlayerWin.textContent     = gameState.secondPlayer.getWin()
+    const render                                = function(gameState, gameBoard) {
+        round.textContent                       = gameState.getRound()
+        draw.textContent                        = gameState.getDraw()
+        firstPlayerMarker.textContent           = gameState.firstPlayer.getMarker()
+        firstPlayerMarker.style.color           = gameState.firstPlayer.color
+        firstPlayerName.textContent             = gameState.firstPlayer.name
+        firstPlayerState.textContent            = gameState.firstPlayer.getState()
+        firstPlayerLight.style.backgroundColor  = gameState.firstPlayer.getLight()
+        firstPlayerWin.textContent              = gameState.firstPlayer.getWin()
+        secondPlayerMarker.textContent          = gameState.secondPlayer.getMarker()
+        secondPlayerMarker.style.color          = gameState.secondPlayer.color
+        secondPlayerName.textContent            = gameState.secondPlayer.name
+        secondPlayerState.textContent           = gameState.secondPlayer.getState()
+        secondPlayerLight.style.backgroundColor = gameState.secondPlayer.getLight()
+        secondPlayerWin.textContent             = gameState.secondPlayer.getWin()
         boardContainer.childNodes.forEach((element, index) => element.textContent = gameBoard[index])
     }
 
