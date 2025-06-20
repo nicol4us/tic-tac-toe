@@ -2,6 +2,9 @@
  * @jest-environment jsdom
  */
 
+import { screen } from '@testing-library/dom'; // For querying the DOM
+import '@testing-library/jest-dom'; // For extended matchers like .toBeInTheDocument()
+
 const fs = require('fs');
 const path = require('path');
 const { library } = require('webpack');
@@ -19,16 +22,15 @@ try {
 }
 
 // 3. Import function from script.js
-const {createRecord,createPlayer, GameState, GameBoard} = require('./script')
+const {createRecord,createPlayer, GameState, GameBoard, GameDisplay} = require('./script')
 
 // 4. Initialize variable
-let gameState; 
-let board;   
+let gameState;   
 let gameBoard;
 let firstPlayer;
 let secondPlayer;           
-let message;
-let inputPlayerName; 
+let gameDisplay;
+let listBoard;
 let gameButton;   
 
 beforeEach(() => {
@@ -52,7 +54,8 @@ beforeEach(() => {
     secondPlayer            = createPlayer("Dhika", "blue") 
     gameState               = GameState(firstPlayer, secondPlayer) 
     gameBoard               = GameBoard()                  
-    //message             = Message()      
+    gameDisplay             = GameDisplay()    
+     
     //inputPlayerName     = InputPlayerName()    
     //gameButton          = GameButton()               
 })
@@ -326,6 +329,31 @@ describe("GameBoard Testing", () => {
         expect(gameBoard.listMarker).toEqual(["","","","","","","","",""])
     })
 })
+
+describe("Game Display Testing", () => {
+    describe("gameBoardElement testing", () => {
+        beforeEach(() => {
+            gameDisplay.setGameBoardElement()
+            listBoard = document.querySelectorAll(".board")
+        })        
+        test("Board element for first row(0,1,2) must be present and in order", () => {                       
+            expect(listBoard[0].dataset.index).toBe("0")
+            expect(listBoard[1].dataset.index).toBe("1")
+            expect(listBoard[2].dataset.index).toBe("2")
+        })
+        test("Board element for second row(3,4,5) must be present and in order", () => {                       
+            expect(listBoard[3].dataset.index).toBe("3")
+            expect(listBoard[4].dataset.index).toBe("4")
+            expect(listBoard[5].dataset.index).toBe("5")
+        })
+        test("Board element for third row(6,7,8) must be present and in order", () => {                       
+            expect(listBoard[6].dataset.index).toBe("6")
+            expect(listBoard[7].dataset.index).toBe("7")
+            expect(listBoard[8].dataset.index).toBe("8")
+        })
+    })
+})
+
 /*
 
 describe("Board testing", () => {

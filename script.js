@@ -572,27 +572,27 @@ const GameDisplay = function() {
     const secondPlayerName      = document.querySelector("#playerTwoName")
     const secondPlayerState     = document.querySelector("#playerTwoState")
     const secondPlayerLight     = document.querySelector("#playerTwoLight")
-    const secondPlayerWin       = document.querySelector("#playerTwoWin")    
+    const secondPlayerWin       = document.querySelector("#playerTwoWin")  
+    const boardContainer        = document.querySelector(".game-board")               
     const dialog                = document.querySelector("dialog")
     const message               = document.querySelector("#message")
     const dialogCloseButton     = document.querySelector("#close-dialog-button")
     const startButton           = document.querySelector("#startButton")
-    const endButton             = document.querySelector("#endButton")
-    const gameBoardElement      = setGameBoardElement()
+    const endButton             = document.querySelector("#endButton") 
 
 
-    const setGameBoardElement = function() {
-        const container     = document.querySelector(".game-board")
-        const totalBoard    = 9;
+    const setGameBoardElement = function() {       
+        const totalBoard = 9;
         for(let i= 0; i < totalBoard; i++) {
-            const board = document.createElement("div");
-            board.dataset.index = i;
-            container.appendChild(board)
+            const board = document.createElement("div")
+            board.classList.add("board")
+            board.dataset.index = i
+            boardContainer.appendChild(board)
         }
-        return container;
+       
     }
 
-    return {gameBoardElement}
+    return {setGameBoardElement}
 }
 
 
