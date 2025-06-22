@@ -498,11 +498,11 @@ describe("Game Display Testing", () => {
                 gameBoard.insertMarker(gameState, 1)                
                 gameState.getPlayerON().setWin()
                 gameState.setRound()
-                gameDisplay.render(gameState, gameBoard)
-                console.log(gameBoard.listMarker)
+                gameDisplay.render(gameState, gameBoard)                
             })
             test("Player ON is First Player, so it must have win", () => {
-                expect(gameState.isPlayerOnWin()).toBeTruthy
+                expect(gameState.isPlayerOnWin()).toBeTruthy()
+                expect(gameState.getPlayerON()).toBe(firstPlayer)
             })
             test("Round value must be 1", () => {
                 const round = document.querySelector("#round")
