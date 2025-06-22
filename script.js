@@ -605,7 +605,7 @@ const GameDisplay = function() {
         secondPlayerState.textContent           = gameState.secondPlayer.getState()
         secondPlayerLight.style.backgroundColor = gameState.secondPlayer.getLight()
         secondPlayerWin.textContent             = gameState.secondPlayer.getWin()
-        boardContainer.childNodes.forEach((element, index) => element.textContent = gameBoard[index])
+        boardContainer.childNodes.forEach((element, index) => element.textContent = gameBoard.listMarker[index])
     }
 
     return {setGameBoardElement, render}
