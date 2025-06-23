@@ -625,8 +625,24 @@ const GameDisplay = function() {
         return inputSecondPlayerName.value
     }
 
-    return {setGameBoardElement, render, setMessage, getFirstPlayerName, getSecondPlayerName}
+    return {startButton, endButton, setGameBoardElement, render, setMessage, getFirstPlayerName, getSecondPlayerName}
 }
+// interp. to display the state and board of the game
+/*
+function funForGameDisplay(gameDisplay) {
+    ... gameDisplay.startButton
+    ... gameDisplay.endButton
+    ... gameDisplay.setGameBoardElement()
+    ... gameDisplay.render(funForGameState(gameState), funForGameBoard(gameBoard))
+    ... gameDisplay.setMessage(text)
+    ... gameDisplay.getFirstPlayerName()
+    ... gameDisplay.getSecondPlayerName()
+}
+*/
+// Template rule used:
+//  - Compound data
+//  - Reference : GameState
+//  - Reference : GameBoard
 
 
 // (GameState) -> ()
