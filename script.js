@@ -624,8 +624,9 @@ const GameDisplay = function() {
     const getSecondPlayerName   = function() {
         return inputSecondPlayerName.value
     }
+    const getGameBoardElement = () => boardContainer.childNodes
 
-    return {startButton, endButton, setGameBoardElement, render, setMessage, getFirstPlayerName, getSecondPlayerName}
+    return {startButton, endButton, setGameBoardElement, render, setMessage, getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
 }
 // interp. to display the state and board of the game
 /*
@@ -637,6 +638,7 @@ function funForGameDisplay(gameDisplay) {
     ... gameDisplay.setMessage(text)
     ... gameDisplay.getFirstPlayerName()
     ... gameDisplay.getSecondPlayerName()
+    ... gameDisplay.getGameBoardElement()
 }
 */
 // Template rule used:
@@ -668,31 +670,33 @@ function checkGameState(gameState) {
 
 // (GameBoard, GameState, Player, Player, Result) -> ()
 // To update state of Player and Game
-function updateState(listMarker,gameState) {
+function updateState(gameBoard,gameDisplay,gameState) {
     switch (gameState.result) {
         case "Win" :
             gameState.getPlayerON().setWin();;
             setPlayerForNext(gameState)
-            setNextRound(gameState, listMarker)
+            setNextRound(gameState, gameBoard)
+            gameDisplay.render(gameState, gameBoard)
             break;
         case "Draw" :
             gameState.setDraw();
             setPlayerForNext(gameState)
-            setNextRound(gameState, listMarker)
+            setNextRound(gameState, gameBoard)
             break;
         case "PlayOn" :
             gameState.swapPlayer()
+            gameDisplay.render(gameState, gameBoard)
             break;
     }    
 }
 
 
-//(GameState, GameBoard, Player, Player) -> ()
+//(GameState, GameBoard) -> ()
 // To set state for next round
-function setNextRound(gameState, listMarker) {
+function setNextRound(gameState, gameBoard) {
     gameState.setRound()            
     gameState.boardRecord.length = 0;         
-    listMarker.map(element => "")
+    gameBoard.clearMarker()
 }
 
 
@@ -753,27 +757,19 @@ function funForGameButton(gameButton) {
 //  - Compound data;
 
 
-// (Element, Element) -> ()
-// To initialize the Tic-Tac-Toe Game
-function gamePlay(gameState, gameBoard, firstPlayer, secondPlayer ,message, inputPlayerName, gameButton) {
-    setButtonState(gameButton, "ON")
-    gameButton.start.addEventListener("click", function() {        
-        if(inputPlayerName.first.value.length >= minNameLength && inputPlayerName.second.value.length >= minNameLength) {
-            gameState.start(inputPlayerName.first.value, firstPlayer, inputPlayerName.second.value, secondPlayer);            
-            gameBoard.setListener(gameState, firstPlayer,secondPlayer, message)
-            setButtonState(gameButton, "OFF")
-            inputPlayerName.hide()
-        }
-        else {
-            message.nameError()
-            message.close()
-        }
-    })
-    gameButton.end.addEventListener("click", function() {
-        message.summary(gameState, firstPlayer, secondPlayer)
-        message.close()
-        setButtonState(gameButton, "OFF")
-    })
+// (GameState, GameBoard, GameDisplay) -> ()
+// To control logic of the Game
+function gamePlay(gameState, gameBoard, gameDisplay) {
+    const listBoard = gameDisplay.getGameBoardElement()
+    listBoard.forEach(board => 
+        board.addEventListener("click", function() {
+            if(board.textContent === "") {
+                const index = parseInt(board.dataset.index)
+                gameBoard.insertMarker(gameState, index)
+                updateState(gameBoard, gameDisplay, checkGameState(gameState))
+            }
+        })
+    )
       
 }
 
