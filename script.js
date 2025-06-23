@@ -608,7 +608,15 @@ const GameDisplay = function() {
         boardContainer.childNodes.forEach((element, index) => element.textContent = gameBoard.listMarker[index])
     }
 
-    return {setGameBoardElement, render}
+    const setMessage     = function(text) {
+        message.textContent = text
+        dialog.showModal()
+        dialogCloseButton.addEventListener("click", function() {
+            dialog.close()
+        })
+    }
+
+    return {setGameBoardElement, render, setMessage}
 }
 
 
