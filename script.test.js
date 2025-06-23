@@ -731,6 +731,25 @@ describe("Game Display Testing", () => {
             // Expect dialog.close() to have been called
             expect(mockDialog.close).toHaveBeenCalledTimes(1);
         });
+    })
+
+    describe("getFirstPlayerName & getSecondPlayerName testing", () => {
+        let mockInputFirstPlayerName;
+        let mockInputSecondPlayerName;
+
+        beforeEach(() => {
+            mockInputFirstPlayerName = document.querySelector("#inputPlayerOne")
+            mockInputSecondPlayerName= document.querySelector("#inputPlayerTwo")
+        })
+
+        test("First player name must be Evan", () => {
+            mockInputFirstPlayerName.value = "Evan";
+            expect(gameDisplay.getFirstPlayerName()).toBe("Evan")
+        })
+        test("Second player name must be Dhika", () => {
+            mockInputSecondPlayerName.value = "Dhika"
+            expect(gameDisplay.getSecondPlayerName()).toBe("Dhika")
+        })
 
     })
 })

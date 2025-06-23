@@ -563,6 +563,8 @@ function forGameBoard(gameBoard) {
 const GameDisplay = function() {
     const round                 = document.querySelector("#round")
     const draw                  = document.querySelector("#draw")
+    const inputFirstPlayerName  = document.querySelector("#inputPlayerOne")
+    const inputSecondPlayerName = document.querySelector("#inputPlayerTwo")
     const firstPlayerMarker     = document.querySelector("#playerOneMarker")
     const firstPlayerName       = document.querySelector("#playerOneName")
     const firstPlayerState      = document.querySelector("#playerOneState")
@@ -616,7 +618,14 @@ const GameDisplay = function() {
         })
     }
 
-    return {setGameBoardElement, render, setMessage}
+    const getFirstPlayerName    = function() {
+        return inputFirstPlayerName.value
+    }
+    const getSecondPlayerName   = function() {
+        return inputSecondPlayerName.value
+    }
+
+    return {setGameBoardElement, render, setMessage, getFirstPlayerName, getSecondPlayerName}
 }
 
 
