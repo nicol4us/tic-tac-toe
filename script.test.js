@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { screen } from '@testing-library/dom'; // For querying the DOM
+import { screen, render } from '@testing-library/dom'; // For querying the DOM
 import '@testing-library/jest-dom'; // For extended matchers like .toBeInTheDocument()
 
 const fs = require('fs');
@@ -690,6 +690,48 @@ describe("Game Display Testing", () => {
                 expect(allBoard[8].textContent).toBe("X")
             })
         })
+    })
+
+    describe("setMessage method testing", () => {
+        let mockDialog;
+        let mockMessage;
+        let mockDialogCloseButton; 
+
+        beforeEach(() => {
+            mockDialog = document.querySelector('dialog');
+            mockMessage = document.querySelector('#message');
+            mockDialogCloseButton = document.querySelector('#close-dialog-button');
+
+            // Spy on dialog's showModal and close methods
+            jest.spyOn(mockDialog, 'showModal').mockImplementation(() => {});
+            jest.spyOn(mockDialog, 'close').mockImplementation(() => {});
+        })
+
+        afterEach(() => {
+            jest.restoreAllMocks(); // Clean up spies after each test
+        });
+
+        test('setMessage opens the dialog and sets the message text', () => {
+            const testMessage = 'Hello, Test!';
+            gameDisplay.setMessage(testMessage);
+    
+            // Expect the message text to be set
+            expect(mockMessage.textContent).toBe(testMessage);
+            // Expect showModal to have been called
+            expect(mockDialog.showModal).toHaveBeenCalledTimes(1);
+        });
+    
+        test('clicking close-dialog-button closes the dialog', () => {
+            const testMessage = 'Another Test!';
+            gameDisplay.setMessage(testMessage);
+    
+            // Simulate a click on the close button
+            mockDialogCloseButton.click();
+    
+            // Expect dialog.close() to have been called
+            expect(mockDialog.close).toHaveBeenCalledTimes(1);
+        });
+
     })
 })
 
