@@ -453,53 +453,6 @@ function changeStateAndLight(player) {
     player.changeLight();       
 }
 
-// Message is 
-const Message = function() {
-    const dialog            = document.querySelector("dialog");
-    const text              = document.querySelector("#message");
-    const closeButton       = document.querySelector("#close-dialog-button");
-    const win               = function(player) {        
-        text.textContent        =  "Congratulations " + player.getName() + ", you are the winner!!!"
-        dialog.showModal();
-    }
-    const draw              = function() {
-        text.textContent        =  "You both get draw result"
-        dialog.showModal();
-    }
-    const nameError         = function() {
-        text.textContent        = "Please insert your name properly!!";
-        dialog.showModal();
-    }
-    const close    = function() {
-        closeButton.addEventListener("click", function() {
-            dialog.close()
-        })
-    }
-    const summary = function(gameState, firstPlayer, secondPlayer) {
-        text.textContent = "Summary:\n" 
-        + firstPlayer.getName() + " get win : " + firstPlayer.getWin() + " times.\n"
-        + secondPlayer.getName() +" get win : " + secondPlayer.getWin() + " times.\n"
-        + "Total draw : " + gameState.getDraw() + " times.\n" 
-        + "Total round : " + gameState.getRound() + " times."
-    }
-
-    return {text, win, draw,nameError,close, summary}
-};
-// interp. Dialog Element to send message if player win or get draw
-/*
-function funForMessage(message) {    
-    ... message.text;
-    ... message.win(funForPlayer(player));
-    ... message.draw();
-    ... message.nameError();
-    ... message.close();
-    ... message.summary(funForGameState(gameState), funForPlayer(player), funForPlayer(player)); 
-}
-*/
-// Template rule used:
-//  - Compound data
-//  - Reference : Player
-//  - Reference : GameState 
 
 
 // RoundResult is one of:
@@ -654,44 +607,6 @@ function funForGameDisplay(gameDisplay) {
 
 
 
-
-
-
-// InputPlayerName is
-const InputPlayerName = function() {
-    const first     = document.querySelector("#inputPlayerOne")
-    const second    = document.querySelector("#inputPlayerTwo")
-    const hide      = function() {
-        first.hidden    = true;
-        second.hidden   = true;
-    }
-    return {first, second, hide}
-}
-// interp. Input HTML element for player name
-/*
-function funForInputPlayerName(inputPlayerName) {
-    inputPlayerName.first...
-    inputPlayerName.second...
-}
-*/
-// Template rule used:
-//  - Compound data 
-
-// GameButton is
-const GameButton = function() {
-    const start   = document.querySelector("#startButton")
-    const end     = document.querySelector("#endButton")
-    return {start, end}
-}
-// interp. all button used for the game
-/*
-function funForGameButton(gameButton) {
-    ... gameButton.start;
-    ... gameButton.end;
-}
-*/
-// Template rule used:
-//  - Compound data;
 
 
 // (GameState, GameBoard, GameDisplay) -> ()
