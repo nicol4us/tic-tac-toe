@@ -781,22 +781,26 @@ describe("GameController testing", () => {
             listBoard[1].click()
             expect(listBoard[1].textContent).toBe("O")
         })
-        test("Board index 2 to 8 will get click", () => {
+        test("Board index 2 to 3 will get click", () => {
             listBoard[2].click()
             expect(listBoard[2].textContent).toBe("X")
             listBoard[3].click()
-            expect(listBoard[3].textContent).toBe("O")
+            expect(listBoard[3].textContent).toBe("O")                       
+                        
+        })
+        test("Board index 4 & 5 get clicked", () => {
             listBoard[4].click()
             expect(listBoard[4].textContent).toBe("X")
             listBoard[5].click()
             expect(listBoard[5].textContent).toBe("O")
+        })
+        test("Board index 6, 7 & 8 get clicked", () => {
             listBoard[6].click()
             expect(listBoard[6].textContent).toBe("X")
             listBoard[7].click()
             expect(listBoard[7].textContent).toBe("O")
             listBoard[8].click()        
-            expect(listBoard[8].textContent).toBe("X")             
-                        
+            expect(listBoard[8].textContent).toBe("X") 
         })
     })
 
