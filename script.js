@@ -611,7 +611,7 @@ function funForGameDisplay(gameDisplay) {
 
 // (GameState, GameBoard, GameDisplay) -> ()
 // To control logic of the Game
-const gameController =   function (gameState, gameBoard, gameDisplay) {
+const GameController =   function (gameState, gameBoard, gameDisplay) {
     const listBoard = gameDisplay.getGameBoardElement()
 
     // (GameState) -> ()
@@ -739,6 +739,6 @@ function setButtonState(gameButton, state) {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer,GameState, GameBoard, GameDisplay
+        createRecord, createPlayer,GameState, GameBoard, GameDisplay, GameController
     };
   }
