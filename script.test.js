@@ -803,6 +803,21 @@ describe("GameController testing", () => {
             expect(listBoard[8].textContent).toBe("X") 
         })
     })
+    describe("Simulate game when first player win using second row", () => {
+        beforeEach(() => {
+            listBoard[4].click()
+            listBoard[1].click()
+            listBoard[0].click()
+            listBoard[8].click()
+            listBoard[3].click()
+            listBoard[6].click()
+            listBoard[5].click()
+        })
+        test("Round must be 1, draw must be 0", () => {
+            const round = document.querySelector("#round")
+            expect(round.textContent).toBe("1")
+        })
+    })
 
 })
 
