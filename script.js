@@ -702,7 +702,7 @@ const gameController =   function (gameState, gameBoard, gameDisplay) {
                 if(board.textContent === "") {
                     const index = parseInt(board.dataset.index)
                     gameBoard.insertMarker(gameState, index)
-                    updateState(gameBoard, gameDisplay, checkGameState(gameState))
+                    updateState(gameBoard, gameDisplay, checkGameState(setMarkerToBoard(gameBoard, gameState, index)))
                 }
             })
         )
