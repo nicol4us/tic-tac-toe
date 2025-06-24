@@ -647,77 +647,14 @@ function funForGameDisplay(gameDisplay) {
 //  - Reference : GameBoard
 
 
-// (GameState) -> ()
-// To check if Player win, if false change the player
-function checkGameState(gameState) { 
-    const maxBoard = 9; 
-    switch (true) {
-        case (gameState.isPlayerOnWin()) :       
-            gameState.result = "Win" 
-            break;             
-        
-        case (gameState.boardRecord.length === maxBoard) : 
-            gameState.result = "Draw" 
-            break ;         
-            
-        case (gameState.hasEmptyBoard()) :
-            gameState.result = "PlayOn" 
-            break;      
-                                   
-    } 
-    return gameState 
-}
-
-// (GameBoard, GameState, Player, Player, Result) -> ()
-// To update state of Player and Game
-function updateState(gameBoard,gameDisplay,gameState) {
-    switch (gameState.result) {
-        case "Win" :
-            gameState.getPlayerON().setWin();;
-            setPlayerForNext(gameState)
-            setNextRound(gameState, gameBoard)
-            gameDisplay.render(gameState, gameBoard)
-            break;
-        case "Draw" :
-            gameState.setDraw();
-            setPlayerForNext(gameState)
-            setNextRound(gameState, gameBoard)
-            break;
-        case "PlayOn" :
-            gameState.swapPlayer()
-            gameDisplay.render(gameState, gameBoard)
-            break;
-    }    
-}
 
 
-//(GameState, GameBoard) -> ()
-// To set state for next round
-function setNextRound(gameState, gameBoard) {
-    gameState.setRound()            
-    gameState.boardRecord.length = 0;         
-    gameBoard.clearMarker()
-}
 
 
-// (GameState, Player, Player) -> ()
-// To swap marker between player
-function setPlayerForNext(gameState) {
-    const playerWin = gameState.getPlayerON() 
-    switch(true)      { 
-        case (playerWin == gameState.firstPlayer && gameState.firstPlayer.getMarker() === "X"):           
-            gameState.firstPlayer.setMarker("O");
-            gameState.secondPlayer.setMarker("X");            
-            break;
-        case (playerWin == gameState.secondPlayer && gameState.secondPlayer.getMarker() === "X"):            
-            gameState.firstPlayer.setMarker("X");
-            gameState.secondPlayer.setMarker("O");                       
-            break;        
-    }
-    gameState.swapPlayer()
-    gameState.firstPlayer.record.clear();        
-    gameState.secondPlayer.record.clear(); 
-}
+
+
+
+
 
 
 // InputPlayerName is
@@ -759,17 +696,91 @@ function funForGameButton(gameButton) {
 
 // (GameState, GameBoard, GameDisplay) -> ()
 // To control logic of the Game
-function gamePlay(gameState, gameBoard, gameDisplay) {
+const gameController =   function (gameState, gameBoard, gameDisplay) {
     const listBoard = gameDisplay.getGameBoardElement()
-    listBoard.forEach(board => 
-        board.addEventListener("click", function() {
-            if(board.textContent === "") {
-                const index = parseInt(board.dataset.index)
-                gameBoard.insertMarker(gameState, index)
-                updateState(gameBoard, gameDisplay, checkGameState(gameState))
-            }
-        })
-    )
+
+    // (GameState) -> ()
+    // To check if Player win, if false change the player
+    function checkGameState(gameState) { 
+        const maxBoard = 9; 
+        switch (true) {
+            case (gameState.isPlayerOnWin()) :       
+                gameState.result = "Win" 
+                break;             
+        
+        case (gameState.boardRecord.length === maxBoard) : 
+            gameState.result = "Draw" 
+            break ;         
+            
+        case (gameState.hasEmptyBoard()) :
+            gameState.result = "PlayOn" 
+            break;      
+                                   
+        } 
+        return gameState 
+    }
+
+    // (GameBoard, GameState, Player, Player, Result) -> ()
+    // To update state of Player and Game
+    function updateState(gameBoard,gameDisplay,gameState) {
+        switch (gameState.result) {
+            case "Win" :
+                gameState.getPlayerON().setWin();;
+                setPlayerForNext(gameState)
+                setNextRound(gameState, gameBoard)
+                gameDisplay.render(gameState, gameBoard)
+                break;
+            case "Draw" :
+                gameState.setDraw();
+                setPlayerForNext(gameState)
+                setNextRound(gameState, gameBoard)
+                break;
+            case "PlayOn" :
+                gameState.swapPlayer()
+                gameDisplay.render(gameState, gameBoard)
+                break;
+        }    
+    }
+
+    // (GameState, Player, Player) -> ()
+    // To swap marker between player
+    function setPlayerForNext(gameState) {
+        const playerWin = gameState.getPlayerON() 
+        switch(true)      { 
+            case (playerWin == gameState.firstPlayer && gameState.firstPlayer.getMarker() === "X"):           
+                gameState.firstPlayer.setMarker("O");
+                gameState.secondPlayer.setMarker("X");            
+                break;
+            case (playerWin == gameState.secondPlayer && gameState.secondPlayer.getMarker() === "X"):            
+                gameState.firstPlayer.setMarker("X");
+                gameState.secondPlayer.setMarker("O");                       
+                break;        
+        }
+        gameState.swapPlayer()
+        gameState.firstPlayer.record.clear();        
+        gameState.secondPlayer.record.clear(); 
+    }
+
+    //(GameState, GameBoard) -> ()
+    // To set state for next round
+    function setNextRound(gameState, gameBoard) {
+        gameState.setRound()            
+        gameState.boardRecord.length = 0;         
+        gameBoard.clearMarker()
+    }
+
+    const play = function() {
+        listBoard.forEach(board => 
+            board.addEventListener("click", function() {
+                if(board.textContent === "") {
+                    const index = parseInt(board.dataset.index)
+                    gameBoard.insertMarker(gameState, index)
+                    updateState(gameBoard, gameDisplay, checkGameState(gameState))
+                }
+            })
+        )
+    }   
+    return {play}
       
 }
 
