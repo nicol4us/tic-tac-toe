@@ -563,7 +563,7 @@ const GameDisplay = function() {
         boardContainer.childNodes.forEach((element, index) => element.textContent = gameBoard.listMarker[index])
     }
 
-    const setMessage     = function(text) {
+    const renderMessage     = function(text) {
         message.textContent = text
         dialog.showModal()
         dialogCloseButton.addEventListener("click", function() {
@@ -579,7 +579,7 @@ const GameDisplay = function() {
     }
     const getGameBoardElement = () => boardContainer.childNodes
 
-    return {startButton, endButton, setGameBoardElement, render, setMessage, getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
+    return {startButton, endButton, setGameBoardElement, render, renderMessage, getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
 }
 // interp. to display the state and board of the game
 /*
@@ -588,7 +588,7 @@ function funForGameDisplay(gameDisplay) {
     ... gameDisplay.endButton
     ... gameDisplay.setGameBoardElement()
     ... gameDisplay.render(funForGameState(gameState), funForGameBoard(gameBoard))
-    ... gameDisplay.setMessage(text)
+    ... gameDisplay.renderMessage(text)
     ... gameDisplay.getFirstPlayerName()
     ... gameDisplay.getSecondPlayerName()
     ... gameDisplay.getGameBoardElement()
@@ -620,15 +620,15 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
         const maxBoard = 9; 
         switch (true) {
             case (gameState.isPlayerOnWin()) :       
-                gameState.result = "Win" 
+                gameState.setRoundResult("Win") 
                 break;             
         
         case (gameState.boardRecord.length === maxBoard) : 
-            gameState.result = "Draw" 
+            gameState.setRoundResult("Draw") 
             break ;         
             
         case (gameState.hasEmptyBoard()) :
-            gameState.result = "PlayOn" 
+            gameState.setRoundResult("PlayOn") 
             break;      
                                    
         } 
@@ -638,17 +638,20 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
     // (GameBoard, GameState, Player, Player, Result) -> ()
     // To update state of Player and Game
     function updateState(gameBoard,gameDisplay,gameState) {
-        switch (gameState.result) {
+        switch (gameState.getRoundResult()) {
             case "Win" :
                 gameState.getPlayerON().setWin();;
+                gameDisplay.renderMessage(gameState.messageForWin())
                 setPlayerForNext(gameState)
-                setNextRound(gameState, gameBoard)
+                setNextRound(gameState, gameBoard)               
                 gameDisplay.render(gameState, gameBoard)
                 break;
             case "Draw" :
                 gameState.setDraw();
+                gameDisplay.renderMessage(gameState.messageForDraw())                
                 setPlayerForNext(gameState)
                 setNextRound(gameState, gameBoard)
+                gameDisplay.render(gameState, gameBoard)             
                 break;
             case "PlayOn" :
                 gameState.swapPlayer()
@@ -731,7 +734,20 @@ function setButtonState(gameButton, state) {
 }
 
 
+function init() {
+        firstPlayer             = createPlayer("Evan", "cyan")
+        secondPlayer            = createPlayer("Dhika", "blue") 
+        gameState               = GameState(firstPlayer, secondPlayer) 
+        gameBoard               = GameBoard()                  
+        gameDisplay             = GameDisplay() 
+        gameDisplay.setGameBoardElement()
+        gameState.start()
+        gameController = GameController(gameState, gameBoard, gameDisplay)
+        gameController.play()
 
+}
+
+init()
 
 
 //module.exports = {}
