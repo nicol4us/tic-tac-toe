@@ -22,7 +22,7 @@ try {
 }
 
 // 3. Import function from script.js
-const {createRecord,createPlayer, GameState, GameBoard, GameDisplay} = require('./script')
+const {createRecord,createPlayer, GameState, GameBoard, GameDisplay, GameController} = require('./script')
 
 // 4. Initialize variable
 let gameState;   
@@ -752,6 +752,54 @@ describe("Game Display Testing", () => {
         })
 
     })
+})
+
+describe("GameController testing", () => {
+    let gameControler;
+    let listBoard;
+
+    beforeEach(() => {
+        gameDisplay.setGameBoardElement()
+        gameState.start()
+        listBoard = document.querySelectorAll(".board")
+        gameControler = GameController(gameState, gameBoard, gameDisplay)
+        gameControler.play()        
+    })
+
+    describe("Test click event each of board", () => {
+        test("Check if board index 0 got click, must appear X marker", () => {
+            listBoard[0].click()
+            expect(listBoard[0].textContent).toBe("X")
+        })
+        test("Board[0] get click twice but the marker still X", () => {
+            listBoard[0].click()
+            listBoard[0].click()
+            expect(listBoard[0].textContent).toBe("X")
+        })
+        test("Board[0] get click first, bord[1] get click so the marker board[1] will be O", () => {
+            listBoard[0].click()
+            listBoard[1].click()
+            expect(listBoard[1].textContent).toBe("O")
+        })
+        test("Board index 2 to 8 will get click", () => {
+            listBoard[2].click()
+            expect(listBoard[2].textContent).toBe("X")
+            listBoard[3].click()
+            expect(listBoard[3].textContent).toBe("O")
+            listBoard[4].click()
+            expect(listBoard[4].textContent).toBe("X")
+            listBoard[5].click()
+            expect(listBoard[5].textContent).toBe("O")
+            listBoard[6].click()
+            expect(listBoard[6].textContent).toBe("X")
+            listBoard[7].click()
+            expect(listBoard[7].textContent).toBe("O")
+            listBoard[8].click()        
+            expect(listBoard[8].textContent).toBe("X")             
+                        
+        })
+    })
+
 })
 
 /*

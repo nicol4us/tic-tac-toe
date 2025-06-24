@@ -700,8 +700,7 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
         listBoard.forEach(board => 
             board.addEventListener("click", function() {
                 if(board.textContent === "") {
-                    const index = parseInt(board.dataset.index)
-                    gameBoard.insertMarker(gameState, index)
+                    const index = parseInt(board.dataset.index)                    
                     updateState(gameBoard, gameDisplay, checkGameState(setMarkerToBoard(gameBoard, gameState, index)))
                 }
             })
