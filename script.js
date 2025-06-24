@@ -684,6 +684,18 @@ const gameController =   function (gameState, gameBoard, gameDisplay) {
         gameBoard.clearMarker()
     }
 
+    // (GameBoard, GameState, Index) -> GameState
+    // To put marker by Player On into Board
+    function setMarkerToBoard(gameBoard, gameState, index) {
+        const success = gameBoard.insertMarker(gameState, index)
+        if(success) {
+            return gameState
+        }
+        else {
+            console.log("Error insert marker")
+        }        
+    }
+
     const play = function() {
         listBoard.forEach(board => 
             board.addEventListener("click", function() {
