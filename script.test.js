@@ -941,13 +941,8 @@ describe("GameController testing", () => {
             listBoard[1].click()
             listBoard[2].click()
             listBoard[7].click()            
-            closeDialogButton.click()
-            console.log(gameState.getPlayerON())
-            console.log(gameState.getPlayerON().getMarker())
-            listBoard[4].click()
-            console.log(gameState.getPlayerON())
-            console.log(gameState.getPlayerON().getMarker())
-            
+            closeDialogButton.click()            
+            listBoard[4].click()                       
             listBoard[7].click()
             listBoard[5].click()
             listBoard[3].click()
@@ -988,8 +983,61 @@ describe("GameController testing", () => {
         test("Check message, congratulations for second player", () => {
             const message   = document.querySelector("#message")
             expect(message.textContent).toBe("Congratulations Dhika, you are the winner!!!")
-        })   
+        })
               
+    })
+
+    describe("First Player win 2 times using second diagonal row & third column", () => {
+        beforeEach(() => {
+            listBoard[4].click()
+            listBoard[1].click()
+            listBoard[3].click()
+            listBoard[5].click()
+            listBoard[6].click()
+            listBoard[0].click()
+            listBoard[2].click()            
+            closeDialogButton.click()            
+            listBoard[4].click()                       
+            listBoard[2].click()
+            listBoard[0].click()
+            listBoard[8].click()
+            listBoard[3].click()
+            listBoard[5].click()             
+            closeDialogButton.click()
+        })      
+        
+        test("Round must be 2", () => {
+            const round = document.querySelector("#round")
+            expect(round.textContent).toBe("2")
+        })
+        test("Draw must be 0", () => {
+            const draw = document.querySelector("#draw")
+            expect(draw.textContent).toBe("0")
+        })
+        test("Check First Player state, marker will be O", () => {
+            const firstPlayerMarker = document.querySelector("#playerOneMarker")
+            const firstPlayerState  = document.querySelector("#playerOneState")
+            const firstPlayerLight  = document.querySelector("#playerOneLight")
+            const firstPlayerWin    = document.querySelector("#playerOneWin")
+            expect(firstPlayerMarker.textContent).toBe("O")
+            expect(firstPlayerState.textContent).toBe("OFF")
+            expect(firstPlayerLight.style.backgroundColor).toBe("red")
+            expect(firstPlayerWin.textContent).toBe("2")
+        })
+        test("Check Second Player state, the marker will become O again", () => {
+            const secondPlayerMarker = document.querySelector("#playerTwoMarker")
+            const secondPlayerState  = document.querySelector("#playerTwoState")
+            const secondPlayerLight  = document.querySelector("#playerTwoLight")
+            const secondPlayerWin    = document.querySelector("#playerTwoWin")
+            expect(secondPlayerMarker.textContent).toBe("X")
+            expect(secondPlayerState.textContent).toBe("ON")
+            expect(secondPlayerLight.style.backgroundColor).toBe("green")
+            expect(secondPlayerWin.textContent).toBe("0")
+        })
+        test("Check message, congratulations for first player", () => {
+            const message   = document.querySelector("#message")
+            expect(message.textContent).toBe("Congratulations Evan, you are the winner!!!")
+        })
     })
         
 }) 
