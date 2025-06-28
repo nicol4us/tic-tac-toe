@@ -760,20 +760,17 @@ function init() {
             }
             else {
                 alert("Please input correct name of yours")
-            }         
+            }    
             
             
         })
 }
-
-init()
-
 
 
 //module.exports = {}
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        createRecord, createPlayer,GameState, GameBoard, GameDisplay, GameController
+        createRecord, createPlayer,GameState, GameBoard, GameDisplay, GameController, init
     };
   }
