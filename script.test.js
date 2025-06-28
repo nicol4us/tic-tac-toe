@@ -22,7 +22,7 @@ try {
 }
 
 // 3. Import function from script.js
-const {createRecord,createPlayer, GameState, GameBoard, GameDisplay, GameController} = require('./script')
+const {createRecord,createPlayer, GameState, GameBoard, GameDisplay, GameController, init} = require('./script')
 
 // 4. Initialize variable
 let gameState;   
@@ -1042,3 +1042,11 @@ describe("GameController testing", () => {
         
 }) 
 
+describe("init function testing", () => {
+    beforeEach(() => {
+        init()
+    })
+    describe("Test start and end button", () => {
+        test("Start button must be enable to click")
+    })
+})
