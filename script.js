@@ -578,7 +578,7 @@ const GameDisplay = function() {
     }
     const getGameBoardElement = () => boardContainer.childNodes
 
-    return {startButton, endButton, dialogCloseButton,dialog ,setGameBoardElement, render, renderMessage, getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
+    return {inputFirstPlayerName,inputSecondPlayerName,startButton, endButton, dialogCloseButton,dialog ,setGameBoardElement, render, renderMessage, getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
 }
 // interp. to display the state and board of the game
 /*
@@ -717,40 +717,57 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
 
 // (Button, Button, State) -> ()
 // To Activate or deactivate button according to the State data
-function setButtonState(gameButton, state) {
+function setButtonState(gameDisplay, state) {
     switch(state) {
         case "ON" :
-            gameButton.start.disabled = false;
-            gameButton.start.style.backgroundColor = "green" ;           
-            gameButton.end.disabled = true;  
-            gameButton.end.style.backgroundColor = "gray"                   
+            gameDisplay.startButton.disabled = false;
+            gameDisplay.startButton.style.backgroundColor = "green" ;           
+            gameDisplay.endButton.disabled = true;  
+            gameDisplay.endButton.style.backgroundColor = "gray"                   
             break;
         case "OFF" :
-            gameButton.start.disabled = true;  
-            gameButton.start.style.backgroundColor = "gray"                    
-            gameButton.end.disabled = false;   
-            gameButton.end.style.backgroundColor = "green" 
+            gameDisplay.startButton.disabled = true;
+            gameDisplay.startButton.style.backgroundColor = "gray" ;           
+            gameDisplay.endButton.disabled = false;  
+            gameDisplay.endButton.style.backgroundColor = "green"  
             break;
     }
 }
 
 
-/*
-function init() {
-        firstPlayer             = createPlayer("Evan", "cyan")
-        secondPlayer            = createPlayer("Dhika", "blue") 
-        gameState               = GameState(firstPlayer, secondPlayer) 
-        gameBoard               = GameBoard()                  
-        gameDisplay             = GameDisplay() 
-        gameDisplay.setGameBoardElement()
-        gameState.start()
-        gameController = GameController(gameState, gameBoard, gameDisplay)
-        gameController.play()
 
+function init() {                       
+        const gameDisplay             = GameDisplay() 
+        gameDisplay.setGameBoardElement()
+        const gameBoard               = GameBoard()
+        setButtonState(gameDisplay, "ON")
+        
+        gameDisplay.startButton.addEventListener("click", function() {
+            const firstPlayerName = gameDisplay.inputFirstPlayerName.value            
+            const secondPlayerName = gameDisplay.inputSecondPlayerName.value            
+            if(firstPlayerName.length > 2 && secondPlayerName.length > 2) {        
+                
+                const firstPlayer = createPlayer(firstPlayerName, "cyan")                
+                const secondPlayer = createPlayer(secondPlayerName, "blue")
+                const gameState = GameState(firstPlayer, secondPlayer)
+                gameState.start()
+                const gameControler = GameController(gameState, gameBoard, gameDisplay)
+                gameDisplay.render(gameState, gameBoard)
+                gameControler.play()
+                gameDisplay.inputFirstPlayerName.hidden = true
+                gameDisplay.inputSecondPlayerName.hidden = true
+                setButtonState(gameDisplay, "OFF")
+            }
+            else {
+                alert("Please input correct name of yours")
+            }         
+            
+            
+        })
 }
 
 init()
-*/
+
 
 
 //module.exports = {}
