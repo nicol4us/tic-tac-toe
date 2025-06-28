@@ -695,16 +695,16 @@ describe("Game Display Testing", () => {
     describe("setMessage method testing", () => {
         let mockDialog;
         let mockMessage;
-        let mockDialogCloseButton; 
+         
 
         beforeEach(() => {
             mockDialog = document.querySelector('dialog');
             mockMessage = document.querySelector('#message');
-            mockDialogCloseButton = document.querySelector('#close-dialog-button');
+           
 
             // Spy on dialog's showModal and close methods
             jest.spyOn(mockDialog, 'showModal').mockImplementation(() => {});
-            jest.spyOn(mockDialog, 'close').mockImplementation(() => {});
+            
         })
 
         afterEach(() => {
@@ -721,16 +721,7 @@ describe("Game Display Testing", () => {
             expect(mockDialog.showModal).toHaveBeenCalledTimes(1);
         });
     
-        test('clicking close-dialog-button closes the dialog', () => {
-            const testMessage = 'Another Test!';
-            gameDisplay.renderMessage(testMessage);
-    
-            // Simulate a click on the close button
-            mockDialogCloseButton.click();
-    
-            // Expect dialog.close() to have been called
-            expect(mockDialog.close).toHaveBeenCalledTimes(1);
-        });
+        
     })
 
     describe("getFirstPlayerName & getSecondPlayerName testing", () => {
@@ -814,6 +805,7 @@ describe("GameController testing", () => {
             listBoard[3].click()
             listBoard[6].click()
             listBoard[5].click()
+            closeDialogButton.click()
         })
         test("Round must be 1", () => {
             const round = document.querySelector("#round")
@@ -857,6 +849,7 @@ describe("GameController testing", () => {
             listBoard[8].click()
             listBoard[1].click()            
             listBoard[7].click()
+            closeDialogButton.click()
         })
         test("Round must be 1", () => {
             const round = document.querySelector("#round")
@@ -903,6 +896,7 @@ describe("GameController testing", () => {
             listBoard[5].click()
             listBoard[3].click()
             listBoard[2].click()
+            closeDialogButton.click()
         })
         test("Round must be 1", () => {
             const round = document.querySelector("#round")
@@ -937,7 +931,7 @@ describe("GameController testing", () => {
             expect(message.textContent).toBe("You both get draw result")
         })
     })
-
+    
     describe("Simulate game when first player win using second column, then second player win using first diagonal row", () => {
         beforeEach(() => {
             listBoard[4].click()
@@ -946,22 +940,23 @@ describe("GameController testing", () => {
             listBoard[8].click()
             listBoard[1].click()
             listBoard[2].click()
-            listBoard[7].click()
-            console.log(gameState.getRoundResult())
-            console.log(gameState.getPlayerON())
+            listBoard[7].click()            
             closeDialogButton.click()
+            console.log(gameState.getPlayerON())
+            console.log(gameState.getPlayerON().getMarker())
             listBoard[4].click()
+            console.log(gameState.getPlayerON())
+            console.log(gameState.getPlayerON().getMarker())
+            
             listBoard[7].click()
             listBoard[5].click()
             listBoard[3].click()
             listBoard[8].click()
-            //listBoard[2].click()
-            //listBoard[0].click()
-        })
-        test("roundResult must be Play ON", () => {
-            expect(gameState.getRoundResult()).toBe("PlayOm")
-        })
-        /*
+            listBoard[2].click()            
+            listBoard[0].click()
+            closeDialogButton.click()
+        })      
+        
         test("Round must be 2", () => {
             const round = document.querySelector("#round")
             expect(round.textContent).toBe("2")
@@ -994,10 +989,10 @@ describe("GameController testing", () => {
             const message   = document.querySelector("#message")
             expect(message.textContent).toBe("Congratulations Dhika, you are the winner!!!")
         })   
-            */     
+              
     })
-
-})
+        
+}) 
 
 /*
 

@@ -488,14 +488,16 @@ const GameBoard = function() {
         }
         if((listMarker[index] === "") && index >= 0 && index <= 8) {
             listMarker[index] = gameState.getPlayerON().getMarker()
-            gameState.getPlayerON().record.set(index)
+            gameState.getPlayerON().record.set(index)           
             gameState.boardRecord.push(index)
             return true
         }
         else return false
     } 
     const clearMarker = function() {
-        this.listMarker = ["","","","","","","","",""]        
+        for(let i=0; i < listMarker.length; i++) {
+            listMarker[i] = ""
+        }
     } 
    
     return {listMarker, insertMarker, clearMarker}    
@@ -565,10 +567,7 @@ const GameDisplay = function() {
 
     const renderMessage     = function(text) {
         message.textContent = text
-        dialog.showModal()
-        dialogCloseButton.addEventListener("click", function() {
-            dialog.close()
-        })
+        dialog.showModal()       
     }
 
     const getFirstPlayerName    = function() {
@@ -579,7 +578,7 @@ const GameDisplay = function() {
     }
     const getGameBoardElement = () => boardContainer.childNodes
 
-    return {startButton, endButton, setGameBoardElement, render, renderMessage, getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
+    return {startButton, endButton, dialogCloseButton,dialog ,setGameBoardElement, render, renderMessage, getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
 }
 // interp. to display the state and board of the game
 /*
@@ -641,17 +640,14 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
         switch (gameState.getRoundResult()) {
             case "Win" :
                 gameState.getPlayerON().setWin();;
-                gameDisplay.renderMessage(gameState.messageForWin())
-                setPlayerForNext(gameState)
-                setNextRound(gameState, gameBoard)               
-                gameDisplay.render(gameState, gameBoard)
+                gameState.flag = false
+                gameDisplay.renderMessage(gameState.messageForWin())               
                 break;
             case "Draw" :
                 gameState.setDraw();
-                gameDisplay.renderMessage(gameState.messageForDraw())                
-                setPlayerForNext(gameState)
-                setNextRound(gameState, gameBoard)
-                gameDisplay.render(gameState, gameBoard)             
+                gameState.flag = false
+                gameDisplay.renderMessage(gameState.messageForDraw())    
+                          
                 break;
             case "PlayOn" :
                 gameState.swapPlayer()
@@ -683,31 +679,36 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
     // To set state for next round
     function setNextRound(gameState, gameBoard) {
         gameState.setRound()            
-        gameState.boardRecord.length = 0;         
+        gameState.boardRecord.length = 0;   
+        gameState.flag = true               
         gameBoard.clearMarker()
     }
-
-    // (GameBoard, GameState, Index) -> GameState
-    // To put marker by Player On into Board
-    function setMarkerToBoard(gameBoard, gameState, index) {
-        const success = gameBoard.insertMarker(gameState, index)
-        if(success) {
-            return gameState
-        }
-        else {
-            console.log("Error insert marker")
-        }        
-    }
-
+    
     const play = function() {
         listBoard.forEach(board => 
             board.addEventListener("click", function() {
-                if(board.textContent === "") {
-                    const index = parseInt(board.dataset.index)                    
-                    updateState(gameBoard, gameDisplay, checkGameState(setMarkerToBoard(gameBoard, gameState, index)))
+                const index = parseInt(board.dataset.index)
+                if(gameState.flag && (gameBoard.listMarker[index] === "")) {                       
+                    const success = gameBoard.insertMarker(gameState, index)                             
+                    if(success) {
+                        checkGameState(gameState)
+                        updateState(gameBoard, gameDisplay, gameState)
+                    }
+                    else {
+                        console.log("Error insert marker")
+                    }
+                }
+                else {
+                    console.log("Board already occupied")
                 }
             })
         )
+        gameDisplay.dialogCloseButton.addEventListener("click", function() {
+            gameDisplay.dialog.close() 
+            setPlayerForNext(gameState)
+            setNextRound(gameState, gameBoard)               
+            gameDisplay.render(gameState, gameBoard)                              
+        })
     }   
     return {play}
       
@@ -734,6 +735,7 @@ function setButtonState(gameButton, state) {
 }
 
 
+/*
 function init() {
         firstPlayer             = createPlayer("Evan", "cyan")
         secondPlayer            = createPlayer("Dhika", "blue") 
@@ -748,6 +750,7 @@ function init() {
 }
 
 init()
+*/
 
 
 //module.exports = {}
