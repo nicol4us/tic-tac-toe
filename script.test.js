@@ -1043,10 +1043,119 @@ describe("GameController testing", () => {
 }) 
 
 describe("init function testing", () => {
+    let startButton;
+    let endButton;
     beforeEach(() => {
+        startButton = document.querySelector("#startButton")
+        endButton = document.querySelector("#endButton")
         init()
     })
     describe("Test start and end button", () => {
-        test("Start button must be enable to click")
+        test("Start button must be enable to click", () => {            
+            expect(startButton.disabled).toBeFalsy()
+        })
+        test("End button must be disable for click", () => {            
+            expect(endButton.disabled).toBeTruthy()
+        })
+    })
+    describe("Test Start Button click event with input name both player available", () => { 
+        let firstInput;
+        let secondInput
+
+        beforeEach(() => {
+            firstInput = document.querySelector("#inputPlayerOne")
+            secondInput = document.querySelector("#inputPlayerTwo")
+            firstInput.value = "Evan"
+            secondInput.value = "Dhika"            
+            startButton.click()
+        })
+        describe("Check round and draw section", () => {
+            test("Round must start with 0", () => {
+                const round = document.querySelector("#round")
+                expect(round.textContent).toBe("0")
+            })
+            test("Draw must start with 0", () => {
+                const draw = document.querySelector("#draw")
+                expect(draw.textContent).toBe("0")
+            })
+        })
+        describe("Check First Player section", () => {
+            test("First player marker must be X and font color is cyan", () => {
+                const firstPlayerMarker = document.querySelector("#playerOneMarker")
+                expect(firstPlayerMarker.textContent).toBe("X")
+                expect(firstPlayerMarker.style.color).toBe("cyan")
+            })
+            test("First player name must be Evan", () => {
+                const firstPlayerName = document.querySelector("#playerOneName")
+                expect(firstPlayerName.textContent).toBe("Evan")
+            })
+            test("Input for first player name must be hidden", () => {
+                expect(firstInput.hidden).toBeTruthy()
+
+            })
+            test("First player state must be ON", () => {
+                const firstPlayerState = document.querySelector("#playerOneState")
+                expect(firstPlayerState.textContent).toBe("ON")
+            })
+            test("First player light must be green", () => {
+                const firstPlayerLight = document.querySelector("#playerOneLight")
+                expect(firstPlayerLight.style.backgroundColor).toBe("green")
+            })
+            test("First player win must be start with 0", () => {
+                const firstPlayerWin = document.querySelector("#playerOneWin")
+                expect(firstPlayerWin.textContent).toBe("0")
+            })
+        })
+        describe("Check Second Player section", () => {
+            test("Second player marker must be X and font color is blue", () => {
+                const secondPlayerMarker = document.querySelector("#playerTwoMarker")
+                expect(secondPlayerMarker.textContent).toBe("O")
+                expect(secondPlayerMarker.style.color).toBe("blue")
+            })
+            test("Second player name must be Dhika", () => {
+                const secondPlayerName = document.querySelector("#playerTwoName")
+                expect(secondPlayerName.textContent).toBe("Dhika")
+            })
+            test("Input for second player name must be hidden", () => {
+                expect(secondInput.hidden).toBeTruthy()
+
+            })
+            test("Second player state must be ON", () => {
+                const secondPlayerState = document.querySelector("#playerTwoState")
+                expect(secondPlayerState.textContent).toBe("OFF")
+            })
+            test("Second player light must be red", () => {
+                const secondPlayerLight = document.querySelector("#playerTwoLight")
+                expect(secondPlayerLight.style.backgroundColor).toBe("red")
+            })
+            test("Second player win must be start with 0", () => {
+                const secondPlayerWin = document.querySelector("#playerTwoWin")
+                expect(secondPlayerWin.textContent).toBe("0")
+            })
+        })
+        describe("Check Start Button state after Start Button got clicked", () => {
+            test("Start button must be disable after got clicked", () => {
+                expect(startButton.disabled).toBeTruthy()
+            })
+            test("Start button should change into gray after got clicked", () => {
+                expect(startButton.style.backgroundColor).toBe("gray")
+            })
+        })
+        describe("Check End Button state after Start Button got clicked", () => {
+            test("End button must be enable after Start button got clicked", () => {
+                expect(endButton.disabled).toBeFalsy()
+            })
+            test("Start button should change into gray after got clicked", () => {
+                expect(endButton.style.backgroundColor).toBe("green")
+            })
+        })
+    })
+    describe("Test if there is no value of input name", () => {        
+        test("Alert must be appear to warn player that they have incorrectly insert name", () => {
+            const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {})
+            startButton.click()
+            expect(alertSpy).toHaveBeenCalledTimes(1)
+            expect(alertSpy).toHaveBeenCalledWith("Please input correct name of yours")
+        })
     })
 })
