@@ -763,19 +763,21 @@ describe("GameController testing", () => {
     })
 
     describe("Test click event each of board", () => {
-        test("Check if board index 0 got click, must appear X marker", () => {
+        test("Check if board index 0 got click, must appear X marker using cyan as color font", () => {
             listBoard[0].click()
             expect(listBoard[0].textContent).toBe("X")
+            expect(listBoard[0].style.color).toBe("cyan")
         })
         test("Board[0] get click twice but the marker still X", () => {
             listBoard[0].click()
             listBoard[0].click()
             expect(listBoard[0].textContent).toBe("X")
         })
-        test("Board[0] get click first, bord[1] get click so the marker board[1] will be O", () => {
+        test("Board[0] get click first, bord[1] get click so the marker board[1] will be O using blue as color font", () => {
             listBoard[0].click()
             listBoard[1].click()
             expect(listBoard[1].textContent).toBe("O")
+            expect(listBoard[1].style.color).toBe("blue")
         })
         test("Board index 2 to 3 will get click", () => {
             listBoard[2].click()

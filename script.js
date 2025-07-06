@@ -651,9 +651,10 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
                 break;
             case "PlayOn" :
                 gameState.swapPlayer()
-                gameDisplay.render(gameState, gameBoard)
+                //gameDisplay.render(gameState, gameBoard)
                 break;
-        }    
+        } 
+        gameDisplay.render(gameState, gameBoard)   
     }
 
     // (GameState, Player, Player) -> ()
@@ -691,6 +692,7 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
                 if(gameState.flag && (gameBoard.listMarker[index] === "")) {                       
                     const success = gameBoard.insertMarker(gameState, index)                             
                     if(success) {
+                        board.style.color = gameState.getPlayerON().color               
                         checkGameState(gameState)
                         updateState(gameBoard, gameDisplay, gameState)
                     }
@@ -768,7 +770,7 @@ function init() {
         })
 }
 
-
+//init()
 
 //module.exports = {}
 
