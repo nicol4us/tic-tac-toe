@@ -2,13 +2,6 @@
 // TIC TAC TOE Game
 
 
-// Constant Declarations
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-const minNameLength     = 2;
-const maxRowAndColumn   = 3;
-
-
 // Atomic Data Non Distinct Definition 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -253,12 +246,17 @@ function addIndexToRecord(array, index) {
 }
 
 // Player Data & Method Definition 
-function createPlayer(name, color) {
+function createPlayer(color) {
+    let name            = ""
     let marker          = "";    
     let state           = "OFF"
     let light           = "red";
     let win             = 0;
     let record          = createRecord();    
+    const setName       = function(newName) {
+        name = newName
+    }
+    const getName = () => name;
     const setMarker     = function(newMarker) { 
         marker          = newMarker           
     }  
@@ -291,6 +289,7 @@ function createPlayer(name, color) {
     }; 
     const getWin    = () => win;  
     const setToDefault = function() {    
+        name                = ""
         marker              = "" ;        
         state               = "OFF"   
         light               = "red"
@@ -298,17 +297,18 @@ function createPlayer(name, color) {
         record.clear();
 
     }        
-    return {name, record,color,
+    return {record,color, setName, getName,
         setMarker, getMarker,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
 // Example
-//const firstPlayer = createPlayer("Evan", "cyan")
-//const secondPlayer = createPlayer("Dhika", "blue") 
+//const firstPlayer = createPlayer("cyan")
+//const secondPlayer = createPlayer("blue") 
 /*
 function funForPlayer(player) {
-    ... player.name;
     ... funForRecord(player.record);
     ... player.color;
+    ... player.setMarker(name);
+    ... player.getMarker()
     ... player.setMarker(funForMarker(marker))
     ... player.getMarker();
     ... player.changeState();
@@ -409,11 +409,11 @@ function funForBoardRecord(boardRecord) {
         roundResult = newRoundResult
     }
     const getRoundResult    = () => roundResult
-    const messageForWin     = () =>  "Congratulations " + playerON.name + ", you are the winner!!!"
+    const messageForWin     = () =>  "Congratulations " + playerON.getName() + ", you are the winner!!!"
     const messageForDraw    = () =>  "You both get draw result"  
-    const messageForSummary = () =>  "Summary:\n" 
-        + firstPlayer.name + " get win : " + firstPlayer.getWin() + " times.\n"
-        + secondPlayer.name +" get win : " + secondPlayer.getWin() + " times.\n"
+    const messageForSummary = () =>  "Summary\n" 
+        + firstPlayer.getName() + " get win : " + firstPlayer.getWin() + " times.\n"
+        + secondPlayer.getName() +" get win : " + secondPlayer.getWin() + " times.\n"
         + "Total draw : " + draw + " times.\n" 
         + "Total round : " + round + " times."
     return {flag, boardRecord, firstPlayer, secondPlayer,
@@ -552,13 +552,13 @@ const GameDisplay = function() {
         draw.textContent                        = gameState.getDraw()
         firstPlayerMarker.textContent           = gameState.firstPlayer.getMarker()
         firstPlayerMarker.style.color           = gameState.firstPlayer.color
-        firstPlayerName.textContent             = gameState.firstPlayer.name
+        firstPlayerName.textContent             = gameState.firstPlayer.getName()
         firstPlayerState.textContent            = gameState.firstPlayer.getState()
         firstPlayerLight.style.backgroundColor  = gameState.firstPlayer.getLight()
         firstPlayerWin.textContent              = gameState.firstPlayer.getWin()
         secondPlayerMarker.textContent          = gameState.secondPlayer.getMarker()
         secondPlayerMarker.style.color          = gameState.secondPlayer.color
-        secondPlayerName.textContent            = gameState.secondPlayer.name
+        secondPlayerName.textContent            = gameState.secondPlayer.getName()
         secondPlayerState.textContent           = gameState.secondPlayer.getState()
         secondPlayerLight.style.backgroundColor = gameState.secondPlayer.getLight()
         secondPlayerWin.textContent             = gameState.secondPlayer.getWin()
@@ -739,17 +739,17 @@ function setButtonState(gameDisplay, state) {
 function init() {                       
         const gameDisplay             = GameDisplay() 
         gameDisplay.setGameBoardElement()
+        const firstPlayer = createPlayer("cyan")                
+        const secondPlayer = createPlayer("blue")
+        const gameState = GameState(firstPlayer, secondPlayer)        
         const gameBoard               = GameBoard()
-        setButtonState(gameDisplay, "ON")
-        
+        setButtonState(gameDisplay, "ON")        
         gameDisplay.startButton.addEventListener("click", function() {
             const firstPlayerName = gameDisplay.inputFirstPlayerName.value            
             const secondPlayerName = gameDisplay.inputSecondPlayerName.value            
             if(firstPlayerName.length > 2 && secondPlayerName.length > 2) {        
-                
-                const firstPlayer = createPlayer(firstPlayerName, "cyan")                
-                const secondPlayer = createPlayer(secondPlayerName, "blue")
-                const gameState = GameState(firstPlayer, secondPlayer)
+                gameState.firstPlayer.setName(firstPlayerName)
+                gameState.secondPlayer.setName(secondPlayerName)
                 gameState.start()
                 const gameControler = GameController(gameState, gameBoard, gameDisplay)
                 gameDisplay.render(gameState, gameBoard)
@@ -760,11 +760,14 @@ function init() {
             }
             else {
                 alert("Please input correct name of yours")
-            }    
-            
+            }         
             
         })
+        gameDisplay.endButton.addEventListener("click", function() {
+            alert(gameState.messageForSummary())
+        })
 }
+
 
 
 //module.exports = {}

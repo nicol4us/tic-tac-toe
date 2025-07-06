@@ -31,7 +31,7 @@ let firstPlayer;
 let secondPlayer;           
 let gameDisplay;
 let listBoard;
-let gameButton;   
+  
 
 beforeEach(() => {
     document.body.innerHTML = htmlContent
@@ -50,11 +50,13 @@ beforeEach(() => {
     }         
       
     //board               = createBoard(4,"board")        
-    firstPlayer             = createPlayer("Evan", "cyan")
-    secondPlayer            = createPlayer("Dhika", "blue") 
+    firstPlayer             = createPlayer("cyan")
+    secondPlayer            = createPlayer("blue") 
     gameState               = GameState(firstPlayer, secondPlayer) 
     gameBoard               = GameBoard()                  
-    gameDisplay             = GameDisplay()    
+    gameDisplay             = GameDisplay()   
+    firstPlayer.setName("Evan") 
+    secondPlayer.setName("Dhika")
      
     //inputPlayerName     = InputPlayerName()    
     //gameButton          = GameButton()               
@@ -125,16 +127,17 @@ describe("Player data & method testing", () => {
         test("Check if initial mark is  empty using getMarker method", () => {
             expect(firstPlayer.getMarker()).toBe("")
         })
+        test('Check setName & getName method of first player', () => {            
+            expect(firstPlayer.getName()).toBe("Evan")
+        })
+        test('Check setName & getName method second player"', () => {                              
+            expect(secondPlayer.getName()).toBe("Dhika")
+        })
         test("Check setMarker  and getMarker method with X mark", () => {
             firstPlayer.setMarker("X")
             expect(firstPlayer.getMarker()).toBe("X");
         })        
-        test('Check name attritube first player', () => {
-            expect(firstPlayer.name).toBe("Evan")
-        })
-        test('Check name attribute second player"', () => {                    
-            expect(secondPlayer.name).toBe("Dhika")
-        })
+        
         test("Check getState method, initial value is OFF", () => {
             expect(firstPlayer.getState()).toBe("OFF")
     })
@@ -180,7 +183,7 @@ describe("Player data & method testing", () => {
             expect(firstPlayer.record.listRecord).toEqual([[0],[],[],[0],[],[],[0],[]])
             firstPlayer.setToDefault()
             expect(firstPlayer.getMarker()).toBe("")
-            expect(firstPlayer.name).toBe("Evan")
+            expect(firstPlayer.getName()).toBe("")
             expect(firstPlayer.getState()).toBe("OFF")
             expect(firstPlayer.getLight()).toBe("red")
             expect(firstPlayer.getWin()).toBe(0)
@@ -198,14 +201,14 @@ describe("GameState data & method testing", () => {
         gameState.start();
         expect(gameState.flag).toBeTruthy()
     })
-    test("Check Marker, name & state after start First Player will start with X marker, second player with O", () => {
+    test("Check Marker, name & state after start First Player will start with X marker, second player with O", () => {       
         gameState.start()
         expect(gameState.getPlayerON().getMarker()).toBe("X")
-        expect(gameState.getPlayerON().name).toBe("Evan")  
+        expect(gameState.getPlayerON().getName()).toBe("Evan")  
         expect(firstPlayer.getState()).toBe("ON")
         expect(firstPlayer.getLight()).toBe("green")
         expect(secondPlayer.getMarker()).toBe("O")
-        expect(secondPlayer.name).toBe("Dhika")      
+        expect(secondPlayer.getName()).toBe("Dhika")      
         expect(secondPlayer.getState()).toBe("OFF")
         expect(secondPlayer.getLight()).toBe("red")
     })
@@ -286,7 +289,7 @@ describe("GameState data & method testing", () => {
         expect(gameState.messageForDraw()).toBe("You both get draw result")
     })    
     test("Check summary method", () => {  
-        expect(gameState.messageForSummary()).toBe("Summary:\nEvan get win : 0 times.\nDhika get win : 0 times.\nTotal draw : 0 times.\nTotal round : 0 times.")
+        expect(gameState.messageForSummary()).toBe("Summary\nEvan get win : 0 times.\nDhika get win : 0 times.\nTotal draw : 0 times.\nTotal round : 0 times.")
     })
 })
 
