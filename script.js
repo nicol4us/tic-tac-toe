@@ -576,9 +576,21 @@ const GameDisplay = function() {
     const getSecondPlayerName   = function() {
         return inputSecondPlayerName.value
     }
-    const getGameBoardElement = () => boardContainer.childNodes
+    const getGameBoardElement = () => boardContainer.childNodes 
+    const setStartButton = function() {
+        startButton.style.backgroundColor = "green"
+        endButton.disabled = true
+        endButton.style.backgroundColor = "gray"
+    }
+    const setEndButton = function() {
+        endButton.disabled = false
+        endButton.style.backgroundColor = "green"
+        startButton.disabled = true
+        startButton.style.backgroundColor = "gray"
+    }
 
-    return {inputFirstPlayerName,inputSecondPlayerName,startButton, endButton, dialogCloseButton,dialog ,setGameBoardElement, render, renderMessage,getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
+    return {inputFirstPlayerName,inputSecondPlayerName,startButton, endButton, dialogCloseButton,dialog ,
+        setGameBoardElement, render, renderMessage,getFirstPlayerName, getSecondPlayerName, getGameBoardElement, setStartButton, setEndButton}
 }
 // interp. to display the state and board of the game
 /*
@@ -744,7 +756,7 @@ function init() {
         let gameState     
         const gameBoard               = GameBoard()
         let gameController 
-        setButtonState(gameDisplay, "ON")        
+        gameDisplay.setStartButton()      
         gameDisplay.startButton.addEventListener("click", function() {
             const firstPlayerName = gameDisplay.inputFirstPlayerName.value            
             const secondPlayerName = gameDisplay.inputSecondPlayerName.value            
@@ -758,7 +770,7 @@ function init() {
                 gameController.play()
                 gameDisplay.inputFirstPlayerName.hidden = true
                 gameDisplay.inputSecondPlayerName.hidden = true
-                setButtonState(gameDisplay, "OFF")
+                gameDisplay.setEndButton()
             }
             else {
                 alert("Please input correct name of yours")
