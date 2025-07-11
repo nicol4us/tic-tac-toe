@@ -369,7 +369,7 @@ function funForBoardRecord(boardRecord) {
     }
     const getPlayerON = () => playerON;    
     const setRound = function() {
-        round++;        
+        round = round + 1;        
     }
     const getRound = () => round;
     const setDraw = function() {    
@@ -389,9 +389,10 @@ function funForBoardRecord(boardRecord) {
         secondPlayer.setToDefault()
         playerON = firstPlayer;
         this.flag = false;
+        roundResult = undefined;
         round = 0;       
         draw = 0        
-        boardRecord.length = 0
+        this.boardRecord.length = 0
 
     }
     const hasEmptyBoard = function() {    
@@ -536,8 +537,7 @@ const GameDisplay = function() {
     const dialogCloseButton     = document.querySelector("#close-dialog-button")
     const startButton           = document.querySelector("#startButton")
     const endButton             = document.querySelector("#endButton") 
-
-
+   
     const setGameBoardElement = function() {       
         const totalBoard = 9;
         for(let i= 0; i < totalBoard; i++) {
@@ -568,7 +568,7 @@ const GameDisplay = function() {
     const renderMessage     = function(text) {
         message.textContent = text
         dialog.showModal()       
-    }
+    }   
 
     const getFirstPlayerName    = function() {
         return inputFirstPlayerName.value
@@ -578,7 +578,7 @@ const GameDisplay = function() {
     }
     const getGameBoardElement = () => boardContainer.childNodes
 
-    return {inputFirstPlayerName,inputSecondPlayerName,startButton, endButton, dialogCloseButton,dialog ,setGameBoardElement, render, renderMessage, getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
+    return {inputFirstPlayerName,inputSecondPlayerName,startButton, endButton, dialogCloseButton,dialog ,setGameBoardElement, render, renderMessage,getFirstPlayerName, getSecondPlayerName, getGameBoardElement}
 }
 // interp. to display the state and board of the game
 /*
@@ -646,12 +646,11 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
             case "Draw" :
                 gameState.setDraw();
                 gameState.flag = false
-                gameDisplay.renderMessage(gameState.messageForDraw())    
+                gameDisplay.renderMessage(gameState.messageForDraw())   
                           
                 break;
             case "PlayOn" :
-                gameState.swapPlayer()
-                //gameDisplay.render(gameState, gameBoard)
+                gameState.swapPlayer()               
                 break;
         } 
         gameDisplay.render(gameState, gameBoard)   
@@ -678,8 +677,8 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
 
     //(GameState, GameBoard) -> ()
     // To set state for next round
-    function setNextRound(gameState, gameBoard) {
-        gameState.setRound()            
+    function setNextRound(gameState, gameBoard) {       
+        gameState.setRound()    
         gameState.boardRecord.length = 0;   
         gameState.flag = true               
         gameBoard.clearMarker()
@@ -692,9 +691,8 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
                 if(gameState.flag && (gameBoard.listMarker[index] === "")) {                       
                     const success = gameBoard.insertMarker(gameState, index)                             
                     if(success) {
-                        board.style.color = gameState.getPlayerON().color               
-                        checkGameState(gameState)
-                        updateState(gameBoard, gameDisplay, gameState)
+                        board.style.color = gameState.getPlayerON().color             
+                        updateState(gameBoard, gameDisplay, checkGameState(gameState))
                     }
                     else {
                         console.log("Error insert marker")
@@ -741,21 +739,23 @@ function setButtonState(gameDisplay, state) {
 function init() {                       
         const gameDisplay             = GameDisplay() 
         gameDisplay.setGameBoardElement()
-        const firstPlayer = createPlayer("cyan")                
-        const secondPlayer = createPlayer("blue")
-        const gameState = GameState(firstPlayer, secondPlayer)        
+        const firstPlayer = createPlayer("cyan")
+        const   secondPlayer = createPlayer("blue")
+        let gameState     
         const gameBoard               = GameBoard()
+        let gameController 
         setButtonState(gameDisplay, "ON")        
         gameDisplay.startButton.addEventListener("click", function() {
             const firstPlayerName = gameDisplay.inputFirstPlayerName.value            
             const secondPlayerName = gameDisplay.inputSecondPlayerName.value            
-            if(firstPlayerName.length > 2 && secondPlayerName.length > 2) {        
+            if(firstPlayerName.length > 2 && secondPlayerName.length > 2) {                 
+                gameState = GameState(firstPlayer,  secondPlayer)     
                 gameState.firstPlayer.setName(firstPlayerName)
                 gameState.secondPlayer.setName(secondPlayerName)
-                gameState.start()
-                const gameControler = GameController(gameState, gameBoard, gameDisplay)
+                gameState.start()  
+                gameController = GameController(gameState, gameBoard, gameDisplay)              
                 gameDisplay.render(gameState, gameBoard)
-                gameControler.play()
+                gameController.play()
                 gameDisplay.inputFirstPlayerName.hidden = true
                 gameDisplay.inputSecondPlayerName.hidden = true
                 setButtonState(gameDisplay, "OFF")
@@ -765,8 +765,9 @@ function init() {
             }         
             
         })
-        gameDisplay.endButton.addEventListener("click", function() {
-            alert(gameState.messageForSummary())
+        gameDisplay.endButton.addEventListener("click", function() {            
+            alert(gameState.messageForSummary())  
+            location.reload()           
         })
 }
 

@@ -1050,9 +1050,13 @@ describe("GameController testing", () => {
 describe("init function testing", () => {
     let startButton;
     let endButton;
+    let listBoard;
+    let closeDialogButton;
+    let alertSpy;
     beforeEach(() => {
-        startButton = document.querySelector("#startButton")
+        startButton = document.querySelector("#startButton")        
         endButton = document.querySelector("#endButton")
+        alertSpy = jest.spyOn(window, 'alert').mockImplementation(()=> {})
         init()
     })
     describe("Test start and end button", () => {
@@ -1154,13 +1158,57 @@ describe("init function testing", () => {
                 expect(endButton.style.backgroundColor).toBe("green")
             })
         })
+        describe("Check state after End Button click when both player got 1 win and 1 draw", () => {
+            beforeEach(() => {
+                listBoard = document.querySelectorAll(".board")
+                closeDialogButton = document.querySelector("#close-dialog-button")
+                listBoard[4].click()
+                listBoard[3].click()
+                listBoard[0].click()
+                listBoard[8].click()
+                listBoard[1].click()
+                listBoard[2].click()
+                listBoard[7].click()            
+                closeDialogButton.click()            
+                listBoard[4].click()                       
+                listBoard[7].click()
+                listBoard[5].click()
+                listBoard[3].click()
+                listBoard[8].click()
+                listBoard[2].click()            
+                listBoard[0].click()
+                closeDialogButton.click()
+                listBoard[4].click()
+                listBoard[6].click()
+                listBoard[0].click()
+                listBoard[8].click()
+                listBoard[7].click()            
+                listBoard[1].click()
+                listBoard[5].click()
+                listBoard[3].click()
+                listBoard[2].click()
+                closeDialogButton.click()
+                endButton.click()                
+            })
+            test("Alert must be appear to give user detail summary of the game", () => {       
+                expect(alertSpy).toHaveBeenCalledTimes(1)
+                expect(alertSpy).toHaveBeenCalledWith("Summary\n" 
+                                    + "Evan get win : 1 times.\n"
+                                    + "Dhika get win : 1 times.\n"
+                                    + "Total draw : 1 times.\n" 
+                                    + "Total round : 3 times.")
+                alertSpy.mockRestore()
+            })            
+        })
     })
     describe("Test if there is no value of input name", () => {        
-        test("Alert must be appear to warn player that they have incorrectly insert name", () => {
-            const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {})
+        test("Alert must be appear to warn player that they have incorrectly insert name", () => {            
             startButton.click()
             expect(alertSpy).toHaveBeenCalledTimes(1)
             expect(alertSpy).toHaveBeenCalledWith("Please input correct name of yours")
+            alertSpy.mockRestore()
         })
     })
+
+    
 })
