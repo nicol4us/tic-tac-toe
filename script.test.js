@@ -47,19 +47,17 @@ beforeEach(() => {
         // This might happen if your JSDOM version is very old or configured differently.
         // In a typical Jest setup with JSDOM, it should be defined.
         console.warn("HTMLDialogElement.prototype not found. Dialog methods will not be mocked.");
-    }         
+    }        
       
-    //board               = createBoard(4,"board")        
+         
     firstPlayer             = createPlayer("cyan")
     secondPlayer            = createPlayer("blue") 
     gameState               = GameState(firstPlayer, secondPlayer) 
     gameBoard               = GameBoard()                  
     gameDisplay             = GameDisplay()   
     firstPlayer.setName("Evan") 
-    secondPlayer.setName("Dhika")
-     
-    //inputPlayerName     = InputPlayerName()    
-    //gameButton          = GameButton()               
+    secondPlayer.setName("Dhika")     
+                  
 })
   
 afterEach(() => {
@@ -1198,7 +1196,8 @@ describe("init function testing", () => {
                                     + "Total draw : 1 times.\n" 
                                     + "Total round : 3 times.")
                 alertSpy.mockRestore()
-            })            
+            })
+            
         })
     })
     describe("Test if there is no value of input name", () => {        
