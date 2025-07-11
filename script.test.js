@@ -266,25 +266,7 @@ describe("GameState data & method testing", () => {
         expect(gameState.hasEmptyBoard()).toBeTruthy()
         gameState.boardRecord.push(8);
         expect(gameState.hasEmptyBoard()).toBeFalsy()
-    })
-    test("Ceck setToInitial method, playerON is undefined, round and draw is both 0, flag is false, boardRecord is empty", () => { 
-        gameState.start()       
-        expect(gameState.getPlayerON()).toBeDefined()
-        gameState.flag = true;
-        expect(gameState.flag).toBeTruthy()
-        gameState.setRound();
-        expect(gameState.getRound()).toBe(1)
-        gameState.setDraw()
-        expect(gameState.getDraw()).toBe(1)
-        gameState.boardRecord.push(0)
-        expect(gameState.boardRecord.length).toBe(1)
-        gameState.setToInitial()
-        expect(gameState.getPlayerON()).toBe(firstPlayer)       
-        expect(gameState.getRound()).toBe(0)
-        expect(gameState.getDraw()).toBe(0)
-        expect(gameState.flag).toBeFalsy()
-        expect(gameState.boardRecord.length).toBe(0)
-    })
+    })    
     test("Check win method", () => {        
         expect(gameState.messageForWin()).toBe("Congratulations Evan, you are the winner!!!")
     })

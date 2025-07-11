@@ -383,18 +383,7 @@ function funForBoardRecord(boardRecord) {
             }
         } 
         return false;     
-    }
-    const setToInitial = function() {
-        firstPlayer.setToDefault()
-        secondPlayer.setToDefault()
-        playerON = firstPlayer;
-        this.flag = false;
-        roundResult = undefined;
-        round = 0;       
-        draw = 0        
-        this.boardRecord.length = 0
-
-    }
+    }    
     const hasEmptyBoard = function() {    
         return boardRecord.length < maxBoard
     }
@@ -418,8 +407,7 @@ function funForBoardRecord(boardRecord) {
         + "Total draw : " + draw + " times.\n" 
         + "Total round : " + round + " times."
     return {flag, boardRecord, firstPlayer, secondPlayer,
-        swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, 
-        setToInitial, hasEmptyBoard, start, setRoundResult, getRoundResult,messageForWin, messageForDraw, messageForSummary};
+        swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, hasEmptyBoard, start, setRoundResult, getRoundResult,messageForWin, messageForDraw, messageForSummary};
 };
 /*
 function funForGameState(gameState) {
@@ -764,7 +752,7 @@ function init() {
         })
 }
 
-//init()
+init()
 
 //module.exports = {}
 
