@@ -31,6 +31,8 @@ let firstPlayer;
 let secondPlayer;           
 let gameDisplay;
 let listBoard;
+let startButton;
+let endButton;
   
 
 beforeEach(() => {
@@ -50,13 +52,16 @@ beforeEach(() => {
     }        
       
          
-    firstPlayer             = createPlayer("cyan")
-    secondPlayer            = createPlayer("blue") 
-    gameState               = GameState(firstPlayer, secondPlayer) 
-    gameBoard               = GameBoard()                  
-    gameDisplay             = GameDisplay()   
+    firstPlayer     = createPlayer("cyan")
+    secondPlayer    = createPlayer("blue") 
+    gameState       = GameState(firstPlayer, secondPlayer) 
+    gameBoard       = GameBoard()                  
+    gameDisplay     = GameDisplay()  
+    startButton     = document.querySelector("#startButton")
+    endButton       = document.querySelector("#endButton")
     firstPlayer.setName("Evan") 
-    secondPlayer.setName("Dhika")     
+    secondPlayer.setName("Dhika")   
+
                   
 })
   
@@ -1042,18 +1047,49 @@ describe("GameController testing", () => {
             expect(message.textContent).toBe("Congratulations Evan, you are the winner!!!")
         })
     })
+    describe("Check setStart button method", () => {
+        beforeEach(() => {
+            gameDisplay.setStartButton()
+        })
+        test("Start button must be enable to be clicked", () => {
+            expect(startButton.disabled).toBeFalsy()
+        })
+        test("Start button background color must be green", () => {
+            expect(startButton.style.backgroundColor).toBe("green")
+        })
+        test("End button must be disable", () => {
+            expect(endButton.disabled).toBeTruthy()
+        })
+        test("End button background color must be gray", () => {
+            expect(endButton.style.backgroundColor).toBe("gray")
+        })
+    })
+    describe("Check setEndButton method", () => {
+        beforeEach(() => {
+            gameDisplay.setStartButton()
+            gameDisplay.setEndButton()
+        })
+        test("Start button must be disabled", () => {
+            expect(startButton.disabled).toBeTruthy()
+        })
+        test("Start button background color must be gray", () => {
+            expect(startButton.style.backgroundColor).toBe("gray")
+        })
+        test("End button must be enable to click", () => {
+            expect(endButton.disabled).toBeFalsy()
+        })
+        test("End button background color must be green", () => {
+            expect(endButton.style.backgroundColor).toBe("green")
+        })
+    })
         
 }) 
 
-describe("init function testing", () => {
-    let startButton;
-    let endButton;
+describe("init function testing", () => {   
     let listBoard;
     let closeDialogButton;
     let alertSpy;
-    beforeEach(() => {
-        startButton = document.querySelector("#startButton")        
-        endButton = document.querySelector("#endButton")
+    beforeEach(() => {        
         alertSpy = jest.spyOn(window, 'alert').mockImplementation(()=> {})
         init()
     })

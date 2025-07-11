@@ -727,27 +727,8 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
 }
 
 
-// (Button, Button, State) -> ()
-// To Activate or deactivate button according to the State data
-function setButtonState(gameDisplay, state) {
-    switch(state) {
-        case "ON" :
-            gameDisplay.startButton.disabled = false;
-            gameDisplay.startButton.style.backgroundColor = "green" ;           
-            gameDisplay.endButton.disabled = true;  
-            gameDisplay.endButton.style.backgroundColor = "gray"                   
-            break;
-        case "OFF" :
-            gameDisplay.startButton.disabled = true;
-            gameDisplay.startButton.style.backgroundColor = "gray" ;           
-            gameDisplay.endButton.disabled = false;  
-            gameDisplay.endButton.style.backgroundColor = "green"  
-            break;
-    }
-}
-
-
-
+// () -> ()
+// To running the game
 function init() {                       
         const gameDisplay             = GameDisplay() 
         gameDisplay.setGameBoardElement()
