@@ -747,8 +747,10 @@ function init() {
             
         })
         gameDisplay.endButton.addEventListener("click", function() {            
-            alert(gameState.messageForSummary())  
-            location.reload()           
+            gameDisplay.renderMessage(gameState.messageForSummary())
+            gameDisplay.dialog.addEventListener("close", function () {
+                location.reload()
+            })       
         })
 }
 
