@@ -752,7 +752,6 @@ function init() {
             location.reload()    
         })
 }
-
 init()
 
 //module.exports = {}

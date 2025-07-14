@@ -103,11 +103,13 @@
     height: 40vh;
     display: flex;
     place-content: center;   
+    margin: 16px;
   }
 
   .game-board {
-    width: 210px;
-    height: 210px;
+    margin: 16px;
+    width: 200px;
+    height: 200px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -121,7 +123,10 @@
   }
 
   button {
+    border-radius: 8px;
     width: 100px;
+    color: white;
+
   }
 
   .board {
@@ -129,10 +134,26 @@
     place-content: center;
     background: white;
     border: 1px solid black;
-    font-size: 50px;
+    font-size: 36px;
   }
 
-  dialog {
+  dialog {        
     align-self: center;
     justify-self: center;
+    border: none;
+    border-radius: 16px;
+  }
+  .dialog-content {
+    display: grid;
+    gap: 16px;
+    justify-content: center;
+    font-size: large;
+    font-weight: bold;
+  
+    
+  }
+
+  .dialog-content  button {
+    background-color: orange;
+    
   }

@@ -30,7 +30,7 @@
                 <div class="player-section">
                     <div class="name">Name</div>
                     <div>:</div>
-                    <input data-tesid="inputPlayerOne" id="inputPlayerOne" type="text" placeholder="Enter your name" required>
+                    <input id="inputPlayerOne" type="text" placeholder="Enter your name" required>
                     <div id="playerOneName"></div>
                 </div>
                 <div class="player-section">
@@ -80,8 +80,13 @@
         </div>
 
         <dialog>
-            <div id="message"></div>
-            <button id="close-dialog-button">Close</button>
+            <div class="dialog-content">
+                <div id="message" class="dialog-content"></div>
+                <div class="dialog-content">
+                    <button id="close-dialog-button">Close</button>
+                </div>
+               
+            </div>
         </dialog>
 
     </div>
