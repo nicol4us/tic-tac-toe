@@ -727,9 +727,10 @@ function init() {
         let gameController 
         gameDisplay.setStartButton()      
         gameDisplay.startButton.addEventListener("click", function() {
+            const minLengthName = 2;
             const firstPlayerName = gameDisplay.inputFirstPlayerName.value            
             const secondPlayerName = gameDisplay.inputSecondPlayerName.value            
-            if(firstPlayerName.length > 2 && secondPlayerName.length > 2) {                 
+            if(firstPlayerName.length >= minLengthName && secondPlayerName.length >= minLengthName) {                 
                 gameState = GameState(firstPlayer,  secondPlayer)     
                 gameState.firstPlayer.setName(firstPlayerName)
                 gameState.secondPlayer.setName(secondPlayerName)
