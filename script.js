@@ -556,14 +556,7 @@ const GameDisplay = function() {
     const renderMessage     = function(text) {
         message.textContent = text
         dialog.showModal()       
-    }   
-
-    const getFirstPlayerName    = function() {
-        return inputFirstPlayerName.value
-    }
-    const getSecondPlayerName   = function() {
-        return inputSecondPlayerName.value
-    }
+    }      
     const getGameBoardElement = () => boardContainer.childNodes 
     const setStartButton = function() {
         startButton.style.backgroundColor = "green"
@@ -578,7 +571,7 @@ const GameDisplay = function() {
     }
 
     return {inputFirstPlayerName,inputSecondPlayerName,startButton, endButton, dialogCloseButton,dialog ,
-        setGameBoardElement, render, renderMessage,getFirstPlayerName, getSecondPlayerName, getGameBoardElement, setStartButton, setEndButton}
+        setGameBoardElement, render, renderMessage, getGameBoardElement, setStartButton, setEndButton}
 }
 // interp. to display the state and board of the game
 /*
@@ -587,9 +580,7 @@ function funForGameDisplay(gameDisplay) {
     ... gameDisplay.endButton
     ... gameDisplay.setGameBoardElement()
     ... gameDisplay.render(funForGameState(gameState), funForGameBoard(gameBoard))
-    ... gameDisplay.renderMessage(text)
-    ... gameDisplay.getFirstPlayerName()
-    ... gameDisplay.getSecondPlayerName()
+    ... gameDisplay.renderMessage(text)   
     ... gameDisplay.getGameBoardElement()
 }
 */
@@ -597,13 +588,6 @@ function funForGameDisplay(gameDisplay) {
 //  - Compound data
 //  - Reference : GameState
 //  - Reference : GameBoard
-
-
-
-
-
-
-
 
 
 
@@ -753,6 +737,7 @@ function init() {
             location.reload()    
         })
 }
+
 init()
 
 //module.exports = {}

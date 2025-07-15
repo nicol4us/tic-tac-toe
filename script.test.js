@@ -711,26 +711,7 @@ describe("Game Display Testing", () => {
     
         
     })
-
-    describe("getFirstPlayerName & getSecondPlayerName testing", () => {
-        let mockInputFirstPlayerName;
-        let mockInputSecondPlayerName;
-
-        beforeEach(() => {
-            mockInputFirstPlayerName = document.querySelector("#inputPlayerOne")
-            mockInputSecondPlayerName= document.querySelector("#inputPlayerTwo")
-        })
-
-        test("First player name must be Evan", () => {
-            mockInputFirstPlayerName.value = "Evan";
-            expect(gameDisplay.getFirstPlayerName()).toBe("Evan")
-        })
-        test("Second player name must be Dhika", () => {
-            mockInputSecondPlayerName.value = "Dhika"
-            expect(gameDisplay.getSecondPlayerName()).toBe("Dhika")
-        })
-
-    })
+    
 })
 
 describe("GameController testing", () => {
