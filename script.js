@@ -699,6 +699,10 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
 }
 
 
+// Function Declarations
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 // () -> ()
 // To running the game
 function init() {                       
@@ -737,6 +741,9 @@ function init() {
             location.reload()    
         })
 }
+
+// Function Execution
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 init()
 
