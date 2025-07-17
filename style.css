@@ -138,7 +138,7 @@
   }
 
   dialog {        
-    align-self: center;
+    margin-top: 20vh;
     justify-self: center;
     border: none;
     border-radius: 16px;
