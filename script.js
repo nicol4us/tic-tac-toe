@@ -394,6 +394,8 @@ function funForBoardRecord(boardRecord) {
     const maxBoard              = 9 
     const lengthRecordToWin     = 3;   
     
+    // () -> ()
+    // To swap state and light between both player
     const swapPlayer = function() {
         if(playerON == firstPlayer) {
             playerON = secondPlayer;
@@ -405,15 +407,33 @@ function funForBoardRecord(boardRecord) {
         }
         changeStateAndLight(playerON)
     }
-    const getPlayerON = () => playerON;    
+
+    // () -> Player
+    // To get Player who is currently play
+    const getPlayerON = () => playerON;  
+    
+    // () -> ()
+    // To increase Round by 1
     const setRound = function() {
         round = round + 1;        
     }
+
+    // () -> Round
+    // To return Round data
     const getRound = () => round;
+
+    // () -> ()
+    // To increase draw data by 1
     const setDraw = function() {    
         draw++;          
     };
+
+    // () -> Draw
+    // To return Draw data
     const getDraw = () => draw;
+
+    // () -> Boolean
+    // Return true if player win games, false otherwise
     const isPlayerOnWin = function() {  
         for(let i=0; i < playerON.record.listRecord.length; i++) {
             if(playerON.record.listRecord[i].length === lengthRecordToWin) {
@@ -422,9 +442,15 @@ function funForBoardRecord(boardRecord) {
         } 
         return false;     
     }    
+
+    // () -> Boolean
+    // Return true if there empty board left to play, false otherwise
     const hasEmptyBoard = function() {    
         return boardRecord.length < maxBoard
     }
+
+    // () -> ()
+    // To set initial state for game to play
     const start         = function() {
         firstPlayer.setMarker("X")
         changeStateAndLight(firstPlayer)
@@ -433,17 +459,33 @@ function funForBoardRecord(boardRecord) {
         this.roundResult = "PlayOn"
               
     }
+
+    // (RoundResult) -> ()
+    // To set state of round result data
     const setRoundResult    = function(newRoundResult) {
         roundResult = newRoundResult
     }
+
+    // () -> RoundResult
+    // Return RoundResult data
     const getRoundResult    = () => roundResult
+
+    // () -> String
+    // Return message if RoundResult is Win
     const messageForWin     = () =>  "Congratulations " + playerON.getName() + ", you are the winner!!!"
+
+    // () -> String
+    // Return message if RoundResult is Draw
     const messageForDraw    = () =>  "You both get draw result"  
+
+    // () -> String
+    // Return summary for the games
     const messageForSummary = () =>  "Summary\n" 
         + firstPlayer.getName() + " get win : " + firstPlayer.getWin() + " times.\n"
         + secondPlayer.getName() +" get win : " + secondPlayer.getWin() + " times.\n"
         + "Total draw : " + draw + " times.\n" 
         + "Total round : " + round + " times."
+        
     return {flag, boardRecord, firstPlayer, secondPlayer,
         swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, hasEmptyBoard, start, setRoundResult, getRoundResult,messageForWin, messageForDraw, messageForSummary};
 };
