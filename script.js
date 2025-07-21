@@ -259,15 +259,29 @@ function createPlayer(color) {
     let light           = "red";
     let win             = 0;
     let record          = createRecord();    
+
+    // (Name) -> ()
+    // To set new name for Player
     const setName       = function(newName) {
         name = newName
     }
+
+    // () -> Name
+    // Return Name of Player
     const getName = () => name;
+
+    // Marker -> ()
+    // To set new Marker for Player
     const setMarker     = function(newMarker) { 
         marker          = newMarker           
     }  
+
+    // () -> Marker
+    // To return Marker of Player
     const getMarker = () => marker
     
+    // () -> ()
+    // To swap state from ON to OFF or vice versa
     const changeState = function() {  
         switch(state) {
             case "ON" :
@@ -278,7 +292,13 @@ function createPlayer(color) {
                 break;
         }            
     } 
+
+    // () -> State
+    // To return State of Player
     const getState = () => state;
+
+    // () -> ()
+    // To swap light from red to green or vice versa
     const changeLight = function() {  
         switch(light) {
             case "red" :
@@ -288,11 +308,20 @@ function createPlayer(color) {
                 light = "red" ;                
                 break;
         }                  
-    };   
+    };  
+    
+    // () -> Light
+    // To return light of Player
     const getLight  = () => light;
+
+    // () -> ()
+    // To increase win by 1
     const setWin    = function() {
         win++;        
     }; 
+
+    // () -> Win
+    // To return Win
     const getWin    = () => win;  
     const setToDefault = function() {    
         name                = ""
@@ -303,6 +332,7 @@ function createPlayer(color) {
         record.clear();
 
     }        
+    
     return {record,color, setName, getName,
         setMarker, getMarker,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
