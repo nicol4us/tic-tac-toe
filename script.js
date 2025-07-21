@@ -174,6 +174,42 @@ function funForIndex(index) {
 //  - Atomic distinct: Numbers
 
 
+// BoardRecord is Array of Index
+// interp. to record index of the board that have selected by both player
+/*
+function funForBoardRecord(boardRecord) {
+    for(let i=0; i < boardRecord.length; i++) {
+        ... boardRecord[i]
+    }
+}
+*/
+// Template rule used:
+//  - Array of loop
+
+
+// RoundResult is one of :
+//  - "Win"
+//  - "Draw"
+//  - "PlayOn"
+// interp. the result of the game
+/*
+function funForRoundResult(roundResult) {
+    switch(roundResult) {
+        case "Win" :
+            ... ;
+            break;
+        case "Draw" :
+            ... ;
+            break;
+        case "PlayOn" :
+            ... ;
+            break
+    }
+}
+*/
+
+
+
 // Record data definition & method
 function createRecord() {
     let firstRow = []
@@ -369,20 +405,6 @@ function funForPlayer(player) {
 
 
 
-
-// BoardRecord is Array of Index
-// interp. to record index of the board that have selected by both player
-/*
-function funForBoardRecord(boardRecord) {
-    for(let i=0; i < boardRecord.length; i++) {
-        ... boardRecord[i]
-    }
-}
-*/
-// Template rule used:
-//  - Array of loop
-
-
 // GameState data & method definition 
  const GameState = function(firstPlayer, secondPlayer) {    
     let playerON                = firstPlayer
@@ -485,7 +507,7 @@ function funForBoardRecord(boardRecord) {
         + secondPlayer.getName() +" get win : " + secondPlayer.getWin() + " times.\n"
         + "Total draw : " + draw + " times.\n" 
         + "Total round : " + round + " times."
-        
+
     return {flag, boardRecord, firstPlayer, secondPlayer,
         swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, hasEmptyBoard, start, setRoundResult, getRoundResult,messageForWin, messageForDraw, messageForSummary};
 };
