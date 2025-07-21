@@ -185,6 +185,17 @@ function createRecord() {
     let firstDiagonal = []
     let secondDiagonal = []
     let listRecord = [firstRow, secondRow, thirdRow, firstColumn, secondColumn, thirdColumn, firstDiagonal, secondDiagonal]
+
+    // (Array, Number) -> ()
+    // Add index for each of element of Array
+    const addIndexToRecord = function (array, index) {
+        array.forEach(element => {        
+            element.push(index)
+        });
+    }
+
+    // (Index) -> ()
+    // To set index into Record
     const set = function(index) { 
         switch (index) {
             case 0 :
@@ -216,9 +227,13 @@ function createRecord() {
                 break;
         }                 
     }
+
+    // () -> ()
+    // To clear all record
     const clear = function() {  
        listRecord.forEach(element => element.length = 0)
    }
+
     return {listRecord, set, clear} 
 }
 
@@ -234,16 +249,7 @@ function funForRecord(record) {
 //  - Compound data
 //  
 
-// Helper function for Record data
-// +++++++++++++++++++++++++++++++++++++++++++++++
 
-// (Array, Number) -> ()
-// Add index for each of element of Array
-function addIndexToRecord(array, index) {
-    array.forEach(element => {        
-        element.push(index)
-    });
-}
 
 // Player Data & Method Definition 
 function createPlayer(color) {
