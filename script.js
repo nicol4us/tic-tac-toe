@@ -47,6 +47,20 @@ function funForName(name) {
 //  - Atomic non distinct: String
 
 
+// BoardRecord is Array of Index
+// interp. to record index of the board that have selected by both player
+/*
+function funForBoardRecord(boardRecord) {
+    for(let i=0; i < boardRecord.length; i++) {
+        ... boardRecord[i]
+    }
+}
+*/
+// Template rule used:
+//  - Array of loop
+
+
+
 // Atomic Distinct Data Definition
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -174,17 +188,6 @@ function funForIndex(index) {
 //  - Atomic distinct: Numbers
 
 
-// BoardRecord is Array of Index
-// interp. to record index of the board that have selected by both player
-/*
-function funForBoardRecord(boardRecord) {
-    for(let i=0; i < boardRecord.length; i++) {
-        ... boardRecord[i]
-    }
-}
-*/
-// Template rule used:
-//  - Array of loop
 
 
 // RoundResult is one of :
