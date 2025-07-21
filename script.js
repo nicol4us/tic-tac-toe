@@ -332,7 +332,7 @@ function createPlayer(color) {
         record.clear();
 
     }        
-    
+
     return {record,color, setName, getName,
         setMarker, getMarker,changeState, getState,changeLight, getLight,setWin, getWin, setToDefault}
 }
@@ -343,6 +343,8 @@ function createPlayer(color) {
 function funForPlayer(player) {
     ... funForRecord(player.record);
     ... player.color;
+    ... player.setName(name);
+    ... player.getName();
     ... player.setMarker(name);
     ... player.getMarker()
     ... player.setMarker(funForMarker(marker))
