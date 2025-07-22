@@ -188,8 +188,6 @@ function funForIndex(index) {
 //  - Atomic distinct: Numbers
 
 
-
-
 // Result is one of :
 //  - "Win"
 //  - "Draw"
