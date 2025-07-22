@@ -223,6 +223,13 @@ describe("GameState data & method testing", () => {
         expect(secondPlayer.getState()).toBe("ON")
         expect(secondPlayer.getLight()).toBe("green")       
     })
+    test("Check result attribute, intialt state must be undefined", ()=> {
+        expect(gameState.getResult()).toBe(undefined)
+    })
+    test("Check setResult method", () => {
+        gameState.setResult("Win")
+        expect(gameState.getResult()).toBe("Win")
+    })
     test("Check setRound & getRound method", () => {
         expect(gameState.getRound()).toBe(0);
         gameState.setRound();

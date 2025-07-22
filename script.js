@@ -190,14 +190,14 @@ function funForIndex(index) {
 
 
 
-// RoundResult is one of :
+// Result is one of :
 //  - "Win"
 //  - "Draw"
 //  - "PlayOn"
 // interp. the result of the game
 /*
-function funForRoundResult(roundResult) {
-    switch(roundResult) {
+function funForResult(result) {
+    switch(result) {
         case "Win" :
             ... ;
             break;
@@ -415,7 +415,7 @@ function funForPlayer(player) {
     let round                   = 0;
     let draw                    = 0;
     let boardRecord             = []; 
-    let roundResult;
+    let result ;
     const maxBoard              = 9 
     const lengthRecordToWin     = 3;   
     
@@ -481,19 +481,19 @@ function funForPlayer(player) {
         changeStateAndLight(firstPlayer)
         secondPlayer.setMarker("O")
         this.flag = true;  
-        this.roundResult = "PlayOn"
+        this.result = "PlayOn"
               
     }
 
     // (RoundResult) -> ()
     // To set state of round result data
-    const setRoundResult    = function(newRoundResult) {
-        roundResult = newRoundResult
+    const setResult    = function(newResult) {
+        result  = newResult
     }
 
     // () -> RoundResult
     // Return RoundResult data
-    const getRoundResult    = () => roundResult
+    const getResult    = () => result 
 
     // () -> String
     // Return message if RoundResult is Win
@@ -512,7 +512,7 @@ function funForPlayer(player) {
         + "Total round : " + round + " times."
 
     return {flag, boardRecord, firstPlayer, secondPlayer,
-        swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, hasEmptyBoard, start, setRoundResult, getRoundResult,messageForWin, messageForDraw, messageForSummary};
+        swapPlayer, getPlayerON,setRound, getRound, setDraw, getDraw, isPlayerOnWin, hasEmptyBoard, start, setResult, getResult,messageForWin, messageForDraw, messageForSummary};
 };
 /*
 function funForGameState(gameState) {
@@ -708,15 +708,15 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
         const maxBoard = 9; 
         switch (true) {
             case (gameState.isPlayerOnWin()) :       
-                gameState.setRoundResult("Win") 
+                gameState.setResult("Win") 
                 break;             
         
         case (gameState.boardRecord.length === maxBoard) : 
-            gameState.setRoundResult("Draw") 
+            gameState.setResult("Draw") 
             break ;         
             
         case (gameState.hasEmptyBoard()) :
-            gameState.setRoundResult("PlayOn") 
+            gameState.setResult("PlayOn") 
             break;      
                                    
         } 
@@ -726,7 +726,7 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
     // (GameBoard, GameState, Player, Player, Result) -> ()
     // To update state of Player and Game
     function updateState(gameBoard,gameDisplay,gameState) {
-        switch (gameState.getRoundResult()) {
+        switch (gameState.getResult()) {
             case "Win" :
                 gameState.getPlayerON().setWin();;
                 gameState.flag = false
@@ -850,7 +850,7 @@ function init() {
 // Function Execution
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-init()
+//init()
 
 //module.exports = {}
 
