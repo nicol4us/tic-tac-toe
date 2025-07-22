@@ -210,7 +210,11 @@ function funForResult(result) {
     }
 }
 */
-
+// Template rule used:
+//  - One of : 3 cases
+//  - Atomic distinct : "Win"
+//  - Atomic distinct : "Draw"
+//  - Atomic distinct : "PlayOn"
 
 
 // Record data definition & method
