@@ -485,14 +485,14 @@ function funForPlayer(player) {
               
     }
 
-    // (RoundResult) -> ()
+    // (Result) -> ()
     // To set state of round result data
     const setResult    = function(newResult) {
         result  = newResult
     }
 
-    // () -> RoundResult
-    // Return RoundResult data
+    // () -> Result
+    // Return Result data
     const getResult    = () => result 
 
     // () -> String
@@ -547,31 +547,6 @@ function changeStateAndLight(player) {
     player.changeLight();       
 }
 
-
-
-// RoundResult is one of:
-//  - "Win"
-//  - "Draw"
-//  - "PlayOn"
-// interp. to determine the result of the game
-/*
-function funForResult(result) {
-    switch (result) {
-        case "Win" :
-            ....;
-            break;
-        case "Draw" :
-            ...;
-            break;
-        case "PlayOn" :
-            ...;
-            break;
-    }
-}
-*/
-// Template rule used:
-//  - One of: 3 cases
-   
 
 // GameBoard Data & Method definition
 const GameBoard = function() {        
