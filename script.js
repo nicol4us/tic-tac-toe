@@ -433,6 +433,13 @@ function funForPlayer(player) {
         changeStateAndLight(playerON)
     }
 
+    // (Player) -> ()
+    // Change State & Light of Player
+    function changeStateAndLight(player) {   
+        player.changeState();
+        player.changeLight();       
+    }
+
     // () -> Player
     // To get Player who is currently play
     const getPlayerON = () => playerON;  
@@ -536,16 +543,6 @@ function funForGameState(gameState) {
 //  - Reference : Round
 //  - Reference : Draw
 
-
-// Helper Function For GameState 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-// (Player) -> ()
-// Change State & Light of Player
-function changeStateAndLight(player) {   
-    player.changeState();
-    player.changeLight();       
-}
 
 
 // GameBoard Data & Method definition
@@ -774,8 +771,7 @@ const GameController =   function (gameState, gameBoard, gameDisplay) {
             gameDisplay.render(gameState, gameBoard)                              
         })
     }   
-    return {play}
-      
+    return {play}      
 }
 
 
